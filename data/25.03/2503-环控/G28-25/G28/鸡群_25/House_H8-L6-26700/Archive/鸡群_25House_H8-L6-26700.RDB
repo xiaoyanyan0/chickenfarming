@@ -1,0 +1,133 @@
+<?xml version="1.0" standalone="yes"?>
+<NewDataSet>
+  <TabelsIndexes>
+    <TableCommandID>87</TableCommandID>
+    <TableVersion>1</TableVersion>
+    <TableName>Alarms</TableName>
+    <TableLangaugeName>警报</TableLangaugeName>
+    <TableIndex>0</TableIndex>
+    <TableColumns />
+  </TabelsIndexes>
+  <TabelsIndexes>
+    <TableCommandID>284</TableCommandID>
+    <TableVersion>2</TableVersion>
+    <TableName>Ammonia</TableName>
+    <TableLangaugeName>Ammonia</TableLangaugeName>
+    <TableIndex>0</TableIndex>
+    <TableColumns />
+  </TabelsIndexes>
+  <TabelsIndexes>
+    <TableCommandID>148</TableCommandID>
+    <TableVersion>2</TableVersion>
+    <TableName>CO2</TableName>
+    <TableLangaugeName>CO2</TableLangaugeName>
+    <TableIndex>0</TableIndex>
+    <TableColumns />
+  </TabelsIndexes>
+  <TabelsIndexes>
+    <TableCommandID>85</TableCommandID>
+    <TableVersion>3</TableVersion>
+    <TableName>Feed</TableName>
+    <TableLangaugeName>饲料</TableLangaugeName>
+    <TableIndex>0</TableIndex>
+    <TableColumns />
+  </TabelsIndexes>
+  <TabelsIndexes>
+    <TableCommandID>89</TableCommandID>
+    <TableVersion>1</TableVersion>
+    <TableName>Heaters</TableName>
+    <TableLangaugeName>加热器</TableLangaugeName>
+    <TableIndex>0</TableIndex>
+    <TableColumns />
+  </TabelsIndexes>
+  <TabelsIndexes>
+    <TableCommandID>151</TableCommandID>
+    <TableVersion>3</TableVersion>
+    <TableName>History View</TableName>
+    <TableLangaugeName>历史查看</TableLangaugeName>
+    <TableIndex>0</TableIndex>
+    <TableColumns />
+  </TabelsIndexes>
+  <TabelsIndexes>
+    <TableCommandID>84</TableCommandID>
+    <TableVersion>2</TableVersion>
+    <TableName>Humidity</TableName>
+    <TableLangaugeName>湿度处理</TableLangaugeName>
+    <TableIndex>0</TableIndex>
+    <TableColumns />
+  </TabelsIndexes>
+  <TabelsIndexes>
+    <TableCommandID>88</TableCommandID>
+    <TableVersion>2</TableVersion>
+    <TableName>Mortality</TableName>
+    <TableLangaugeName>死亡量</TableLangaugeName>
+    <TableIndex>0</TableIndex>
+    <TableColumns />
+  </TabelsIndexes>
+  <TabelsIndexes>
+    <TableCommandID>116</TableCommandID>
+    <TableVersion>1</TableVersion>
+    <TableName>Power Consumption</TableName>
+    <TableLangaugeName>Power Consumption</TableLangaugeName>
+    <TableIndex>0</TableIndex>
+    <TableColumns />
+  </TabelsIndexes>
+  <TabelsIndexes>
+    <TableCommandID>71</TableCommandID>
+    <TableVersion>1</TableVersion>
+    <TableName>Radiant Heaters</TableName>
+    <TableLangaugeName>辐射加热器</TableLangaugeName>
+    <TableIndex>0</TableIndex>
+    <TableColumns />
+  </TabelsIndexes>
+  <TabelsIndexes>
+    <TableCommandID>96</TableCommandID>
+    <TableVersion>3</TableVersion>
+    <TableName>Scale History</TableName>
+    <TableLangaugeName>鸡秤历史</TableLangaugeName>
+    <TableIndex>0</TableIndex>
+    <TableColumns />
+  </TabelsIndexes>
+  <TabelsIndexes>
+    <TableCommandID>91</TableCommandID>
+    <TableVersion>1</TableVersion>
+    <TableName>Table Of Events</TableName>
+    <TableLangaugeName>事件表</TableLangaugeName>
+    <TableIndex>0</TableIndex>
+    <TableColumns />
+  </TabelsIndexes>
+  <TabelsIndexes>
+    <TableCommandID>83</TableCommandID>
+    <TableVersion>2</TableVersion>
+    <TableName>Temperature</TableName>
+    <TableLangaugeName>温度</TableLangaugeName>
+    <TableIndex>0</TableIndex>
+    <TableColumns />
+  </TabelsIndexes>
+  <TabelsIndexes>
+    <TableCommandID>126</TableCommandID>
+    <TableVersion>3</TableVersion>
+    <TableName>Water</TableName>
+    <TableLangaugeName>水</TableLangaugeName>
+    <TableIndex>0</TableIndex>
+    <TableColumns />
+  </TabelsIndexes>
+  <HouseGeneralInfo>
+    <FarmName>G28</FarmName>
+    <FarmID>None</FarmID>
+    <HouseName>H8-L6-26700</HouseName>
+    <HouseNumber>8</HouseNumber>
+    <ControllerType>PLATINUM_PLUS_PRO_PRECISION</ControllerType>
+    <ControllerVersion>6.19r04</ControllerVersion>
+    <FlockNumber>25</FlockNumber>
+    <GrowthDay>37</GrowthDay>
+    <ScaleMode>SEXED</ScaleMode>
+    <TemperatureUnits>C</TemperatureUnits>
+    <WeightUnits>LB</WeightUnits>
+    <ConnectionType>Serial</ConnectionType>
+    <CollectedTablesLanguageNames>警报,Ammonia,CO2,饲料,加热器,历史查看,湿度处理,死亡量,Power Consumption,辐射加热器,鸡秤历史,事件表,温度,水</CollectedTablesLanguageNames>
+    <CollectedTablesKeyNames>Alarms,Ammonia,CO2,Feed,Heaters,History View,Humidity,Mortality,Power Consumption,Radiant Heaters,Scale History,Table Of Events,Temperature,Water</CollectedTablesKeyNames>
+    <CollectTargetFolder>C:\Users\rotem\Desktop\G28-25</CollectTargetFolder>
+    <CollectDateAndTime>2025/3/3 16:13:57</CollectDateAndTime>
+  </HouseGeneralInfo>
+</NewDataSet>
