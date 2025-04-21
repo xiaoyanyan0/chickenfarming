@@ -48,6 +48,9 @@ def read_excel_data(file_path, header_row=6, data_start_row=7, farm_name_cell='C
 
         columns_dict = dict(zip(keys, values))
         df = df.rename(columns=columns_dict)
+
+        file_name = os.path.splitext(os.path.basename(file_path))[0]
+        df['id_no'] = file_name
         # 关闭工作簿
         workbook.close()
         # 退出 Excel 应用
@@ -92,13 +95,13 @@ def process_all_files(root_folders):
 
 
 # 示例调用
-root_folders = ['D:\\太阳谷\\chickenfarming\\data\\24.12\\日报','D:\\太阳谷\\chickenfarming\\data\\25.01\\日报','D:\\太阳谷\\chickenfarming\\data\\25.02\\日报-2502\\日报-2502','D:\\太阳谷\\chickenfarming\\data\\25.03\\2503-日报']
+root_folders = ['D:\\太阳谷\\chickenfarming\\data\\24.12 2\\日报','D:\\太阳谷\\chickenfarming\\data\\25.01\\日报','D:\\太阳谷\\chickenfarming\\data\\25.02\\日报-2502\\日报-2502','D:\\太阳谷\\chickenfarming\\data\\25.03\\2503-日报']
 # excel_path = r"C:\\Program Files\\Microsoft Office\\root\\Office16\\EXCEL.EXE"
 result_df = process_all_files(root_folders)
 result_df=result_df[result_df['HouseNo']!='Total']
-result_df.to_csv('baseinfo.csv', index=False,encoding='gbk')
+result_df.to_csv('./data/data_cleaned/baseinfo.csv', index=False,encoding='gbk')
 
-baseinfo=pd.read_csv('baseinfo.csv',encoding='gbk')
+baseinfo=pd.read_csv('./data/data_cleaned/baseinfo.csv',encoding='gbk')
 ##出栏数据
 
 
