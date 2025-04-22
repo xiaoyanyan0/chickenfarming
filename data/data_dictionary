@@ -73,3 +73,16 @@
 'Lame_Paralysis',           #腿病
 'Mortality',                #死淘
 'Mortality_rate'            #死淘率
+
+
+
+
+
+'MaxHouseTemperature',           # 鸡舍温度-最高
+'MinHouseTemperature',           # 鸡舍温度-最低 
+'AvgHouseTemperature',           # 鸡舍温度-平均
+'AvgHumidityIn1',                # Humidity In 1 Avg
+'DailyTemperatureDifference',    #每日温差 
+'MinHouseTemperatureChangeRate', #鸡舍温度-最低变化率 
+'MaxHouseTemperatureChangeRate', #鸡舍温度-最高变化率 
+'AvgHouseTemperatureChangeRate', #鸡舍温度-平均变化率
