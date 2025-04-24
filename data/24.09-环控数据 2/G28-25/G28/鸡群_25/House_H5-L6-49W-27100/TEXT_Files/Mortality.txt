@@ -1,0 +1,1 @@
+﻿GrowthDay,TotalMortality,TotalCulled,TotalTotal,TotalPercent,TotalUpdate,MaleMortality,MaleCulled,MaleTotal,MalePercent,MaleUpdate,FemaleMortality,FemaleCulled,FemaleTotal,FemalePercent,FemaleUpdate,

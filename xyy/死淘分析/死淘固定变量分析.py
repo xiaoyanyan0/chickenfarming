@@ -7,7 +7,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 
 from scipy import stats
-
+from scipy.stats import chi2_contingency
 allinfo_dead=pd.read_csv('./data/data_cleaned/allinfo_dead.csv',encoding='gbk')
 marketingdata=pd.read_csv('./data/data_cleaned/marketingdata.csv',encoding='gbk')
 allinfo_dead.info()
@@ -40,178 +40,8 @@ object_columns=object_columns+special_columns
 len(numeric_columns)+len(object_columns)
 
 #相关性检验
-data_dict = {
-    'house': '栋舍 House',
-    'birds_placed': '进雏只数\nBird placed No.',
-    'gender': '公母\nGender',
-    'house_area_m2': '鸡舍面积m2 \nHouse Area',
-    'stocking_density': '出栏密度\nDensity',
-    'birds_hung': '挂鸡只数\nHang No.',
-    'total_hung_weight_kg': '挂鸡总重（kg）\nTotal hung weight',
-    'avg_weight_kg': '均重（kg）\n Average weight',
-    'small_broilers_count': '小毛鸡数量\nSmall broilers No.',
-    'small_broilers_weight_kg': '小毛鸡总重（kg）\n Total weight of small broilers',
-    'pp_dead_culled_count': 'PP死淘鸡只\nPP cull and dead No.',
-    'dead_culled_weight_kg': '死淘总重（kg）\nDead and Cull Weight',
-    'pp_rejects_count': 'PP不合格淘汰鸡\nPP Cull',
-    'pp_rejects_weight_kg': 'PP淘汰鸡总重\nPP Cull bird Weight',
-    'age_days': '日龄Age',
-    'dead_during_catch_count': '出栏造成死亡只数 \nDead while catching',
-    'birds_caught_count': '出鸡只数\nCatching No.',
-    'livability_pct': '成活率\nLivability (%)',
-    'total_caught_weight_kg': '出鸡总重（kg）\nTotal Catched weight',
-    'yield_per_m2': '单位面积产肉率\nDensity, Yield(KG)/m2',
-    'final_avg_weight_kg': '均重（kg）\nAverage weight',
-    'total_feed_kg': '累计耗料（kg）\nFeed cons. Cum.',
-    'fcr': '料肉比 FCR',
-    'adjusted_fcr': 'Adjust FCR (base 2.45KG)',
-    'eef': '欧洲指数 EEF',
-    'feed_cost': '饲料成本（元）',
-    'electricity_cost': '用电费用（元）',
-    'gas_cost': '燃气费用（元）',
-    'depreciation_cost': '折旧费（元）',
-    'chick_cost': '雏鸡成本（元）',
-    'total_cost': '总成本（元）',
-    'cost_per_kg': '每公斤成本（元）',
-    'revenue': '毛鸡销售收入（元）',
-    'profit_per_house': '每栋纯利润（元）',
-    'medicine_per_bird': '药品（元/只）',
-    'vaccine_per_bird': '疫苗（元/只）',
-    'mv_cost_per_bird': 'M&V费（元/只）',
-    'disinfectant_per_bird': '消毒药费（元/只）',
-    'feed_per_bird': '饲料（元/只）',
-    'electricity_per_bird': '用电（元/只）',
-    'gas_per_bird': '燃气（元/只）',
-    'labor_per_bird': '人工（元/只）',
-    'consumables_per_bird': '低值易耗品（元/只）',
-    'depreciation_per_bird': '折旧费（元/只）',
-    'chick_cost_per_bird': '雏鸡成本（元/元）',
-    'cost_per_bird': '每只鸡成本（元）',
-    'FarmName': '农场名称',
-    'FarmSupervisor': '场长',
-    'house_count': '鸡舍数量',
-    'Batch': '批次号',
-    'id_no': '日报文件名称（一般为农场名称+批次）',
-    'HouseNo': '鸡舍号',
-    'DOCdate': '入雏日期',
-    'DOCAmount': '入雏数量',
-    'HouseArea': '鸡舍面积',
-    'Density': '饲养密度',
-    'Gender': '公母',
-    'BirdsVariety': '雏源',
-    'HESource': '种蛋源',
-    'HEAge': '种鸡周龄',
-    'Age': '日龄',
-    'Harveststatus': '出栏日期',
-    'Houseid': '栋舍代码',
-    'HouseName': '栋舍名称',
-    'NumberofFloorEggs ': '地面蛋数量',
-    'EstimatedSlaughterDate ': '预计出栏日期',
-    'Dead': '死鸡',
-    'Swollen_Head': '肿头',
-    'Weak': '弱小鸡',
-    'Navel_Disease': '脐炎',
-    'Stick_Anus': '糊肛',
-    'Lame_Paralysis': '腿病',
-    'Mortality': '死淘',
-    'Mortality_rate': '死淘率',
-    'HouseAmount':'鸡舍数量',
-
-}
-
-
-# 数值变量
-# 计算皮尔逊相关系数和 p 值
-def calculate_pearson_correlation(df, target_variable):
-    pearson_results = {}
-    for column in df.columns:
-        if column != target_variable:
-            corr, p_value = pearsonr(df[column], df[target_variable])
-            pearson_results[column] = (corr, p_value)
-    return pearson_results
-
-
-# 目标变量
-target_variables = ['Mortality_rate', 'eef']
-corr_data=allinfo_dead[numeric_columns]
-# 计算皮尔逊相关系数
-
-def corr_df_generate1(target):
-    pearson_df=pd.DataFrame()
-    variables=[]
-    corrs=[]
-    p_values=[]
-    pearson_results = calculate_pearson_correlation(corr_data, target)
-    print(f"皮尔逊相关系数（目标变量: {data_dict[target]}）:")
-    for variable, (corr, p_value) in pearson_results.items():
-        print(f"{data_dict[variable]}: 相关系数 = {corr:.4f}, p 值 = {p_value:.4f}")
-        variables.append(data_dict[variable])
-        corrs.append(corr)
-        p_values.append(p_value)
-
-    pearson_df['variables']=variables
-    pearson_df['target']=target
-    pearson_df['type']="皮尔逊相关系数"
-    pearson_df['corrs']=corrs
-    pearson_df['p_values']=p_values
-
-    return pearson_df
-
-
-pearson_df1=corr_df_generate1('Mortality_rate')
-pearson_df2=corr_df_generate1('eef') 
-
-corr_df = pd.concat([pearson_df1, pearson_df2], axis=0, ignore_index=True)
-
-corr_df.to_csv('./xyy/corr_data.csv', index=False,encoding='gbk')
 
 #变量分析
-
-object_data=allinfo_dead[object_columns+['Mortality_rate', 'eef']]
-# allinfo_dead['HEAge'].value_counts()
-for column in object_columns:
-    category_count = object_data[column].nunique()
-    print(f"{data_dict[column]}: 类别数 = {category_count:.4f}")
-
-print(object_data.describe())
-
-
-
-def check_correlation(df, categorical_vars, target_vars):
-    results = {}
-    for target_var in target_vars:
-        results[target_var] = {}
-        for categorical_var in categorical_vars:
-            groups = []
-            for category in df[categorical_var].unique():
-                group = df[df[categorical_var] == category][target_var]
-                groups.append(group)
-            try:
-                h_statistic, p_value = stats.kruskal(*groups)
-                results[target_var][categorical_var] = {
-                    'H统计量': h_statistic,
-                    'p值': p_value,
-                    '是否显著相关': p_value < 0.05
-                }
-            except ValueError:
-                results[target_var][categorical_var] = {
-                    'H统计量': None,
-                    'p值': None,
-                    '是否显著相关': None
-                }
-    return results
-
-kruskal_df=check_correlation(object_data, object_columns, target_variables)
-
-for target_var, cat_results in kruskal_df.items():
-    print(f"目标变量: {data_dict[target_var]}")
-    for cat_var, result in cat_results.items():
-        print(f"  字符型变量: {cat_var}")
-        print(f"    H统计量: {result['H统计量']}")
-        print(f"    p值: {result['p值']}")
-        print(f"    是否显著相关: {result['是否显著相关']}")
-
-
 # 利用toad查看 iv值和分箱结果
 
 drop_columns_Mortality=['Dead','Swollen_Head','Weak','Navel_Disease','Stick_Anus', 'Lame_Paralysis','Mortality','Mortality_rate','livability_pct'
@@ -231,9 +61,9 @@ allinfo_dead['Mortality_flg']=allinfo_dead['Mortality_rate'].apply(lambda x:1 if
 # allinfo_dead['Mortality_flg'].value_counts()
 Mortality_df=allinfo_dead.drop(columns=drop_columns_Mortality,axis=1)
 
-Mortality_df['id']=Mortality_df['id_no']+'_'+Mortality_df['HouseNo']
+# Mortality_df['id']=Mortality_df['id_no']+'_'+Mortality_df['HouseNo']
 
-Mortality_df=Mortality_df.drop(columns=['id_no','HouseNo','HouseName','Houseid'],axis=1)
+Mortality_df=Mortality_df.drop(columns=['Houseid'],axis=1)
 marketingdata_columns=marketingdata.columns.to_list()
 drop_columns_marketingdata=[i for i in marketingdata_columns if i in Mortality_df.columns.to_list()]
 Mortality_df=Mortality_df.drop(columns=drop_columns_marketingdata,axis=1)
@@ -244,14 +74,14 @@ data_detect=data_detect.reset_index(drop=False)
 unique_columns=list(data_detect[data_detect['unique']==1]['index'])
 Mortality_df=Mortality_df.drop(unique_columns,axis=1)
 
-quality_df=toad.quality(Mortality_df.drop('id',axis=1),target='Mortality_flg',iv_only=False)
+quality_df=toad.quality(Mortality_df.drop('ID_NUM',axis=1),target='Mortality_flg',iv_only=False)
 
 from toad.plot import bin_plot
 c=toad.transform.Combiner()
-c.fit(Mortality_df.drop(columns=['id'],axis=1),y='Mortality_flg',min_samples=0.02)
+c.fit(Mortality_df.drop(columns=['ID_NUM'],axis=1),y='Mortality_flg',min_samples=0.02)
 
-transformed_df = c.transform(Mortality_df.drop(['id'], axis=1), labels=True)
-transformed_df.to_csv('./xyy/transformed_df.csv', index=False,encoding='gbk')
+transformed_df = c.transform(Mortality_df.drop(['ID_NUM'], axis=1), labels=True)
+transformed_df.to_csv('./xyy/transformed_df_m.csv', index=False,encoding='gbk')
 # 选取需要绘图的列
 plot_df = transformed_df[['Density', 'Mortality_flg']]
 
@@ -260,13 +90,13 @@ bin_plot(plot_df, x='Density', target='Mortality_flg')
 plt.show()
 
 
-bin_plot(c.transform(Mortality_df[['DOCdate','Mortality_flg']],labels=True),x='HEAge',target='Mortality_flg')
+bin_plot(c.transform(Mortality_df[['HEAge','Mortality_flg']],labels=True),x='HEAge',target='Mortality_flg')
 
-
+plt.show()
 
 
 for col in Mortality_df.columns:
-    if col not in ['Mortality_flg','id']:
+    if col not in ['Mortality_flg','ID_NUM']:
         bin_plot(c.transform(Mortality_df[[col,'Mortality_flg']],label=True),x=col,target='Mortality_flg')
         plt.show()
 
@@ -283,7 +113,7 @@ Mortality_df.columns.to_list()
 print("目标变量分布:\n", Mortality_df['Mortality_flg'].value_counts())
 
 # 移除无关列（如id）
-data = Mortality_df.drop(columns=['id'])
+data = Mortality_df.set_index('ID_NUM')
 
 # 处理日期字段（转换为时间差或数值）
 # data['DOCdate'] = pd.to_datetime(data['DOCdate'])
@@ -360,3 +190,222 @@ feature_imp = pd.DataFrame({
     'Importance': model.feature_importance(importance_type='gain')
 }).sort_values('Importance', ascending=False)
 print(feature_imp)
+
+
+data.info()
+#############单变量分析
+allinfo_dead['Days_to_Slaughter']
+num_cols = ['DOCAmount', 'HouseArea', 'Density', 'Age', 'HouseAmount','Mortality_rate']
+# 计算相关系数矩阵
+correlation_matrix = allinfo_dead[num_cols].select_dtypes(include=['float64']).corr()
+print(correlation_matrix['Mortality_rate'].sort_values(ascending=False))
+
+# 绘制散点图矩阵
+# import seaborn as sns
+# sns.pairplot(eef_df.select_dtypes(include=['float64']))
+# plt.show()
+
+####分类变量
+for col in eef_df.columns:
+    if eef_df[col].dtypes=='object':
+        eef_df[col]=eef_df[col].astype('category')
+eef_df.info()
+
+# 使用箱线图或小提琴图可视化
+for col in eef_df.select_dtypes(include=['category']).columns:
+    plt.figure(figsize=(10,6))
+    sns.boxplot(x=col, y='eef', data=eef_df)
+    plt.xticks(rotation=45)
+    plt.show()
+
+# 或者使用ANOVA分析
+from scipy.stats import f_oneway
+allinfo_dead1=allinfo_dead.set_index('ID_NUM')
+data['Mortality_rate']=allinfo_dead1['Mortality_rate']
+
+for col in data.select_dtypes(include=['category']).columns:
+    groups = data.groupby(col)['Mortality_rate'].apply(list)
+    f_val, p_val = f_oneway(*groups)
+    print(f"{col}: F-value={f_val:.2f}, p-value={p_val:.4f}")
+
+
+data.select_dtypes(include=['category']).columns
+
+
+# 单独看分箱
+def binary_binning_analysis(df, feature, target='Mortality_flg', n_bins=5, binning_method='equal_width'):
+    """
+    分箱并分析每个分箱与二分类目标变量的关系
+    参数:
+        df: 数据框
+        feature: 要分箱的特征名
+        target: 二分类目标变量名(默认'eef_flg')
+        n_bins: 分箱数量(默认5)
+        binning_method: 分箱方法('equal_width', 'equal_freq'或'kmeans')
+    返回:
+        分箱统计结果数据框
+        并显示可视化图表
+    """
+    plt.rcParams['font.sans-serif'] = ['SimHei']  # 使用黑体
+    plt.rcParams['axes.unicode_minus'] = False  # 解决负号显示问题
+    # 复制数据避免修改原数据
+    df_analysis = df[[feature, target]].copy()
+    
+    # 根据选择的方法进行分箱
+    if binning_method == 'equal_width':
+        df_analysis[f'{feature}_bin'] = pd.cut(df_analysis[feature], bins=n_bins)
+    elif binning_method == 'equal_freq':
+        df_analysis[f'{feature}_bin'] = pd.qcut(df_analysis[feature], q=n_bins, duplicates='drop')
+    elif binning_method == 'kmeans':
+        from sklearn.cluster import KMeans
+        kmeans = KMeans(n_clusters=n_bins, random_state=42)
+        kmeans.fit(df_analysis[[feature]])
+        df_analysis[f'{feature}_bin'] = pd.cut(df_analysis[feature], 
+                                            bins=np.unique(kmeans.cluster_centers_).sort(), 
+                                            include_lowest=True)
+    else:
+        raise ValueError("binning_method必须是'equal_width', 'equal_freq'或'kmeans'")
+    
+    # 计算每个分箱的统计信息
+    bin_stats = df_analysis.groupby(f'{feature}_bin',observed=False).agg({
+        target: ['count', 'mean', 'sum'],
+        feature: ['min', 'max', 'mean']
+    }).round(4)
+    
+    bin_stats.columns = ['_'.join(col).strip() for col in bin_stats.columns.values]
+    bin_stats = bin_stats.rename(columns={
+        f'{target}_count': '样本数',
+        f'{target}_mean': '正样本比例',
+        f'{target}_sum': '正样本数',
+        f'{feature}_min': '分箱最小值',
+        f'{feature}_max': '分箱最大值',
+        f'{feature}_mean': '分箱均值'
+    })
+    
+    # 计算WOE和IV值
+    total_pos = df_analysis[target].sum()
+    total_neg = len(df_analysis) - total_pos
+    bin_stats['负样本数'] = bin_stats['样本数'] - bin_stats['正样本数']
+    bin_stats['负样本比例'] = bin_stats['负样本数'] / total_neg
+    bin_stats['正样本比例_g'] = bin_stats['正样本数'] / total_pos
+    bin_stats['WOE'] = np.log(bin_stats['正样本比例_g'] / bin_stats['负样本比例'])
+    bin_stats['IV'] = (bin_stats['正样本比例_g'] - bin_stats['负样本比例']) * bin_stats['WOE']
+    total_iv = bin_stats['IV'].sum()
+    
+    # 可视化
+    plt.figure(figsize=(18, 6))
+    
+    # 子图1: 正样本比例条形图
+    plt.subplot(1, 3, 1)
+    sns.barplot(x=bin_stats.index.astype(str), y='正样本比例', data=bin_stats.reset_index())
+    plt.title(f'{feature}分箱的正样本比例\n(总IV值:{total_iv:.4f})')
+    plt.xticks(rotation=45)
+    
+    # 子图2: WOE值条形图
+    plt.subplot(1, 3, 2)
+    sns.barplot(x=bin_stats.index.astype(str), y='WOE', data=bin_stats.reset_index())
+    plt.title('各分箱WOE值')
+    plt.xticks(rotation=45)
+    plt.axhline(0, color='red', linestyle='--')
+    
+    # 子图3: 样本分布堆叠图
+    plt.subplot(1, 3, 3)
+    bin_stats[['正样本数','负样本数']].plot(kind='bar', stacked=True)
+    plt.title('各分箱正负样本分布')
+    plt.xticks(rotation=45)
+    
+    plt.tight_layout()
+    plt.show()
+    
+    # 卡方检验
+    contingency_table = pd.crosstab(df_analysis[f'{feature}_bin'], df_analysis[target])
+    chi2, p_val, dof, expected = chi2_contingency(contingency_table)
+    print(f"\n卡方检验结果(χ²={chi2:.2f}, p={p_val:.4f})")
+    if p_val < 0.05:
+        print("各组间正样本比例存在显著差异")
+    else:
+        print("各组间正样本比例无显著差异")
+    
+    return bin_stats
+
+# 等频分箱分析
+Density_bin_stats = binary_binning_analysis(Mortality_df.drop('Mortality_rate',axis=1), 'Density', target='Mortality_flg', n_bins=5, binning_method='equal_freq')
+print("密度分箱统计:")
+print(Density_bin_stats)
+
+
+
+def binning_with_target_analysis(df, feature, target='Mortality_rate', n_bins=5, binning_method='equal_width'):
+    """
+    分箱并分析每个分箱与目标变量的关系
+    参数:
+        df: 数据框
+        feature: 要分箱的特征名
+        target: 目标变量名(默认'eef')
+        n_bins: 分箱数量(默认5)
+        binning_method: 分箱方法('equal_width', 'equal_freq'或'kmeans')
+    返回:
+        分箱统计结果数据框
+        并显示可视化图表
+    """
+    # 复制数据避免修改原数据
+    df_analysis = df[[feature, target]].copy()
+    
+    # 根据选择的方法进行分箱
+    if binning_method == 'equal_width':
+        df_analysis[f'{feature}_bin'] = pd.cut(df_analysis[feature], bins=n_bins)
+    elif binning_method == 'equal_freq':
+        df_analysis[f'{feature}_bin'] = pd.qcut(df_analysis[feature], q=n_bins, duplicates='drop')
+    elif binning_method == 'kmeans':
+        from sklearn.cluster import KMeans
+        kmeans = KMeans(n_clusters=n_bins, random_state=42)
+        kmeans.fit(df_analysis[[feature]])
+        df_analysis[f'{feature}_bin'] = pd.cut(df_analysis[feature], 
+                                            bins=np.unique(kmeans.cluster_centers_).sort(), 
+                                            include_lowest=True)
+    else:
+        raise ValueError("binning_method必须是'equal_width', 'equal_freq'或'kmeans'")
+    
+    # 计算每个分箱的统计信息
+    bin_stats = df_analysis.groupby(f'{feature}_bin').agg({
+        target: ['count', 'mean', 'median', 'std', 'min', 'max'],
+        feature: ['min', 'max', 'mean']
+    }).round(2)
+    
+    bin_stats.columns = ['_'.join(col).strip() for col in bin_stats.columns.values]
+    bin_stats = bin_stats.rename(columns={
+        f'{target}_count': '样本数',
+        f'{target}_mean': 'EEF均值',
+        f'{target}_median': 'EEF中位数',
+        f'{target}_std': 'EEF标准差',
+        f'{target}_min': 'EEF最小值',
+        f'{target}_max': 'EEF最大值',
+        f'{feature}_min': '分箱最小值',
+        f'{feature}_max': '分箱最大值',
+        f'{feature}_mean': '分箱均值'
+    })
+    
+    # 可视化
+    plt.figure(figsize=(15, 6))
+    
+    # 子图1: 箱线图
+    plt.subplot(1, 2, 1)
+    sns.boxplot(x=f'{feature}_bin', y=target, data=df_analysis)
+    plt.title(f'{feature}分箱与{target}分布')
+    plt.xticks(rotation=45)
+    
+    # 子图2: 均值条形图
+    plt.subplot(1, 2, 2)
+    sns.barplot(x=f'{feature}_bin', y=target, data=df_analysis, estimator=np.mean, ci=None)
+    plt.title(f'各分箱{target}均值比较')
+    plt.xticks(rotation=45)
+    plt.ylabel('EEF均值')
+    
+    plt.tight_layout()
+    plt.show()
+    
+    return bin_stats
+
+age_bin_stats = binning_with_target_analysis(Mortality_df.drop('Mortality_flg',axis=1), 'Density', n_bins=5, binning_method='equal_freq')
+print("密度分箱统计:")
+print(age_bin_stats)
