@@ -57,14 +57,8 @@ def read_transpose_excel(file_path, header_row=1, data_start_row=1):
         transposed_df['HouseAmount']=chicken_house_count
         transposed_df['Batch']=breeding_batch
 
-        # keepcolumns=['栋舍 House', '进雏只数\nBird placed No.', '公母\nGender', '鸡舍面积m2 \nHouse Area', '出栏密度\nDensity', '挂鸡只数\nHang No.',
-        #               '挂鸡总重（kg）\nTotal hung weight', '均重（kg）\n Average weight', '小毛鸡数量\nSmall broilers No.', '小毛鸡总重（kg）\n Total weight of small broilers', 'PP死淘鸡只\nPP cull and dead No.',
-        #                 '死淘总重（kg）\nDead and Cull Weight', 'PP不合格淘汰鸡\nPP Cull', 'PP淘汰鸡总重\nPP Cull bird Weight', '日龄Age', '出栏造成死亡只数 \nDead while catching', '出鸡只数\nCatching No.',
-        #                   '成活率\nLivability (%)', '出鸡总重（kg）\nTotal Catched weight', '单位面积 产率\nensity, Yield(KG)/m2', '均重（kg）\nAverage weight', '累计耗料（kg）\nFeed cons. Cum.', '料肉比 FCR',
-        #                     'Adjust FCR (base 2.45KG)', '欧洲指数 EEF', '药品费用（元）', '疫苗费用（元）', '消毒药费用（元）', '饲料成本（元）', '用电费用（元）', '燃气费用（元）',
-        #                       '人工费用（元）', '低值易耗品（元）', '折旧费（元）', '雏鸡成本（元）', '总成本（元）', '每公斤成本（元）', '毛鸡销售收入（元）', '每栋纯利润（元）', '药品 （元/只）', '疫苗（元/只）', 
-        #                       'M&V费（元/只）', '消毒药费（元/只）', '饲料（元/只）', '用电（元/只）', '燃气（元/只）', '人工（元/只）', '低值易耗品（元/只）', '折旧费（元/只）', '雏鸡成本（元/元）', '每只鸡成本（元）']
-        # transposed_df=transposed_df[keepcolumns]
+        file_name = os.path.splitext(os.path.basename(file_path))[0]
+        transposed_df['id_no'] = file_name
 
         # 关闭工作簿
         workbook.close()
@@ -117,13 +111,13 @@ def process_all_files(root_folders):
 
 
 # 示例调用
-root_folders = ['D:\\太阳谷\\chickenfarming\\data\\24.12\\日报','D:\\太阳谷\\chickenfarming\\data\\25.01\\日报','D:\\太阳谷\\chickenfarming\\data\\25.02\\日报-2502\\日报-2502','D:\\太阳谷\\chickenfarming\\data\\25.03\\2503-日报']
+root_folders = ['D:\\太阳谷\\chickenfarming\\data\\24.12 2\\日报','D:\\太阳谷\\chickenfarming\\data\\25.01\\日报','D:\\太阳谷\\chickenfarming\\data\\25.02\\日报-2502\\日报-2502','D:\\太阳谷\\chickenfarming\\data\\25.03\\2503-日报']
 # excel_path = r"C:\\Program Files\\Microsoft Office\\root\\Office16\\EXCEL.EXE"
-result_df = process_all_files(root_folders)
+result_df2 = process_all_files(root_folders)
 # result_df=result_df[result_df['HouseNo']!='Total']
 
 
-result_df.columns.to_list()
+# result_df2.columns.to_list()
 ##出栏数据
 columns = [
     'house',                    # 栋舍 House
@@ -175,8 +169,13 @@ columns = [
     'farm_name',                # FarmName
     'farm_supervisor',          # FarmSupervisor
     'house_count',              # HouseAmount
-    'batch'                     # Batch
+    'batch'   ,                 # Batch
+    'id_no'
 ]
-result_df.columns=columns
+len(columns)
+result_df2.columns=columns
 
-result_df.to_csv('marketingdata.csv', index=False,encoding='gbk')
+result_df2.to_csv('./data/data_cleaned/marketingdata.csv', index=False,encoding='gbk')
+
+# result_df[['id_no','HouseNo']].drop_duplicates()
+
