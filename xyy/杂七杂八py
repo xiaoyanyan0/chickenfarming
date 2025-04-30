@@ -1,0 +1,96 @@
+
+def model_metrics(model, features, tgt, tgt_col='Mortality_flg', proba_thresholds=None, verbose=True):
+    """
+    计算并输出模型的各种评估指标
+    
+    参数:
+        model: 已训练的模型对象
+        features: 特征数据(DataFrame或array)
+        tgt: 目标变量(DataFrame或Series)
+        tgt_col: 目标列名(默认为'Y')
+        proba_thresholds: 概率阈值列表(默认为0.1到0.9，步长0.1)
+        verbose: 是否打印详细结果(默认为True)
+        
+    返回:
+        dict: 包含所有评估指标的字典
+    """
+    # 初始化返回结果字典
+    metrics = {}
+    
+    # 设置默认概率阈值
+    if proba_thresholds is None:
+        proba_thresholds = np.arange(0.1, 1.0, 0.1)
+    
+    # 预测概率
+    try:
+        y_pred_proba = model.predict_proba(features)[:, 1]  # 获取正类的概率
+    except AttributeError:
+        y_pred_proba = model.predict(features)  # 对于没有predict_proba的模型
+    
+    # 存储预测结果
+    tgt = tgt.copy()
+    tgt['pred_proba'] = y_pred_proba
+    
+    # 计算AUC-ROC
+    try:
+        auc = roc_auc_score(tgt[tgt_col], tgt['pred_proba'])
+        metrics['auc_roc'] = auc
+        if verbose:
+            print(f"AUC-ROC Score: {auc:.4f}")
+    except ValueError as e:
+        if verbose:
+            print(f"无法计算AUC-ROC: {str(e)}")
+    
+    # 计算各阈值下的指标
+    threshold_metrics = {}
+    
+    for threshold in proba_thresholds:
+        # 应用阈值进行分类
+        tgt['pred_class'] = (tgt['pred_proba'] > threshold).astype(int)
+        
+        # 计算各项指标
+        try:
+            precision = precision_score(tgt[tgt_col], tgt['pred_class'])
+            recall = recall_score(tgt[tgt_col], tgt['pred_class'])
+            f1 = f1_score(tgt[tgt_col], tgt['pred_class'])
+            cm = confusion_matrix(tgt[tgt_col], tgt['pred_class'])
+            
+            # 存储结果
+            threshold_results = {
+                'precision': precision,
+                'recall': recall,
+                'f1': f1,
+                'confusion_matrix': cm
+            }
+            threshold_metrics[threshold] = threshold_results
+            
+            if verbose:
+                print(f"\nThreshold: {threshold:.1f}")
+                print(f"Precision: {precision:.4f}")
+                print(f"Recall: {recall:.4f}")
+                print(f"F1 Score: {f1:.4f}")
+                print("Confusion Matrix:")
+                print(cm)
+                
+        except ValueError as e:
+            if verbose:
+                print(f"在阈值 {threshold} 下计算指标时出错: {str(e)}")
+    
+    metrics['threshold_metrics'] = threshold_metrics
+    
+    return metrics
+
+model_metrics(lgb_baseline,X_test,y_test, tgt_col='Mortality_flg')
+
+#画出ROC
+def plot_roc(y,predict_prob):
+    FPR,TPR,thres=roc_curve(y,predict_prob)
+    roc_auc=auc(FPR,TPR)
+    plt.title('ROC')
+    plt.plot(FPR,TPR,'b',label='AUC=%0.4f'%roc_auc)
+    plt.legend(loc='lower right')
+    plt.plot([0,1],[0,1],'r-')
+    plt.show()
+
+y_pred_test=lgb_baseline.predict_proba(X_test)
+plot_roc(y_test['Mortality_flg'], y_pred_test[:,1])

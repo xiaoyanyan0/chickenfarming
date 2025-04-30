@@ -18,13 +18,13 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import roc_curve, auc
 from xgboost import XGBClassifier
-
+from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score
 
 import lightgbm as lgb
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score, roc_auc_score, confusion_matrix
 
-all_info_temdata=pd.read_csv('./data/data_cleaned/all_info_temdata.csv',encoding='gbk')
+all_info_temdata=pd.read_csv('./data/data_cleaned/all_info_temdata0430.csv',encoding='gbk')
 marketingdata=pd.read_csv('./data/data_cleaned/marketingdata.csv',encoding='gbk')
 
 
@@ -244,4 +244,89 @@ for var in X:
 
 
 
-#### 
+
+
+#### 回归模型
+# df_keep2['MORTALITY_RATE'].hist(bins=100)
+# plt.show()
+X=df_keep2.drop(columns=['Mortality_flg','MORTALITY_RATE'])
+
+y=df_keep2['MORTALITY_RATE']
+
+# y.value_counts()
+
+
+
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.25, random_state=42, stratify=y)
+
+# 假设X是特征矩阵，y是连续型目标变量
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.25, random_state=42)
+
+# 定义LightGBM参数（针对回归问题优化）
+params = {
+    'boosting_type': 'gbdt',
+    'objective': 'regression',  # 修改为回归任务
+    'metric': 'rmse',          # 回归常用指标
+    'num_leaves': 31,
+    'learning_rate': 0.05,
+    'feature_fraction': 0.8,
+    'bagging_fraction': 0.8,
+    'seed': 42,
+    'verbose': -1
+}
+
+# 转换为LightGBM数据集格式
+train_data = lgb.Dataset(X_train, label=y_train)
+test_data = lgb.Dataset(X_test, label=y_test, reference=train_data)
+
+# 训练模型
+lgb_regressor = lgb.train(
+    params,
+    train_data,
+    valid_sets=[test_data],
+    num_boost_round=1000,
+    # early_stopping_rounds=50  # 添加早停防止过拟合
+)
+
+# 预测连续值
+y_pred = lgb_regressor.predict(X_test, num_iteration=lgb_regressor.best_iteration)
+# np.expm1(model.predict(X_test))
+# 评估指标（回归问题）
+from sklearn.metrics import root_mean_squared_error  # scikit-learn >= 1.4
+
+print("RMSE:", root_mean_squared_error(y_test, y_pred))
+print("MAE:", mean_absolute_error(y_test, y_pred))
+print("R2 Score:", r2_score(y_test, y_pred))
+
+# 绘制实际值 vs 预测值散点图
+plt.figure(figsize=(8, 6))
+plt.scatter(y_test, y_pred, alpha=0.5)
+plt.plot([y.min(), y.max()], [y.min(), y.max()], 'r--')  # 理想对角线
+plt.xlabel('Actual Values')
+plt.ylabel('Predicted Values')
+plt.title('Actual vs Predicted Values')
+plt.show()
+
+# 残差图
+residuals = y_test - y_pred
+plt.figure(figsize=(8, 6))
+plt.scatter(y_pred, residuals, alpha=0.5)
+plt.axhline(y=0, color='r', linestyle='--')
+plt.xlabel('Predicted Values')
+plt.ylabel('Residuals')
+plt.title('Residual Plot')
+plt.show()
+
+# 特征重要性（增益）
+lgb.plot_importance(lgb_regressor, importance_type='gain', max_num_features=15, figsize=(10, 6))
+plt.title("Feature Importance (Gain)")
+plt.show()
+
+# 输出具体重要性值
+feature_imp = pd.DataFrame({
+    'Feature': X.columns,
+    'Importance': lgb_regressor.feature_importance(importance_type='gain')
+}).sort_values('Importance', ascending=False)
+top_important_cols = list(feature_imp.head(10)['Feature'])
+
+

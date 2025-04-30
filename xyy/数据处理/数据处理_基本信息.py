@@ -95,10 +95,12 @@ def process_all_files(root_folders):
 
 
 # 示例调用
-root_folders = ['D:\\太阳谷\\chickenfarming\\data\\24.12 2\\日报','D:\\太阳谷\\chickenfarming\\data\\25.01\\日报','D:\\太阳谷\\chickenfarming\\data\\25.02\\日报-2502\\日报-2502','D:\\太阳谷\\chickenfarming\\data\\25.03\\2503-日报']
+root_folders = ['D:\\太阳谷\\chickenfarming\\data\\24.09-日报','D:\\太阳谷\\chickenfarming\\data\\24.10-日报','D:\\太阳谷\\chickenfarming\\data\\24.11-日报','D:\\太阳谷\\chickenfarming\\data\\24.12 2\\日报','D:\\太阳谷\\chickenfarming\\data\\25.01\\日报','D:\\太阳谷\\chickenfarming\\data\\25.02\\日报-2502\\日报-2502','D:\\太阳谷\\chickenfarming\\data\\25.03\\2503-日报']
 # excel_path = r"C:\\Program Files\\Microsoft Office\\root\\Office16\\EXCEL.EXE"
 result_df = process_all_files(root_folders)
 result_df=result_df[result_df['HouseNo']!='Total']
+
+result_df[['id_no','HouseNo']].drop_duplicates()
 result_df.to_csv('./data/data_cleaned/baseinfo.csv', index=False,encoding='gbk')
 
 baseinfo=pd.read_csv('./data/data_cleaned/baseinfo.csv',encoding='gbk')

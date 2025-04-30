@@ -1,7 +1,10 @@
 import pandas as pd
-all_dead_data=pd.read_csv('./data/data_cleaned/all_dead_data.csv')
+all_dead_data=pd.read_csv('./data/data_cleaned/all_dead_data.csv',encoding='gbk')
+
+all_dead_data2=pd.read_csv('./data/data_cleaned/all_dead_data2.csv',encoding='gbk')
 baseinfo=pd.read_csv('./data/data_cleaned/baseinfo.csv',encoding='gbk')
 marketingdata=pd.read_csv('./data/data_cleaned/marketingdata.csv',encoding='gbk')
+
 all_dead_data.columns.to_list()
 
 all_dead_data_new=all_dead_data[['Dead', 'Swollen_Head', 'Weak', 'Navel_Disease', 'Stick_Anus', 'Lame_Paralysis', 'Mortality', 'Mortality_rate','House_No','id_no']].groupby(by=['House_No','id_no']).sum()
