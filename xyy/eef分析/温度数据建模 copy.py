@@ -303,8 +303,8 @@ feature_imp = pd.DataFrame({
 }).sort_values('Importance', ascending=False)
 
 feature_imp[feature_imp['Importance']>0]['Feature']
-top_importantcol=list(feature_imp.head(20)['Feature'])
-feature_imp.head(15)
+top_importantcol=list(feature_imp.head(15)['Feature'])
+feature_imp.head(20)
 print(feature_imp)
 print(top_importantcol)
 
@@ -354,10 +354,10 @@ for i in top_importantcol:
     temp['name']=i
     bin_table=pd.concat([bin_table,temp])
 
-bin_table.to_csv('.\\xyy\\死淘分析\\bin_table0506.csv',index=False,encoding='gbk')
+bin_table.to_csv('.\\xyy\\eef分析\\bin_table0508.csv',index=False,encoding='gbk')
 import warnings
 warnings.filterwarnings("ignore")
-for var in top_importantcol[:2]:
+for var in top_importantcol:
     optb=binning_process.get_binned_variable(var)
     bin_table_var=optb.binning_table.build()
     optb.binning_table.plot(metric='event_rate')
