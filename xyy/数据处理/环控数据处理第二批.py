@@ -241,10 +241,53 @@ all_HumTem_data.to_csv('./data/data_cleaned/all_HumTem_data2.csv', index=False,e
 all_HumTem_data.head()
 
 
-# all_HumTem_data[all_HumTem_data['ID_NUM']=='G01_60_H1']
 
+########数据处理与聚合
+# all_HumTem_data[all_HumTem_data['ID_NUM']=='G01_60_H1']
+all_HumTem_data.head()
+all_HumTem_data=pd.read_csv('./data/data_cleaned/all_HumTem_data2.csv',encoding='gbk')
+
+# mixed_columns = [4,5,6,7,8,9,10,11,12,13,14,17]
+# for col in all_HumTem_data.columns[mixed_columns]:
+#     unique_types = all_HumTem_data[col].apply(type).unique()
+#     print(f"Column '{col}': {unique_types}")
+# 尝试将混合列转为数值，无法转换的设为 NaN
+mixed_columns = [4,5,6,7,8,9,10,11,12,13,14,17]
+for col in all_HumTem_data.columns[mixed_columns]:
+    all_HumTem_data[col] = pd.to_numeric(all_HumTem_data[col], errors='coerce')  # 'coerce' 将无效值转NaN
+
+# all_HumTem_data[all_HumTem_data['外部-平均']=='---']['外部-平均']
+all_HumTem_data.columns.to_list()
+###异常值处理
+abs(all_HumTem_data['温度6-平均']-all_HumTem_data['外部-平均']).describe()
+
+all_HumTem_data['温度6-平均'].notna().sum()
+all_HumTem_data['外部-平均'].notna().sum()
+
+all_HumTem_data['外部-平均'].describe()
+all_HumTem_data['温度6-平均'].describe()
 
 data=all_HumTem_data.drop(columns=['id_no','house_no'],axis=1).copy()
+
+data['温度1与目标差异']=data['温度1-平均'].astype(float)-data['目标温度'].astype(float)
+data['温度2与目标差异']=data['温度2-平均'].astype(float)-data['目标温度'].astype(float)
+data['温度3与目标差异']=data['温度3-平均'].astype(float)-data['目标温度'].astype(float)
+data['温度4与目标差异']=data['温度4-平均'].astype(float)-data['目标温度'].astype(float)
+data['温度5与目标差异']=data['温度5-平均'].astype(float)-data['目标温度'].astype(float)
+
+
+
+
+
+
+data['外部-平均']=data['外部-平均'].replace('---',None)
+data['鸡舍温度-平均']=data['鸡舍温度-平均'].replace('---',None)
+
+data['内外温差']=data['鸡舍温度-平均'].astype(float)-data['外部-平均'].astype(float)
+data['内外湿差']=data['湿度内部平均'].astype(float)-data['湿度外部平均'].astype(float)
+# data['鸡舍温度-平均'].isna().sum()
+# data['温度4-平均'].isna().sum()
+data.shape
 # 需要转换为数值类型的字段
 
 numeric_columns = [
@@ -262,7 +305,7 @@ data['日龄'] = pd.to_numeric(data['日龄'], errors='coerce')
 
 
 # 定义温度相关列
-temp_cols = [f'温度{i}-平均' for i in range(1, 7)]
+temp_cols = [f'温度{i}-平均' for i in range(1, 6)]
 
 # 按 house_no、id_no 和日龄分组
 grouped = data.groupby(['ID_NUM', '日龄'])
@@ -270,7 +313,10 @@ grouped = data.groupby(['ID_NUM', '日龄'])
 # 统计每个分组内的最高温度、最低温度、平均温度以及 Humidity In 1 Avg 的最值和均值
 agg_result = grouped.agg({
     **{col: ['max', 'min', 'mean'] for col in temp_cols},
-    '湿度内部平均': ['max', 'min', 'mean']
+    '湿度内部平均': ['max', 'min', 'mean'],
+    '内外温差': ['max', 'min', 'mean'],
+    '内外湿差': ['max', 'min', 'mean'],
+    '外部-平均': ['max', 'min', 'mean'],  
 })
 
 # 重新设置列名
@@ -278,9 +324,9 @@ agg_result.columns = ['_'.join(col).strip() for col in agg_result.columns.values
 # agg_result.head()
 
 # 计算每个日龄所有时间的最高温度（温度 1 - 平均到温度 6 - 平均的最高值）
-agg_result['最高温度'] = agg_result[[f'{col}_max' for col in temp_cols]].max(axis=1)
+agg_result['最高温度'] = agg_result[[f'{col}_max' for col in temp_cols]].mean(axis=1)
 # 计算每个日龄所有时间的最低温度（温度 1 - 平均到温度 6 - 平均的最低值）
-agg_result['最低温度'] = agg_result[[f'{col}_min' for col in temp_cols]].min(axis=1)
+agg_result['最低温度'] = agg_result[[f'{col}_min' for col in temp_cols]].mean(axis=1)
 # 计算每个日龄所有时间的平均温度（温度 1 - 平均到温度 6 - 平均的平均值）
 agg_result['平均温度'] = agg_result[[f'{col}_mean' for col in temp_cols]].mean(axis=1)
 
@@ -300,11 +346,11 @@ agg_result.columns.to_list()
 
 
 
-# 计算每个日龄每个时间的最高温度（温度 1 - 平均到温度 6 - 平均的最高值）
+# 计算每个日龄每个时间的最高温度（温度 1 - 平均到温度 5 - 平均的最高值）
 data['最高温度'] = data[temp_cols].max(axis=1)
-# 计算每个日龄每个时间的最低温度（温度 1 - 平均到温度 6 - 平均的最低值）
+# 计算每个日龄每个时间的最低温度（温度 1 - 平均到温度 5 - 平均的最低值）
 data['最低温度'] = data[temp_cols].min(axis=1)
-# 计算每个日龄每个时间的平均温度（温度 1 - 平均到温度 6 - 平均的平均值）
+# 计算每个日龄每个时间的平均温度（温度 1 - 平均到温度 5 - 平均的平均值）
 data['平均温度'] = data[temp_cols].mean(axis=1)
 
 
@@ -328,7 +374,6 @@ agg_result['最低温度变化率']=agg_result2['最低温度变化率']
 agg_result=agg_result.reset_index()
 
 agg_result.columns.to_list()
-
 
 
 agg_result.to_csv('./data/data_cleaned/HumTem_data_agg2.csv', index=False,encoding='gbk')
