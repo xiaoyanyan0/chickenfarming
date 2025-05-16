@@ -125,9 +125,9 @@ agg_result = grouped.agg({
     '内外温差': ['max', 'min', 'mean'],
     '内外湿差': ['max', 'min', 'mean'],
     '外部-平均': ['max', 'min', 'mean'],  
-    '鸡舍温度-最低':['min'] ,
+    '鸡舍温度-最低':['mean'] ,
     '鸡舍温度-平均':['mean'] ,
-    '鸡舍温度-最高':['max'] ,
+    '鸡舍温度-最高':['mean'] ,
 
 })
 
@@ -141,7 +141,7 @@ agg_result = grouped.agg({
 # agg_result['平均温度'] = agg_result[[f'{col}_mean' for col in temp_cols]].mean(axis=1)
 
 # 计算每日温差
-agg_result[('鸡舍温度-最高', 'range')] = agg_result[('鸡舍温度-最高', 'max')] - agg_result[('鸡舍温度-最低', 'min')]
+agg_result[('鸡舍温度-最高', 'range')] = agg_result[('鸡舍温度-最高', 'mean')] - agg_result[('鸡舍温度-最低', 'mean')]
 
 
 agg_result.columns = ['_'.join(col).strip() for col in agg_result.columns.values]
@@ -196,14 +196,14 @@ agg_result=agg_result.rename({'鸡舍温度-最高_range':'每日温差'},axis=1
 agg_result.columns.to_list()
 
 
-agg_result.to_csv('./data/data_cleaned/HumTem_data_agg0512.csv', index=False,encoding='gbk')
+agg_result.to_csv('./data/data_cleaned/HumTem_data_agg0515.csv', index=False,encoding='gbk')
 
 
 # 宽表加工
 
 import pandas as pd
 allinfo_dead=pd.read_csv('./data/data_cleaned/allinfo_dead0430.csv',encoding='gbk')
-HumTem_data_agg=pd.read_csv('./data/data_cleaned/HumTem_data_agg0512.csv',encoding='gbk')
+HumTem_data_agg=pd.read_csv('./data/data_cleaned/HumTem_data_agg0515.csv',encoding='gbk')
 
 # HumTem_data_agg[HumTem_data_agg['ID_NUM'].str.startswith(tuple(['G28_25', 'G31_62']))]
 # 'G28_25', 'G31_62'前后两个批次重复
@@ -258,7 +258,7 @@ HumTem_data_normal.columns.to_list()
 
 keep_cols=['ID_NUM', '日龄', '温度1-平均_mean', '温度2-平均_mean', '温度3-平均_mean','温度4-平均_mean',  
            '温度5-平均_mean', '内外温差_mean','内外湿差_mean','外部-平均_mean','湿度内部平均_mean', 
-           '鸡舍温度-最低_min', '鸡舍温度-平均_mean', '鸡舍温度-最高_max', '每日温差', '平均温度变化率', '最高温度变化率',
+           '鸡舍温度-最低_mean', '鸡舍温度-平均_mean', '鸡舍温度-最高_mean', '每日温差', '平均温度变化率', '最高温度变化率',
              '最低温度变化率']
 
 
@@ -270,7 +270,7 @@ wide_df = wide_df.reset_index()
 
 wide_df.columns.to_list()
 
-wide_df.to_csv('./data/data_cleaned/wide_df_0512.csv', index=False,encoding='gbk')
+wide_df.to_csv('./data/data_cleaned/wide_df_0515.csv', index=False,encoding='gbk')
 
 ##基本信息等拼接
 # wide_df['ID_NUM']
@@ -298,7 +298,7 @@ data_detect = toad.detector.detect(all_info_temdata2)
 data_detect=data_detect.reset_index(drop=False)
 # all_info_temdata2.head()
 
-all_info_temdata2.to_csv('./data/data_cleaned/all_info_temdata0512.csv',index=False,encoding='gbk')
+all_info_temdata2.to_csv('./data/data_cleaned/all_info_temdata0515.csv',index=False,encoding='gbk')
 
 all_info_temdata2['ID_NUM'].drop_duplicates()
 
@@ -326,13 +326,10 @@ all_HumTem_data2[all_HumTem_data2['ID_NUM']=='G01_60_H1']['ID_NUM']
 
 ###############拼接按日龄的温度和死淘数据
 
-HumTem_data_agg1=pd.read_csv('./data/data_cleaned/HumTem_data_agg1.csv',encoding='gbk')
-HumTem_data_agg2=pd.read_csv('./data/data_cleaned/HumTem_data_agg2.csv',encoding='gbk')
+HumTem_data_agg=pd.read_csv('./data/data_cleaned/HumTem_data_agg0515.csv',encoding='gbk')
 
 # HumTem_data_agg[HumTem_data_agg['ID_NUM'].str.startswith(tuple(['G28_25', 'G31_62']))]
 
-HumTem_data_agg2 = HumTem_data_agg2[~HumTem_data_agg2['ID_NUM'].str.startswith(tuple(['G28_25', 'G31_62']))]
-HumTem_data_agg=pd.concat([HumTem_data_agg1,HumTem_data_agg2],ignore_index=True)
 
 
 all_dead_data1=pd.read_csv('./data/data_cleaned/all_dead_data.csv',encoding='gbk')
@@ -349,9 +346,74 @@ all_dead_data['ID_NUM'] = all_dead_data['ID_NUM'].apply(lambda x: 'G04' + x[3:] 
 
 all_dead_HumTem_byage=pd.merge(all_dead_data,HumTem_data_agg,left_on=['ID_NUM','Age'],right_on=['ID_NUM','日龄'],how='inner')
 
+drop_cols=['Swollen_Head', 'Weak', 'Navel_Disease', 'Stick_Anus', 'Lame_Paralysis', 'Mortality','日龄']
+all_dead_HumTem_byage=all_dead_HumTem_byage.drop(columns=drop_cols,axis=1).drop_duplicates()
+
+all_dead_HumTem_byage['湿度外部平均_mean'].describe().round(2)
+all_dead_HumTem_byage.columns.to_list()
+# 定义要处理的温度指标列
 
 
-all_dead_HumTem_byage.to_csv('./data/data_cleaned/dead_HumTem_byage.csv',index=False,encoding='gbk')
+# 定义要计算的历史天数
+history_days = [1, 3, 5,7]
+rename_dict = {
+    '温度1-平均_mean': '温度1平均',
+    '温度2-平均_mean': '温度2平均',
+    '温度3-平均_mean': '温度3平均',
+    '温度4-平均_mean': '温度4平均',
+    '温度5-平均_mean': '温度5平均',
+    '鸡舍温度-最低_mean': '鸡舍最低温度',
+    '鸡舍温度-平均_mean': '鸡舍平均温度',
+    '鸡舍温度-最高_mean': '鸡舍最高温度',
+    '内外温差_mean': '内外温差',
+    '内外湿差_mean': '内外湿差',
+    '外部-平均_mean': '外部平均',
+    '湿度内部平均_mean': '内部平均湿度',
+    '每日温差': '每日温差'
+}
+all_dead_HumTem_byage=all_dead_HumTem_byage.rename(columns=rename_dict)
+
+# 为每个温度指标创建历史特征和变化特征
+def create_temperature_features(df, id_col='ID_NUM', age_col='Age', history_days=[1,3,5,7]):
+    """
+    为温度相关指标创建历史特征和变化特征
+
+    """
+    # 设置主键
+    df = df.set_index([id_col, age_col])
+    
+    # 识别温度相关列
+    temp_columns = list(rename_dict.values())
+    
+    # 创建新特征
+    for col in temp_columns:
+        for days in history_days:
+            # 历史值
+            history_col = f'{col}_前{days}天'
+            df[history_col] = df.groupby(level=id_col)[col].shift(days)
+            
+            # 变化值
+            change_col = f'{col}_前{days}天变化'
+            df[change_col] = df[col] - df[history_col]
+            
+            # 变化百分比 (处理除零问题)
+            pct_col = f'{col}_前{days}天变化百分比'
+            df[pct_col] = np.where(df[history_col] != 0, 
+                                  df[change_col] / df[history_col] * 100, 
+                                  np.nan)
+    
+    return df.reset_index()
+
+all_dead_HumTem_byage[['ID_NUM','Age']].drop_duplicates()
+all_dead_HumTem_byage2=create_temperature_features(all_dead_HumTem_byage, id_col='ID_NUM', age_col='Age', history_days=history_days)
+
+
+all_dead_HumTem_byage2.columns.to_list()
+
+all_dead_HumTem_byage2[['ID_NUM','Age','温度3平均','温度3平均_前3天', '温度3平均_前3天变化',
+                          '温度3平均_前3天变化百分比']].sort_values(by=['ID_NUM','Age']).head(20)
+
+all_dead_HumTem_byage2.to_csv('./data/data_cleaned/dead_HumTem_byage0515.csv',index=False,encoding='gbk')
 
 
 

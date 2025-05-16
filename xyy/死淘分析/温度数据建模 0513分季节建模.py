@@ -31,7 +31,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score, roc_auc_score, confusion_matrix
 plt.rcParams['font.sans-serif'] = ['SimHei']  # 使用黑体字体
 plt.rcParams['axes.unicode_minus'] = False  # 解决负号显示问题
-all_info_temdata=pd.read_csv('./data/data_cleaned/all_info_temdata0512.csv',encoding='gbk')
+all_info_temdata=pd.read_csv('./data/data_cleaned/all_info_temdata0515.csv',encoding='gbk')
 # marketingdata=pd.read_csv('./data/data_cleaned/marketingdata.csv',encoding='gbk')
 
 # all_info_temdata
@@ -155,7 +155,9 @@ def prepare_seasonal_data(df, date_col='HARVESTSTATUS_month', target_col='MORTAL
         print(f"{season.capitalize()}数据量: {season_df.shape[0]}, 正样本比例: {season_df['Mortality_flg'].mean():.2%}")
         
     return seasonal_dfs
-
+# seasonal_dfs=prepare_seasonal_data(df2, date_col='HARVESTSTATUS_month', target_col='MORTALITY_RATE', quantile_threshold=0.8)
+# seasonal_dfs['winter'].to_csv('./data/data_cleaned/winter0515.csv',index=False,encoding='gbk')
+# seasonal_dfs['winter'].groupby(['Mortality_flg'])['MORTALITY_RATE'].mean()
 def prepare_seasonal_data2(df, date_col='HARVESTSTATUS_month', target_col='MORTALITY_RATE', quantile_threshold=0.8):
     """
     将数据按季节分割并为每个月创建二分类目标变量，最终按季节合并
