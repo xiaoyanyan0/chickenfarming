@@ -1,0 +1,2 @@
+2025-05-30 10:21:15,312 - INFO - Using device: cpu
+2025-05-30 10:21:15,321 - ERROR - 数据加载失败: [Errno 2] No such file or directory: 'C:\\Users\\sbjalz\\OneDrive - SAS\\Desktop\\开发代码\\太阳谷\\chickenfarming\\Alex\\winter_valid_samples0529.csv'

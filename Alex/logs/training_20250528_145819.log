@@ -1,0 +1,173 @@
+2025-05-28 14:58:19,265 - INFO - Using device: cpu
+2025-05-28 14:58:19,345 - INFO - 数据加载成功
+2025-05-28 14:58:19,348 - INFO - BirdsVariety 标准化前: ['Cobb', 'SZ901Plus', 'SZ901PLUS', 'SZ901/\nSZ901PLUS', 'SZ901', 'SZ901Plus/SZ901', 'Cobb500', 'SZ901plus', 'SZ901\nSZ901plus', 'SZ901 PIUS', 'SZ901\nSZ901Plus', 'Cobb 500', '901.0', 'SZ901/901plus', '901plus', 'CObb', 'cobb', 'SZ901 Plus', 'SZ901 PLUS', '901Plus']
+2025-05-28 14:58:19,348 - INFO - BirdsVariety 标准化后: ['Cobb', 'SZ901 Plus']
+2025-05-28 14:58:19,348 - INFO - BirdsVariety 编码: {'Cobb': 0, 'SZ901 Plus': 1}
+2025-05-28 14:58:19,350 - INFO - FarmSupervisor 编码: {'丁家宝': 0, '余涛': 1, '公赔河': 2, '刘乾乾': 3, '史成志': 4, '姚闯': 5, '张换吉': 6, '张明明': 7, '张玉风': 8, '戈兆康': 9, '李明': 10, '李芳昌': 11, '李荣': 12, '李豪': 13, '杨健健': 14, '杨文杰': 15, '王勇': 16, '王志远': 17, '罗冲': 18, '薄明龙': 19, '陈智': 20, '陈铁楠': 21, '高阳阳': 22}
+2025-05-28 14:58:19,366 - INFO - 训练集大小: 323, 批次数量: 6
+2025-05-28 14:58:19,367 - INFO - 验证集大小: 81, 批次数量: 2
+2025-05-28 14:58:19,518 - INFO - 使用 TransformerWithPostFusion 模型, hidden_dim=256, nhead=8, num_layers=8
+2025-05-28 14:58:19,521 - INFO - 模型总参数量: 6,453,827
+2025-05-28 14:58:19,521 - INFO - 开始训练新模型...
+2025-05-28 14:58:23,475 - INFO - Epoch 1: New best model saved with val_loss: 2.041620, R2: -1.2051
+2025-05-28 14:58:23,476 - INFO - Epoch 1/200 | Train Loss: 4.965220 | Val Loss: 2.041620 | Train R2: -3.9567 | Val R2: -1.2051 | LR: 9.83e-04 | Best Val R2: -1.2051 | Best Val Loss: 2.041620 (Epoch 1)
+2025-05-28 14:58:33,862 - INFO - Epoch 2: New best model saved with val_loss: 1.807794, R2: -0.9312
+2025-05-28 14:58:33,865 - INFO - Epoch 2/200 | Train Loss: 3.003236 | Val Loss: 1.807794 | Train R2: -2.1014 | Val R2: -0.9312 | LR: 9.19e-04 | Best Val R2: -0.9312 | Best Val Loss: 1.807794 (Epoch 2)
+2025-05-28 14:58:39,203 - INFO - Epoch 3: New best model saved with val_loss: 1.711478, R2: -0.8074
+2025-05-28 14:58:39,203 - INFO - Epoch 3/200 | Train Loss: 2.415302 | Val Loss: 1.711478 | Train R2: -1.5223 | Val R2: -0.8074 | LR: 8.15e-04 | Best Val R2: -0.8074 | Best Val Loss: 1.711478 (Epoch 3)
+2025-05-28 14:58:42,752 - INFO - Epoch 4: New best model saved with val_loss: 1.220286, R2: -0.2691
+2025-05-28 14:58:42,752 - INFO - Epoch 4/200 | Train Loss: 1.872631 | Val Loss: 1.220286 | Train R2: -0.9737 | Val R2: -0.2691 | LR: 6.80e-04 | Best Val R2: -0.2691 | Best Val Loss: 1.220286 (Epoch 4)
+2025-05-28 14:58:46,179 - INFO - Epoch 5: New best model saved with val_loss: 1.027161, R2: -0.0449
+2025-05-28 14:58:46,182 - INFO - Epoch 5/200 | Train Loss: 1.561207 | Val Loss: 1.027161 | Train R2: -0.5441 | Val R2: -0.0449 | LR: 5.27e-04 | Best Val R2: -0.0449 | Best Val Loss: 1.027161 (Epoch 5)
+2025-05-28 14:58:51,503 - INFO - Epoch 6: New best model saved with val_loss: 0.974469, R2: 0.0115
+2025-05-28 14:58:51,505 - INFO - Epoch 6/200 | Train Loss: 1.531091 | Val Loss: 0.974469 | Train R2: -0.4671 | Val R2: 0.0115 | LR: 3.71e-04 | Best Val R2: 0.0115 | Best Val Loss: 0.974469 (Epoch 6)
+2025-05-28 14:58:53,780 - INFO - Epoch 7/200 | Train Loss: 1.397173 | Val Loss: 1.036518 | Train R2: -0.4380 | Val R2: -0.0518 | LR: 2.28e-04 | Best Val R2: 0.0115 | Best Val Loss: 0.974469 (Epoch 6)
+2025-05-28 14:58:56,082 - INFO - Epoch 8/200 | Train Loss: 1.336034 | Val Loss: 1.073175 | Train R2: -0.3812 | Val R2: -0.0875 | LR: 1.12e-04 | Best Val R2: 0.0115 | Best Val Loss: 0.974469 (Epoch 6)
+2025-05-28 14:58:58,575 - INFO - Epoch 9/200 | Train Loss: 1.322181 | Val Loss: 1.060053 | Train R2: -0.2724 | Val R2: -0.0716 | LR: 3.42e-05 | Best Val R2: 0.0115 | Best Val Loss: 0.974469 (Epoch 6)
+2025-05-28 14:59:01,225 - INFO - Epoch 10/200 | Train Loss: 1.328230 | Val Loss: 1.053941 | Train R2: -0.4244 | Val R2: -0.0649 | LR: 1.68e-06 | Best Val R2: 0.0115 | Best Val Loss: 0.974469 (Epoch 6)
+2025-05-28 14:59:03,689 - INFO - Epoch 11: New best model saved with val_loss: 0.982839, R2: 0.0139
+2025-05-28 14:59:03,689 - INFO - Epoch 11/200 | Train Loss: 1.302483 | Val Loss: 0.982839 | Train R2: -0.2741 | Val R2: 0.0139 | LR: 9.83e-04 | Best Val R2: 0.0139 | Best Val Loss: 0.982839 (Epoch 11)
+2025-05-28 14:59:06,579 - INFO - Epoch 12/200 | Train Loss: 1.434670 | Val Loss: 1.104615 | Train R2: -0.3772 | Val R2: -0.1112 | LR: 9.19e-04 | Best Val R2: 0.0139 | Best Val Loss: 0.982839 (Epoch 11)
+2025-05-28 14:59:09,657 - INFO - Epoch 13: New best model saved with val_loss: 0.980185, R2: 0.0163
+2025-05-28 14:59:09,657 - INFO - Epoch 13/200 | Train Loss: 1.500330 | Val Loss: 0.980185 | Train R2: -0.4980 | Val R2: 0.0163 | LR: 8.15e-04 | Best Val R2: 0.0163 | Best Val Loss: 0.980185 (Epoch 13)
+2025-05-28 14:59:11,926 - INFO - Epoch 14/200 | Train Loss: 1.300309 | Val Loss: 1.005693 | Train R2: -0.2754 | Val R2: -0.0193 | LR: 6.80e-04 | Best Val R2: 0.0163 | Best Val Loss: 0.980185 (Epoch 13)
+2025-05-28 14:59:14,054 - INFO - Epoch 15/200 | Train Loss: 1.204267 | Val Loss: 1.020020 | Train R2: -0.2555 | Val R2: -0.0405 | LR: 5.27e-04 | Best Val R2: 0.0163 | Best Val Loss: 0.980185 (Epoch 13)
+2025-05-28 14:59:16,835 - INFO - Epoch 16/200 | Train Loss: 1.177344 | Val Loss: 0.990835 | Train R2: -0.1170 | Val R2: -0.0168 | LR: 3.71e-04 | Best Val R2: 0.0163 | Best Val Loss: 0.980185 (Epoch 13)
+2025-05-28 14:59:19,683 - INFO - Epoch 17/200 | Train Loss: 1.172811 | Val Loss: 0.977171 | Train R2: -0.1776 | Val R2: -0.0081 | LR: 2.28e-04 | Best Val R2: 0.0163 | Best Val Loss: 0.980185 (Epoch 13)
+2025-05-28 14:59:22,643 - INFO - Epoch 18/200 | Train Loss: 1.174914 | Val Loss: 0.977407 | Train R2: -0.1721 | Val R2: -0.0115 | LR: 1.12e-04 | Best Val R2: 0.0163 | Best Val Loss: 0.980185 (Epoch 13)
+2025-05-28 14:59:25,023 - INFO - Epoch 19/200 | Train Loss: 1.171446 | Val Loss: 0.982837 | Train R2: -0.1233 | Val R2: -0.0187 | LR: 3.42e-05 | Best Val R2: 0.0163 | Best Val Loss: 0.980185 (Epoch 13)
+2025-05-28 14:59:27,699 - INFO - Epoch 20/200 | Train Loss: 1.168769 | Val Loss: 0.985350 | Train R2: -0.1555 | Val R2: -0.0217 | LR: 1.68e-06 | Best Val R2: 0.0163 | Best Val Loss: 0.980185 (Epoch 13)
+2025-05-28 14:59:29,959 - INFO - Epoch 21/200 | Train Loss: 1.159655 | Val Loss: 1.170531 | Train R2: -0.1538 | Val R2: -0.2189 | LR: 9.83e-04 | Best Val R2: 0.0163 | Best Val Loss: 0.980185 (Epoch 13)
+2025-05-28 14:59:32,551 - INFO - Epoch 22/200 | Train Loss: 1.225804 | Val Loss: 1.468386 | Train R2: -0.2467 | Val R2: -0.5350 | LR: 9.19e-04 | Best Val R2: 0.0163 | Best Val Loss: 0.980185 (Epoch 13)
+2025-05-28 14:59:35,105 - INFO - Epoch 23/200 | Train Loss: 1.373450 | Val Loss: 1.398960 | Train R2: -0.3486 | Val R2: -0.4655 | LR: 8.15e-04 | Best Val R2: 0.0163 | Best Val Loss: 0.980185 (Epoch 13)
+2025-05-28 14:59:37,678 - INFO - Epoch 24/200 | Train Loss: 1.290280 | Val Loss: 1.160584 | Train R2: -0.3025 | Val R2: -0.2205 | LR: 6.80e-04 | Best Val R2: 0.0163 | Best Val Loss: 0.980185 (Epoch 13)
+2025-05-28 14:59:40,349 - INFO - Epoch 25/200 | Train Loss: 1.181527 | Val Loss: 1.006755 | Train R2: -0.1995 | Val R2: -0.0530 | LR: 5.27e-04 | Best Val R2: 0.0163 | Best Val Loss: 0.980185 (Epoch 13)
+2025-05-28 14:59:43,132 - INFO - Epoch 26/200 | Train Loss: 1.102103 | Val Loss: 0.965426 | Train R2: -0.1015 | Val R2: -0.0018 | LR: 3.71e-04 | Best Val R2: 0.0163 | Best Val Loss: 0.980185 (Epoch 13)
+2025-05-28 14:59:45,835 - INFO - Epoch 27/200 | Train Loss: 1.106129 | Val Loss: 0.962439 | Train R2: -0.0332 | Val R2: 0.0045 | LR: 2.28e-04 | Best Val R2: 0.0163 | Best Val Loss: 0.980185 (Epoch 13)
+2025-05-28 14:59:48,489 - INFO - Epoch 28/200 | Train Loss: 1.113372 | Val Loss: 0.969193 | Train R2: -0.0986 | Val R2: -0.0006 | LR: 1.12e-04 | Best Val R2: 0.0163 | Best Val Loss: 0.980185 (Epoch 13)
+2025-05-28 14:59:51,546 - INFO - Epoch 29/200 | Train Loss: 1.102189 | Val Loss: 0.974260 | Train R2: -0.0725 | Val R2: -0.0057 | LR: 3.42e-05 | Best Val R2: 0.0163 | Best Val Loss: 0.980185 (Epoch 13)
+2025-05-28 14:59:53,864 - INFO - Epoch 30/200 | Train Loss: 1.110468 | Val Loss: 0.975459 | Train R2: -0.0252 | Val R2: -0.0071 | LR: 1.68e-06 | Best Val R2: 0.0163 | Best Val Loss: 0.980185 (Epoch 13)
+2025-05-28 14:59:56,627 - INFO - Epoch 31/200 | Train Loss: 1.102921 | Val Loss: 0.983061 | Train R2: -0.0763 | Val R2: -0.0243 | LR: 9.83e-04 | Best Val R2: 0.0163 | Best Val Loss: 0.980185 (Epoch 13)
+2025-05-28 14:59:59,066 - INFO - Epoch 32/200 | Train Loss: 1.094734 | Val Loss: 1.020639 | Train R2: -0.0509 | Val R2: -0.0755 | LR: 9.19e-04 | Best Val R2: 0.0163 | Best Val Loss: 0.980185 (Epoch 13)
+2025-05-28 15:00:01,966 - INFO - Epoch 33/200 | Train Loss: 1.092812 | Val Loss: 1.001658 | Train R2: -0.1096 | Val R2: -0.0602 | LR: 8.15e-04 | Best Val R2: 0.0163 | Best Val Loss: 0.980185 (Epoch 13)
+2025-05-28 15:00:04,346 - INFO - Epoch 34/200 | Train Loss: 1.072216 | Val Loss: 0.971064 | Train R2: -0.0713 | Val R2: -0.0207 | LR: 6.80e-04 | Best Val R2: 0.0163 | Best Val Loss: 0.980185 (Epoch 13)
+2025-05-28 15:00:07,326 - INFO - Epoch 35/200 | Train Loss: 1.065449 | Val Loss: 0.964993 | Train R2: -0.0626 | Val R2: -0.0061 | LR: 5.27e-04 | Best Val R2: 0.0163 | Best Val Loss: 0.980185 (Epoch 13)
+2025-05-28 15:00:10,251 - INFO - Epoch 36/200 | Train Loss: 1.077228 | Val Loss: 0.972280 | Train R2: -0.0659 | Val R2: -0.0112 | LR: 3.71e-04 | Best Val R2: 0.0163 | Best Val Loss: 0.980185 (Epoch 13)
+2025-05-28 15:00:12,900 - INFO - Epoch 37/200 | Train Loss: 1.074342 | Val Loss: 0.981242 | Train R2: -0.0524 | Val R2: -0.0201 | LR: 2.28e-04 | Best Val R2: 0.0163 | Best Val Loss: 0.980185 (Epoch 13)
+2025-05-28 15:00:15,407 - INFO - Epoch 38/200 | Train Loss: 1.059760 | Val Loss: 0.985582 | Train R2: -0.0594 | Val R2: -0.0252 | LR: 1.12e-04 | Best Val R2: 0.0163 | Best Val Loss: 0.980185 (Epoch 13)
+2025-05-28 15:00:17,816 - INFO - Epoch 39/200 | Train Loss: 1.063130 | Val Loss: 0.985055 | Train R2: -0.0391 | Val R2: -0.0251 | LR: 3.42e-05 | Best Val R2: 0.0163 | Best Val Loss: 0.980185 (Epoch 13)
+2025-05-28 15:00:20,585 - INFO - Epoch 40/200 | Train Loss: 1.051446 | Val Loss: 0.985410 | Train R2: -0.0161 | Val R2: -0.0256 | LR: 1.68e-06 | Best Val R2: 0.0163 | Best Val Loss: 0.980185 (Epoch 13)
+2025-05-28 15:00:23,097 - INFO - Epoch 41/200 | Train Loss: 1.063495 | Val Loss: 0.988615 | Train R2: -0.0785 | Val R2: -0.0301 | LR: 9.83e-04 | Best Val R2: 0.0163 | Best Val Loss: 0.980185 (Epoch 13)
+2025-05-28 15:00:25,793 - INFO - Epoch 42/200 | Train Loss: 1.051648 | Val Loss: 0.998554 | Train R2: -0.0484 | Val R2: -0.0440 | LR: 9.19e-04 | Best Val R2: 0.0163 | Best Val Loss: 0.980185 (Epoch 13)
+2025-05-28 15:00:28,263 - INFO - Epoch 43/200 | Train Loss: 1.054631 | Val Loss: 1.007946 | Train R2: -0.0106 | Val R2: -0.0547 | LR: 8.15e-04 | Best Val R2: 0.0163 | Best Val Loss: 0.980185 (Epoch 13)
+2025-05-28 15:00:28,263 - INFO - Early stopping triggered after 30 epochs without improvement
+2025-05-28 15:00:28,364 - INFO - Training finished. Best model at epoch 13 with val_loss: 0.980185, val_r2: 0.0163
+2025-05-28 15:00:28,976 - INFO - 训练结果可视化已保存到 visualizations/ 目录
+2025-05-28 15:00:28,976 - INFO - 开始模型可解释性分析...
+2025-05-28 15:00:28,976 - INFO - 开始模型可解释性分析...
+2025-05-28 15:00:29,225 - WARNING - Error visualizing attention for layer 0, head 0: Invalid shape (26,) for image data
+2025-05-28 15:00:29,225 - WARNING - Error visualizing attention for layer 0, head 1: Invalid shape (26,) for image data
+2025-05-28 15:00:29,225 - WARNING - Error visualizing attention for layer 0, head 2: Invalid shape (26,) for image data
+2025-05-28 15:00:29,226 - WARNING - Error visualizing attention for layer 0, head 3: Invalid shape (26,) for image data
+2025-05-28 15:00:29,226 - WARNING - Error visualizing attention for layer 1, head 0: Invalid shape (26,) for image data
+2025-05-28 15:00:29,226 - WARNING - Error visualizing attention for layer 1, head 1: Invalid shape (26,) for image data
+2025-05-28 15:00:29,227 - WARNING - Error visualizing attention for layer 1, head 2: Invalid shape (26,) for image data
+2025-05-28 15:00:29,227 - WARNING - Error visualizing attention for layer 1, head 3: Invalid shape (26,) for image data
+2025-05-28 15:00:29,227 - WARNING - Error visualizing attention for layer 2, head 0: Invalid shape (26,) for image data
+2025-05-28 15:00:29,228 - WARNING - Error visualizing attention for layer 2, head 1: Invalid shape (26,) for image data
+2025-05-28 15:00:29,228 - WARNING - Error visualizing attention for layer 2, head 2: Invalid shape (26,) for image data
+2025-05-28 15:00:29,228 - WARNING - Error visualizing attention for layer 2, head 3: Invalid shape (26,) for image data
+2025-05-28 15:00:29,228 - WARNING - Error visualizing attention for layer 3, head 0: Invalid shape (26,) for image data
+2025-05-28 15:00:29,228 - WARNING - Error visualizing attention for layer 3, head 1: Invalid shape (26,) for image data
+2025-05-28 15:00:29,228 - WARNING - Error visualizing attention for layer 3, head 2: Invalid shape (26,) for image data
+2025-05-28 15:00:29,228 - WARNING - Error visualizing attention for layer 3, head 3: Invalid shape (26,) for image data
+2025-05-28 15:00:29,228 - WARNING - Error visualizing attention for layer 4, head 0: Invalid shape (26,) for image data
+2025-05-28 15:00:29,228 - WARNING - Error visualizing attention for layer 4, head 1: Invalid shape (26,) for image data
+2025-05-28 15:00:29,230 - WARNING - Error visualizing attention for layer 4, head 2: Invalid shape (26,) for image data
+2025-05-28 15:00:29,230 - WARNING - Error visualizing attention for layer 4, head 3: Invalid shape (26,) for image data
+2025-05-28 15:00:29,230 - WARNING - Error visualizing attention for layer 5, head 0: Invalid shape (26,) for image data
+2025-05-28 15:00:29,230 - WARNING - Error visualizing attention for layer 5, head 1: Invalid shape (26,) for image data
+2025-05-28 15:00:29,231 - WARNING - Error visualizing attention for layer 5, head 2: Invalid shape (26,) for image data
+2025-05-28 15:00:29,231 - WARNING - Error visualizing attention for layer 5, head 3: Invalid shape (26,) for image data
+2025-05-28 15:00:29,231 - WARNING - Error visualizing attention for layer 6, head 0: Invalid shape (26,) for image data
+2025-05-28 15:00:29,231 - WARNING - Error visualizing attention for layer 6, head 1: Invalid shape (26,) for image data
+2025-05-28 15:00:29,232 - WARNING - Error visualizing attention for layer 6, head 2: Invalid shape (26,) for image data
+2025-05-28 15:00:29,232 - WARNING - Error visualizing attention for layer 6, head 3: Invalid shape (26,) for image data
+2025-05-28 15:00:29,232 - WARNING - Error visualizing attention for layer 7, head 0: Invalid shape (26,) for image data
+2025-05-28 15:00:29,232 - WARNING - Error visualizing attention for layer 7, head 1: Invalid shape (26,) for image data
+2025-05-28 15:00:29,233 - WARNING - Error visualizing attention for layer 7, head 2: Invalid shape (26,) for image data
+2025-05-28 15:00:29,233 - WARNING - Error visualizing attention for layer 7, head 3: Invalid shape (26,) for image data
+2025-05-28 15:00:31,902 - INFO - Saved attention weights visualization to visualizations\attention_weights_sample_0.png
+2025-05-28 15:00:32,042 - WARNING - Error visualizing attention for layer 0, head 0: Invalid shape (26,) for image data
+2025-05-28 15:00:32,042 - WARNING - Error visualizing attention for layer 0, head 1: Invalid shape (26,) for image data
+2025-05-28 15:00:32,042 - WARNING - Error visualizing attention for layer 0, head 2: Invalid shape (26,) for image data
+2025-05-28 15:00:32,042 - WARNING - Error visualizing attention for layer 0, head 3: Invalid shape (26,) for image data
+2025-05-28 15:00:32,045 - WARNING - Error visualizing attention for layer 1, head 0: Invalid shape (26,) for image data
+2025-05-28 15:00:32,045 - WARNING - Error visualizing attention for layer 1, head 1: Invalid shape (26,) for image data
+2025-05-28 15:00:32,045 - WARNING - Error visualizing attention for layer 1, head 2: Invalid shape (26,) for image data
+2025-05-28 15:00:32,045 - WARNING - Error visualizing attention for layer 1, head 3: Invalid shape (26,) for image data
+2025-05-28 15:00:32,045 - WARNING - Error visualizing attention for layer 2, head 0: Invalid shape (26,) for image data
+2025-05-28 15:00:32,045 - WARNING - Error visualizing attention for layer 2, head 1: Invalid shape (26,) for image data
+2025-05-28 15:00:32,046 - WARNING - Error visualizing attention for layer 2, head 2: Invalid shape (26,) for image data
+2025-05-28 15:00:32,046 - WARNING - Error visualizing attention for layer 2, head 3: Invalid shape (26,) for image data
+2025-05-28 15:00:32,046 - WARNING - Error visualizing attention for layer 3, head 0: Invalid shape (26,) for image data
+2025-05-28 15:00:32,046 - WARNING - Error visualizing attention for layer 3, head 1: Invalid shape (26,) for image data
+2025-05-28 15:00:32,046 - WARNING - Error visualizing attention for layer 3, head 2: Invalid shape (26,) for image data
+2025-05-28 15:00:32,047 - WARNING - Error visualizing attention for layer 3, head 3: Invalid shape (26,) for image data
+2025-05-28 15:00:32,047 - WARNING - Error visualizing attention for layer 4, head 0: Invalid shape (26,) for image data
+2025-05-28 15:00:32,047 - WARNING - Error visualizing attention for layer 4, head 1: Invalid shape (26,) for image data
+2025-05-28 15:00:32,047 - WARNING - Error visualizing attention for layer 4, head 2: Invalid shape (26,) for image data
+2025-05-28 15:00:32,047 - WARNING - Error visualizing attention for layer 4, head 3: Invalid shape (26,) for image data
+2025-05-28 15:00:32,047 - WARNING - Error visualizing attention for layer 5, head 0: Invalid shape (26,) for image data
+2025-05-28 15:00:32,047 - WARNING - Error visualizing attention for layer 5, head 1: Invalid shape (26,) for image data
+2025-05-28 15:00:32,047 - WARNING - Error visualizing attention for layer 5, head 2: Invalid shape (26,) for image data
+2025-05-28 15:00:32,047 - WARNING - Error visualizing attention for layer 5, head 3: Invalid shape (26,) for image data
+2025-05-28 15:00:32,047 - WARNING - Error visualizing attention for layer 6, head 0: Invalid shape (26,) for image data
+2025-05-28 15:00:32,047 - WARNING - Error visualizing attention for layer 6, head 1: Invalid shape (26,) for image data
+2025-05-28 15:00:32,047 - WARNING - Error visualizing attention for layer 6, head 2: Invalid shape (26,) for image data
+2025-05-28 15:00:32,047 - WARNING - Error visualizing attention for layer 6, head 3: Invalid shape (26,) for image data
+2025-05-28 15:00:32,047 - WARNING - Error visualizing attention for layer 7, head 0: Invalid shape (26,) for image data
+2025-05-28 15:00:32,050 - WARNING - Error visualizing attention for layer 7, head 1: Invalid shape (26,) for image data
+2025-05-28 15:00:32,050 - WARNING - Error visualizing attention for layer 7, head 2: Invalid shape (26,) for image data
+2025-05-28 15:00:32,050 - WARNING - Error visualizing attention for layer 7, head 3: Invalid shape (26,) for image data
+2025-05-28 15:00:34,830 - INFO - Saved attention weights visualization to visualizations\attention_weights_sample_1.png
+2025-05-28 15:00:35,196 - WARNING - Error visualizing attention for layer 0, head 0: Invalid shape (26,) for image data
+2025-05-28 15:00:35,197 - WARNING - Error visualizing attention for layer 0, head 1: Invalid shape (26,) for image data
+2025-05-28 15:00:35,197 - WARNING - Error visualizing attention for layer 0, head 2: Invalid shape (26,) for image data
+2025-05-28 15:00:35,197 - WARNING - Error visualizing attention for layer 0, head 3: Invalid shape (26,) for image data
+2025-05-28 15:00:35,197 - WARNING - Error visualizing attention for layer 1, head 0: Invalid shape (26,) for image data
+2025-05-28 15:00:35,197 - WARNING - Error visualizing attention for layer 1, head 1: Invalid shape (26,) for image data
+2025-05-28 15:00:35,197 - WARNING - Error visualizing attention for layer 1, head 2: Invalid shape (26,) for image data
+2025-05-28 15:00:35,197 - WARNING - Error visualizing attention for layer 1, head 3: Invalid shape (26,) for image data
+2025-05-28 15:00:35,199 - WARNING - Error visualizing attention for layer 2, head 0: Invalid shape (26,) for image data
+2025-05-28 15:00:35,199 - WARNING - Error visualizing attention for layer 2, head 1: Invalid shape (26,) for image data
+2025-05-28 15:00:35,199 - WARNING - Error visualizing attention for layer 2, head 2: Invalid shape (26,) for image data
+2025-05-28 15:00:35,199 - WARNING - Error visualizing attention for layer 2, head 3: Invalid shape (26,) for image data
+2025-05-28 15:00:35,199 - WARNING - Error visualizing attention for layer 3, head 0: Invalid shape (26,) for image data
+2025-05-28 15:00:35,199 - WARNING - Error visualizing attention for layer 3, head 1: Invalid shape (26,) for image data
+2025-05-28 15:00:35,199 - WARNING - Error visualizing attention for layer 3, head 2: Invalid shape (26,) for image data
+2025-05-28 15:00:35,199 - WARNING - Error visualizing attention for layer 3, head 3: Invalid shape (26,) for image data
+2025-05-28 15:00:35,199 - WARNING - Error visualizing attention for layer 4, head 0: Invalid shape (26,) for image data
+2025-05-28 15:00:35,199 - WARNING - Error visualizing attention for layer 4, head 1: Invalid shape (26,) for image data
+2025-05-28 15:00:35,199 - WARNING - Error visualizing attention for layer 4, head 2: Invalid shape (26,) for image data
+2025-05-28 15:00:35,199 - WARNING - Error visualizing attention for layer 4, head 3: Invalid shape (26,) for image data
+2025-05-28 15:00:35,199 - WARNING - Error visualizing attention for layer 5, head 0: Invalid shape (26,) for image data
+2025-05-28 15:00:35,202 - WARNING - Error visualizing attention for layer 5, head 1: Invalid shape (26,) for image data
+2025-05-28 15:00:35,202 - WARNING - Error visualizing attention for layer 5, head 2: Invalid shape (26,) for image data
+2025-05-28 15:00:35,202 - WARNING - Error visualizing attention for layer 5, head 3: Invalid shape (26,) for image data
+2025-05-28 15:00:35,202 - WARNING - Error visualizing attention for layer 6, head 0: Invalid shape (26,) for image data
+2025-05-28 15:00:35,202 - WARNING - Error visualizing attention for layer 6, head 1: Invalid shape (26,) for image data
+2025-05-28 15:00:35,202 - WARNING - Error visualizing attention for layer 6, head 2: Invalid shape (26,) for image data
+2025-05-28 15:00:35,203 - WARNING - Error visualizing attention for layer 6, head 3: Invalid shape (26,) for image data
+2025-05-28 15:00:35,203 - WARNING - Error visualizing attention for layer 7, head 0: Invalid shape (26,) for image data
+2025-05-28 15:00:35,203 - WARNING - Error visualizing attention for layer 7, head 1: Invalid shape (26,) for image data
+2025-05-28 15:00:35,203 - WARNING - Error visualizing attention for layer 7, head 2: Invalid shape (26,) for image data
+2025-05-28 15:00:35,203 - WARNING - Error visualizing attention for layer 7, head 3: Invalid shape (26,) for image data
+2025-05-28 15:00:37,777 - INFO - Saved attention weights visualization to visualizations\attention_weights_sample_2.png
+2025-05-28 15:00:38,469 - INFO - Saved attention visualization for sequence 0 to visualizations/attention_sequence_0.png
+2025-05-28 15:00:39,435 - INFO - Saved attention visualization for sequence 1 to visualizations/attention_sequence_1.png
+2025-05-28 15:00:40,206 - INFO - Saved attention visualization for sequence 2 to visualizations/attention_sequence_2.png
+2025-05-28 15:00:40,682 - WARNING - No Grad-CAM data available
+2025-05-28 15:00:40,683 - INFO - 模型可解释性分析完成
+2025-05-28 15:00:40,684 - INFO - 模型可解释性分析完成，结果已保存到 visualizations/ 目录
+2025-05-28 15:00:40,684 - INFO - 程序执行完成
