@@ -1,0 +1,307 @@
+2025-05-29 11:10:19,777 - INFO - Using device: cpu
+2025-05-29 11:10:19,837 - INFO - 数据加载成功
+2025-05-29 11:10:19,840 - INFO - BirdsVariety 标准化前: ['SZ901', 'Ross', 'Cobb', 'SZ901/SZ901Plus', 'Cobb 500', 'SZ901Plus', 'Cobb/SZ901', 'SZ901plus', '901.0', 'ROSS', 'ROSS/COBB']
+2025-05-29 11:10:19,841 - INFO - BirdsVariety 标准化后: ['SZ901 Plus', 'Cobb']
+2025-05-29 11:10:19,841 - INFO - BirdsVariety 编码: {'Cobb': 0, 'SZ901 Plus': 1}
+2025-05-29 11:10:19,841 - INFO - FarmSupervisor 编码: {'丁家保': 0, '公赔河': 1, '刘乾乾': 2, '史成志': 3, '张换吉': 4, '张明明': 5, '戈兆康': 6, '李明': 7, '李晓': 8, '李芳昌': 9, '李荣': 10, '王勇': 11, '王志远': 12, '薄明龙': 13, '高阳阳': 14}
+2025-05-29 11:10:19,857 - INFO - 训练集大小: 142, 批次数量: 3
+2025-05-29 11:10:19,857 - INFO - 验证集大小: 36, 批次数量: 1
+2025-05-29 11:10:19,964 - INFO - 使用 TransformerWithPostFusion 模型, hidden_dim=128, nhead=8, num_layers=3
+2025-05-29 11:10:21,701 - INFO - Epoch 1/200 | Train Loss: 0.404606 | Val Loss: 2.015941 | Train R2: -0.8783 | Val R2: -0.1552 | Best Val R2: -0.1552
+2025-05-29 11:10:21,863 - INFO - Epoch 2/200 | Train Loss: 0.402858 | Val Loss: 1.581495 | Train R2: -0.3437 | Val R2: -0.0013 | Best Val R2: -0.0013
+2025-05-29 11:10:22,023 - INFO - Epoch 3/200 | Train Loss: 0.400978 | Val Loss: 1.994627 | Train R2: -0.7603 | Val R2: -0.2959 | Best Val R2: -0.0013
+2025-05-29 11:10:22,179 - INFO - Epoch 4/200 | Train Loss: 0.357996 | Val Loss: 1.781321 | Train R2: -0.4441 | Val R2: -0.1735 | Best Val R2: -0.0013
+2025-05-29 11:10:22,370 - INFO - Epoch 5/200 | Train Loss: 0.323428 | Val Loss: 1.555398 | Train R2: -0.2841 | Val R2: -0.0200 | Best Val R2: -0.0013
+2025-05-29 11:10:22,552 - INFO - Epoch 6/200 | Train Loss: 0.339002 | Val Loss: 1.554543 | Train R2: -0.2920 | Val R2: -0.0106 | Best Val R2: -0.0013
+2025-05-29 11:10:22,741 - INFO - Epoch 7/200 | Train Loss: 0.323722 | Val Loss: 1.579587 | Train R2: -0.2834 | Val R2: -0.0249 | Best Val R2: -0.0013
+2025-05-29 11:10:22,883 - INFO - Epoch 8/200 | Train Loss: 0.314506 | Val Loss: 1.627879 | Train R2: -0.3354 | Val R2: -0.0581 | Best Val R2: -0.0013
+2025-05-29 11:10:23,069 - INFO - Epoch 9/200 | Train Loss: 0.324112 | Val Loss: 1.657741 | Train R2: -0.4424 | Val R2: -0.0804 | Best Val R2: -0.0013
+2025-05-29 11:10:23,267 - INFO - Epoch 10/200 | Train Loss: 0.318193 | Val Loss: 1.661467 | Train R2: -0.1737 | Val R2: -0.0838 | Best Val R2: -0.0013
+2025-05-29 11:10:23,452 - INFO - Epoch 11/200 | Train Loss: 0.310405 | Val Loss: 1.661151 | Train R2: -0.2970 | Val R2: -0.0837 | Best Val R2: -0.0013
+2025-05-29 11:10:23,643 - INFO - Epoch 12/200 | Train Loss: 0.315191 | Val Loss: 1.526362 | Train R2: -0.3134 | Val R2: -0.0125 | Best Val R2: -0.0013
+2025-05-29 11:10:23,829 - INFO - Epoch 13/200 | Train Loss: 0.295565 | Val Loss: 1.498943 | Train R2: -0.1789 | Val R2: 0.0051 | Best Val R2: 0.0051
+2025-05-29 11:10:24,052 - INFO - Epoch 14/200 | Train Loss: 0.317638 | Val Loss: 1.509842 | Train R2: -0.2358 | Val R2: 0.0082 | Best Val R2: 0.0082
+2025-05-29 11:10:24,355 - INFO - Epoch 15/200 | Train Loss: 0.321670 | Val Loss: 1.502270 | Train R2: -0.2777 | Val R2: 0.0190 | Best Val R2: 0.0190
+2025-05-29 11:10:24,687 - INFO - Epoch 16/200 | Train Loss: 0.314697 | Val Loss: 1.507281 | Train R2: -0.2976 | Val R2: 0.0167 | Best Val R2: 0.0190
+2025-05-29 11:10:25,043 - INFO - Epoch 17/200 | Train Loss: 0.308596 | Val Loss: 1.541354 | Train R2: -0.1615 | Val R2: -0.0053 | Best Val R2: 0.0190
+2025-05-29 11:10:25,344 - INFO - Epoch 18/200 | Train Loss: 0.295717 | Val Loss: 1.573445 | Train R2: -0.1862 | Val R2: -0.0268 | Best Val R2: 0.0190
+2025-05-29 11:10:25,643 - INFO - Epoch 19/200 | Train Loss: 0.296692 | Val Loss: 1.597240 | Train R2: -0.1170 | Val R2: -0.0421 | Best Val R2: 0.0190
+2025-05-29 11:10:25,920 - INFO - Epoch 20/200 | Train Loss: 0.297218 | Val Loss: 1.603806 | Train R2: -0.1151 | Val R2: -0.0457 | Best Val R2: 0.0190
+2025-05-29 11:10:26,267 - INFO - Epoch 21/200 | Train Loss: 0.289239 | Val Loss: 1.604259 | Train R2: -0.1310 | Val R2: -0.0459 | Best Val R2: 0.0190
+2025-05-29 11:10:26,693 - INFO - Epoch 22/200 | Train Loss: 0.305167 | Val Loss: 1.667644 | Train R2: -0.1710 | Val R2: -0.0685 | Best Val R2: 0.0190
+2025-05-29 11:10:27,008 - INFO - Epoch 23/200 | Train Loss: 0.294752 | Val Loss: 1.654154 | Train R2: -0.0987 | Val R2: -0.0535 | Best Val R2: 0.0190
+2025-05-29 11:10:27,331 - INFO - Epoch 24/200 | Train Loss: 0.290790 | Val Loss: 1.630209 | Train R2: -0.0585 | Val R2: -0.0393 | Best Val R2: 0.0190
+2025-05-29 11:10:27,625 - INFO - Epoch 25/200 | Train Loss: 0.294115 | Val Loss: 1.579005 | Train R2: 0.0388 | Val R2: -0.0107 | Best Val R2: 0.0190
+2025-05-29 11:10:27,921 - INFO - Epoch 26/200 | Train Loss: 0.280403 | Val Loss: 1.557047 | Train R2: -0.1049 | Val R2: -0.0023 | Best Val R2: 0.0190
+2025-05-29 11:10:28,263 - INFO - Epoch 27/200 | Train Loss: 0.287915 | Val Loss: 1.547528 | Train R2: -0.0818 | Val R2: -0.0029 | Best Val R2: 0.0190
+2025-05-29 11:10:28,558 - INFO - Epoch 28/200 | Train Loss: 0.292144 | Val Loss: 1.551159 | Train R2: -0.0792 | Val R2: -0.0102 | Best Val R2: 0.0190
+2025-05-29 11:10:28,817 - INFO - Epoch 29/200 | Train Loss: 0.276889 | Val Loss: 1.552199 | Train R2: -0.1318 | Val R2: -0.0120 | Best Val R2: 0.0190
+2025-05-29 11:10:29,077 - INFO - Epoch 30/200 | Train Loss: 0.282949 | Val Loss: 1.551362 | Train R2: -0.0609 | Val R2: -0.0118 | Best Val R2: 0.0190
+2025-05-29 11:10:29,406 - INFO - Epoch 31/200 | Train Loss: 0.282105 | Val Loss: 1.551413 | Train R2: -0.1032 | Val R2: -0.0119 | Best Val R2: 0.0190
+2025-05-29 11:10:29,711 - INFO - Epoch 32/200 | Train Loss: 0.280104 | Val Loss: 1.567597 | Train R2: -0.0603 | Val R2: -0.0355 | Best Val R2: 0.0190
+2025-05-29 11:10:29,969 - INFO - Epoch 33/200 | Train Loss: 0.281730 | Val Loss: 1.581869 | Train R2: -0.0764 | Val R2: -0.0558 | Best Val R2: 0.0190
+2025-05-29 11:10:30,170 - INFO - Epoch 34/200 | Train Loss: 0.280865 | Val Loss: 1.562168 | Train R2: -0.0637 | Val R2: -0.0476 | Best Val R2: 0.0190
+2025-05-29 11:10:30,401 - INFO - Epoch 35/200 | Train Loss: 0.277027 | Val Loss: 1.544845 | Train R2: -0.1091 | Val R2: -0.0353 | Best Val R2: 0.0190
+2025-05-29 11:10:30,614 - INFO - Epoch 36/200 | Train Loss: 0.282172 | Val Loss: 1.543655 | Train R2: -0.1110 | Val R2: -0.0341 | Best Val R2: 0.0190
+2025-05-29 11:10:30,819 - INFO - Epoch 37/200 | Train Loss: 0.281751 | Val Loss: 1.540116 | Train R2: -0.1194 | Val R2: -0.0293 | Best Val R2: 0.0190
+2025-05-29 11:10:31,020 - INFO - Epoch 38/200 | Train Loss: 0.272160 | Val Loss: 1.544137 | Train R2: -0.0863 | Val R2: -0.0304 | Best Val R2: 0.0190
+2025-05-29 11:10:31,314 - INFO - Epoch 39/200 | Train Loss: 0.277405 | Val Loss: 1.545848 | Train R2: -0.0448 | Val R2: -0.0294 | Best Val R2: 0.0190
+2025-05-29 11:10:31,575 - INFO - Epoch 40/200 | Train Loss: 0.274431 | Val Loss: 1.546055 | Train R2: -0.1152 | Val R2: -0.0286 | Best Val R2: 0.0190
+2025-05-29 11:10:31,854 - INFO - Epoch 41/200 | Train Loss: 0.274356 | Val Loss: 1.546014 | Train R2: -0.0987 | Val R2: -0.0285 | Best Val R2: 0.0190
+2025-05-29 11:10:32,105 - INFO - Epoch 42/200 | Train Loss: 0.273117 | Val Loss: 1.529376 | Train R2: -0.0392 | Val R2: 0.0115 | Best Val R2: 0.0190
+2025-05-29 11:10:32,389 - INFO - Epoch 43/200 | Train Loss: 0.273787 | Val Loss: 1.540805 | Train R2: -0.1060 | Val R2: 0.0141 | Best Val R2: 0.0190
+2025-05-29 11:10:32,665 - INFO - Epoch 44/200 | Train Loss: 0.273640 | Val Loss: 1.539754 | Train R2: -0.0093 | Val R2: 0.0182 | Best Val R2: 0.0190
+2025-05-29 11:10:32,967 - INFO - Epoch 45/200 | Train Loss: 0.270622 | Val Loss: 1.537503 | Train R2: -0.0588 | Val R2: 0.0180 | Best Val R2: 0.0190
+2025-05-29 11:10:32,967 - INFO - Early stopping at epoch 45
+2025-05-29 11:10:32,970 - INFO - TransformerWithPostFusion 验证集还原后指标: {'R2': 0.01899238112896362, 'MAE': 0.010993052, 'MAPE': 0.2902403}
+2025-05-29 11:10:32,981 - INFO - 使用 TransformerWithFixedToken 模型, hidden_dim=128, nhead=8, num_layers=3
+2025-05-29 11:10:33,229 - INFO - Epoch 1/200 | Train Loss: 0.296007 | Val Loss: 2.284686 | Train R2: -0.1840 | Val R2: -0.5606 | Best Val R2: -0.5606
+2025-05-29 11:10:33,461 - INFO - Epoch 2/200 | Train Loss: 0.345396 | Val Loss: 1.593850 | Train R2: -0.3816 | Val R2: -0.0887 | Best Val R2: -0.0887
+2025-05-29 11:10:33,687 - INFO - Epoch 3/200 | Train Loss: 0.238217 | Val Loss: 1.377032 | Train R2: 0.0471 | Val R2: 0.0594 | Best Val R2: 0.0594
+2025-05-29 11:10:33,913 - INFO - Epoch 4/200 | Train Loss: 0.234992 | Val Loss: 1.365829 | Train R2: 0.0600 | Val R2: 0.0670 | Best Val R2: 0.0670
+2025-05-29 11:10:34,166 - INFO - Epoch 5/200 | Train Loss: 0.233005 | Val Loss: 1.361518 | Train R2: 0.0680 | Val R2: 0.0700 | Best Val R2: 0.0700
+2025-05-29 11:10:34,395 - INFO - Epoch 6/200 | Train Loss: 0.218872 | Val Loss: 1.386076 | Train R2: 0.1245 | Val R2: 0.0532 | Best Val R2: 0.0700
+2025-05-29 11:10:34,617 - INFO - Epoch 7/200 | Train Loss: 0.200832 | Val Loss: 1.421238 | Train R2: 0.1967 | Val R2: 0.0292 | Best Val R2: 0.0700
+2025-05-29 11:10:34,815 - INFO - Epoch 8/200 | Train Loss: 0.193000 | Val Loss: 1.431993 | Train R2: 0.2280 | Val R2: 0.0219 | Best Val R2: 0.0700
+2025-05-29 11:10:35,014 - INFO - Epoch 9/200 | Train Loss: 0.196327 | Val Loss: 1.425568 | Train R2: 0.2147 | Val R2: 0.0262 | Best Val R2: 0.0700
+2025-05-29 11:10:35,256 - INFO - Epoch 10/200 | Train Loss: 0.190542 | Val Loss: 1.421018 | Train R2: 0.2378 | Val R2: 0.0294 | Best Val R2: 0.0700
+2025-05-29 11:10:35,652 - INFO - Epoch 11/200 | Train Loss: 0.186029 | Val Loss: 1.420520 | Train R2: 0.2559 | Val R2: 0.0297 | Best Val R2: 0.0700
+2025-05-29 11:10:35,981 - INFO - Epoch 12/200 | Train Loss: 0.192583 | Val Loss: 1.284708 | Train R2: 0.2297 | Val R2: 0.1225 | Best Val R2: 0.1225
+2025-05-29 11:10:36,200 - INFO - Epoch 13/200 | Train Loss: 0.161101 | Val Loss: 1.227712 | Train R2: 0.3556 | Val R2: 0.1614 | Best Val R2: 0.1614
+2025-05-29 11:10:36,452 - INFO - Epoch 14/200 | Train Loss: 0.143233 | Val Loss: 1.244332 | Train R2: 0.4271 | Val R2: 0.1500 | Best Val R2: 0.1614
+2025-05-29 11:10:36,700 - INFO - Epoch 15/200 | Train Loss: 0.129455 | Val Loss: 1.235890 | Train R2: 0.4822 | Val R2: 0.1558 | Best Val R2: 0.1614
+2025-05-29 11:10:36,950 - INFO - Epoch 16/200 | Train Loss: 0.132580 | Val Loss: 1.147792 | Train R2: 0.4697 | Val R2: 0.2160 | Best Val R2: 0.2160
+2025-05-29 11:10:37,191 - INFO - Epoch 17/200 | Train Loss: 0.124880 | Val Loss: 1.074861 | Train R2: 0.5005 | Val R2: 0.2658 | Best Val R2: 0.2658
+2025-05-29 11:10:37,435 - INFO - Epoch 18/200 | Train Loss: 0.123300 | Val Loss: 1.042947 | Train R2: 0.5068 | Val R2: 0.2876 | Best Val R2: 0.2876
+2025-05-29 11:10:37,667 - INFO - Epoch 19/200 | Train Loss: 0.122287 | Val Loss: 1.032958 | Train R2: 0.5109 | Val R2: 0.2944 | Best Val R2: 0.2944
+2025-05-29 11:10:37,905 - INFO - Epoch 20/200 | Train Loss: 0.120123 | Val Loss: 1.032883 | Train R2: 0.5195 | Val R2: 0.2945 | Best Val R2: 0.2945
+2025-05-29 11:10:38,191 - INFO - Epoch 21/200 | Train Loss: 0.125715 | Val Loss: 1.033023 | Train R2: 0.4971 | Val R2: 0.2944 | Best Val R2: 0.2945
+2025-05-29 11:10:38,497 - INFO - Epoch 22/200 | Train Loss: 0.124815 | Val Loss: 1.152321 | Train R2: 0.5007 | Val R2: 0.2129 | Best Val R2: 0.2945
+2025-05-29 11:10:38,770 - INFO - Epoch 23/200 | Train Loss: 0.122207 | Val Loss: 1.183471 | Train R2: 0.5112 | Val R2: 0.1916 | Best Val R2: 0.2945
+2025-05-29 11:10:39,067 - INFO - Epoch 24/200 | Train Loss: 0.109599 | Val Loss: 1.107194 | Train R2: 0.5616 | Val R2: 0.2437 | Best Val R2: 0.2945
+2025-05-29 11:10:39,409 - INFO - Epoch 25/200 | Train Loss: 0.111013 | Val Loss: 1.029903 | Train R2: 0.5559 | Val R2: 0.2965 | Best Val R2: 0.2965
+2025-05-29 11:10:39,715 - INFO - Epoch 26/200 | Train Loss: 0.109395 | Val Loss: 0.994848 | Train R2: 0.5624 | Val R2: 0.3205 | Best Val R2: 0.3205
+2025-05-29 11:10:40,012 - INFO - Epoch 27/200 | Train Loss: 0.104705 | Val Loss: 0.979563 | Train R2: 0.5812 | Val R2: 0.3309 | Best Val R2: 0.3309
+2025-05-29 11:10:40,220 - INFO - Epoch 28/200 | Train Loss: 0.102868 | Val Loss: 0.966693 | Train R2: 0.5885 | Val R2: 0.3397 | Best Val R2: 0.3397
+2025-05-29 11:10:40,450 - INFO - Epoch 29/200 | Train Loss: 0.103392 | Val Loss: 0.958171 | Train R2: 0.5864 | Val R2: 0.3455 | Best Val R2: 0.3455
+2025-05-29 11:10:40,694 - INFO - Epoch 30/200 | Train Loss: 0.095163 | Val Loss: 0.954574 | Train R2: 0.6193 | Val R2: 0.3480 | Best Val R2: 0.3480
+2025-05-29 11:10:40,937 - INFO - Epoch 31/200 | Train Loss: 0.095794 | Val Loss: 0.954217 | Train R2: 0.6168 | Val R2: 0.3482 | Best Val R2: 0.3482
+2025-05-29 11:10:41,170 - INFO - Epoch 32/200 | Train Loss: 0.094315 | Val Loss: 0.881352 | Train R2: 0.6227 | Val R2: 0.3980 | Best Val R2: 0.3980
+2025-05-29 11:10:41,415 - INFO - Epoch 33/200 | Train Loss: 0.091145 | Val Loss: 0.830155 | Train R2: 0.6354 | Val R2: 0.4329 | Best Val R2: 0.4329
+2025-05-29 11:10:41,637 - INFO - Epoch 34/200 | Train Loss: 0.093413 | Val Loss: 0.833489 | Train R2: 0.6263 | Val R2: 0.4307 | Best Val R2: 0.4329
+2025-05-29 11:10:41,879 - INFO - Epoch 35/200 | Train Loss: 0.087433 | Val Loss: 0.808497 | Train R2: 0.6503 | Val R2: 0.4477 | Best Val R2: 0.4477
+2025-05-29 11:10:42,114 - INFO - Epoch 36/200 | Train Loss: 0.094723 | Val Loss: 0.786845 | Train R2: 0.6211 | Val R2: 0.4625 | Best Val R2: 0.4625
+2025-05-29 11:10:42,432 - INFO - Epoch 37/200 | Train Loss: 0.086629 | Val Loss: 0.779830 | Train R2: 0.6535 | Val R2: 0.4673 | Best Val R2: 0.4673
+2025-05-29 11:10:42,706 - INFO - Epoch 38/200 | Train Loss: 0.092800 | Val Loss: 0.783155 | Train R2: 0.6288 | Val R2: 0.4651 | Best Val R2: 0.4673
+2025-05-29 11:10:42,976 - INFO - Epoch 39/200 | Train Loss: 0.083474 | Val Loss: 0.791120 | Train R2: 0.6661 | Val R2: 0.4596 | Best Val R2: 0.4673
+2025-05-29 11:10:43,273 - INFO - Epoch 40/200 | Train Loss: 0.083892 | Val Loss: 0.795002 | Train R2: 0.6644 | Val R2: 0.4570 | Best Val R2: 0.4673
+2025-05-29 11:10:43,568 - INFO - Epoch 41/200 | Train Loss: 0.089853 | Val Loss: 0.795307 | Train R2: 0.6406 | Val R2: 0.4568 | Best Val R2: 0.4673
+2025-05-29 11:10:43,850 - INFO - Epoch 42/200 | Train Loss: 0.087651 | Val Loss: 0.911441 | Train R2: 0.6494 | Val R2: 0.3774 | Best Val R2: 0.4673
+2025-05-29 11:10:44,081 - INFO - Epoch 43/200 | Train Loss: 0.085852 | Val Loss: 0.954295 | Train R2: 0.6566 | Val R2: 0.3482 | Best Val R2: 0.4673
+2025-05-29 11:10:44,275 - INFO - Epoch 44/200 | Train Loss: 0.096501 | Val Loss: 0.944078 | Train R2: 0.6140 | Val R2: 0.3551 | Best Val R2: 0.4673
+2025-05-29 11:10:44,502 - INFO - Epoch 45/200 | Train Loss: 0.085464 | Val Loss: 0.964731 | Train R2: 0.6581 | Val R2: 0.3410 | Best Val R2: 0.4673
+2025-05-29 11:10:44,737 - INFO - Epoch 46/200 | Train Loss: 0.092443 | Val Loss: 0.980934 | Train R2: 0.6302 | Val R2: 0.3300 | Best Val R2: 0.4673
+2025-05-29 11:10:45,005 - INFO - Epoch 47/200 | Train Loss: 0.093013 | Val Loss: 0.985431 | Train R2: 0.6279 | Val R2: 0.3269 | Best Val R2: 0.4673
+2025-05-29 11:10:45,273 - INFO - Epoch 48/200 | Train Loss: 0.085209 | Val Loss: 0.986588 | Train R2: 0.6592 | Val R2: 0.3261 | Best Val R2: 0.4673
+2025-05-29 11:10:45,570 - INFO - Epoch 49/200 | Train Loss: 0.081871 | Val Loss: 0.986748 | Train R2: 0.6725 | Val R2: 0.3260 | Best Val R2: 0.4673
+2025-05-29 11:10:45,874 - INFO - Epoch 50/200 | Train Loss: 0.077213 | Val Loss: 0.986447 | Train R2: 0.6911 | Val R2: 0.3262 | Best Val R2: 0.4673
+2025-05-29 11:10:46,176 - INFO - Epoch 51/200 | Train Loss: 0.077925 | Val Loss: 0.986376 | Train R2: 0.6883 | Val R2: 0.3262 | Best Val R2: 0.4673
+2025-05-29 11:10:46,514 - INFO - Epoch 52/200 | Train Loss: 0.081594 | Val Loss: 1.065867 | Train R2: 0.6736 | Val R2: 0.2719 | Best Val R2: 0.4673
+2025-05-29 11:10:46,837 - INFO - Epoch 53/200 | Train Loss: 0.108509 | Val Loss: 1.126611 | Train R2: 0.5660 | Val R2: 0.2305 | Best Val R2: 0.4673
+2025-05-29 11:10:47,162 - INFO - Epoch 54/200 | Train Loss: 0.134984 | Val Loss: 1.075884 | Train R2: 0.4601 | Val R2: 0.2651 | Best Val R2: 0.4673
+2025-05-29 11:10:47,485 - INFO - Epoch 55/200 | Train Loss: 0.131023 | Val Loss: 0.980239 | Train R2: 0.4759 | Val R2: 0.3304 | Best Val R2: 0.4673
+2025-05-29 11:10:47,793 - INFO - Epoch 56/200 | Train Loss: 0.097352 | Val Loss: 0.920190 | Train R2: 0.6106 | Val R2: 0.3714 | Best Val R2: 0.4673
+2025-05-29 11:10:48,112 - INFO - Epoch 57/200 | Train Loss: 0.084437 | Val Loss: 0.924420 | Train R2: 0.6623 | Val R2: 0.3686 | Best Val R2: 0.4673
+2025-05-29 11:10:48,362 - INFO - Epoch 58/200 | Train Loss: 0.097639 | Val Loss: 0.923493 | Train R2: 0.6094 | Val R2: 0.3692 | Best Val R2: 0.4673
+2025-05-29 11:10:48,590 - INFO - Epoch 59/200 | Train Loss: 0.088433 | Val Loss: 0.916328 | Train R2: 0.6463 | Val R2: 0.3741 | Best Val R2: 0.4673
+2025-05-29 11:10:48,820 - INFO - Epoch 60/200 | Train Loss: 0.090838 | Val Loss: 0.912195 | Train R2: 0.6366 | Val R2: 0.3769 | Best Val R2: 0.4673
+2025-05-29 11:10:49,035 - INFO - Epoch 61/200 | Train Loss: 0.083870 | Val Loss: 0.911780 | Train R2: 0.6645 | Val R2: 0.3772 | Best Val R2: 0.4673
+2025-05-29 11:10:49,256 - INFO - Epoch 62/200 | Train Loss: 0.090135 | Val Loss: 0.902021 | Train R2: 0.6395 | Val R2: 0.3839 | Best Val R2: 0.4673
+2025-05-29 11:10:49,490 - INFO - Epoch 63/200 | Train Loss: 0.079555 | Val Loss: 0.982305 | Train R2: 0.6818 | Val R2: 0.3290 | Best Val R2: 0.4673
+2025-05-29 11:10:49,701 - INFO - Epoch 64/200 | Train Loss: 0.085596 | Val Loss: 0.997863 | Train R2: 0.6576 | Val R2: 0.3184 | Best Val R2: 0.4673
+2025-05-29 11:10:49,927 - INFO - Epoch 65/200 | Train Loss: 0.090218 | Val Loss: 0.939246 | Train R2: 0.6391 | Val R2: 0.3584 | Best Val R2: 0.4673
+2025-05-29 11:10:50,167 - INFO - Epoch 66/200 | Train Loss: 0.084583 | Val Loss: 0.880950 | Train R2: 0.6617 | Val R2: 0.3983 | Best Val R2: 0.4673
+2025-05-29 11:10:50,384 - INFO - Epoch 67/200 | Train Loss: 0.079463 | Val Loss: 0.871138 | Train R2: 0.6821 | Val R2: 0.4050 | Best Val R2: 0.4673
+2025-05-29 11:10:50,384 - INFO - Early stopping at epoch 67
+2025-05-29 11:10:50,390 - INFO - TransformerWithFixedToken 验证集还原后指标: {'R2': 0.467324735871648, 'MAE': 0.00830224, 'MAPE': 0.2051844}
+2025-05-29 11:10:50,395 - INFO - 使用 ImprovedTransformer 模型, hidden_dim=128, nhead=8, num_layers=3
+2025-05-29 11:10:50,613 - INFO - Epoch 1/200 | Train Loss: 0.282929 | Val Loss: 1.765587 | Train R2: -0.1747 | Val R2: -0.2730 | Best Val R2: -0.2730
+2025-05-29 11:10:50,822 - INFO - Epoch 2/200 | Train Loss: 0.413250 | Val Loss: 1.468571 | Train R2: -0.6841 | Val R2: -0.0525 | Best Val R2: -0.0525
+2025-05-29 11:10:51,023 - INFO - Epoch 3/200 | Train Loss: 0.275022 | Val Loss: 1.873693 | Train R2: -0.1304 | Val R2: -0.3099 | Best Val R2: -0.0525
+2025-05-29 11:10:51,222 - INFO - Epoch 4/200 | Train Loss: 0.283940 | Val Loss: 1.893660 | Train R2: -0.1545 | Val R2: -0.3069 | Best Val R2: -0.0525
+2025-05-29 11:10:51,443 - INFO - Epoch 5/200 | Train Loss: 0.289466 | Val Loss: 1.742589 | Train R2: -0.1301 | Val R2: -0.2001 | Best Val R2: -0.0525
+2025-05-29 11:10:51,617 - INFO - Epoch 6/200 | Train Loss: 0.269515 | Val Loss: 1.607754 | Train R2: -0.0765 | Val R2: -0.1045 | Best Val R2: -0.0525
+2025-05-29 11:10:51,835 - INFO - Epoch 7/200 | Train Loss: 0.256893 | Val Loss: 1.545155 | Train R2: -0.0206 | Val R2: -0.0600 | Best Val R2: -0.0525
+2025-05-29 11:10:52,034 - INFO - Epoch 8/200 | Train Loss: 0.252712 | Val Loss: 1.513556 | Train R2: -0.0248 | Val R2: -0.0379 | Best Val R2: -0.0379
+2025-05-29 11:10:52,256 - INFO - Epoch 9/200 | Train Loss: 0.253727 | Val Loss: 1.504612 | Train R2: -0.0568 | Val R2: -0.0316 | Best Val R2: -0.0316
+2025-05-29 11:10:52,634 - INFO - Epoch 10/200 | Train Loss: 0.253803 | Val Loss: 1.502995 | Train R2: -0.0259 | Val R2: -0.0304 | Best Val R2: -0.0304
+2025-05-29 11:10:52,920 - INFO - Epoch 11/200 | Train Loss: 0.255115 | Val Loss: 1.503032 | Train R2: -0.0114 | Val R2: -0.0304 | Best Val R2: -0.0304
+2025-05-29 11:10:53,220 - INFO - Epoch 12/200 | Train Loss: 0.254102 | Val Loss: 1.561114 | Train R2: -0.0314 | Val R2: -0.0701 | Best Val R2: -0.0304
+2025-05-29 11:10:53,541 - INFO - Epoch 13/200 | Train Loss: 0.252139 | Val Loss: 1.572836 | Train R2: -0.0096 | Val R2: -0.0773 | Best Val R2: -0.0304
+2025-05-29 11:10:53,833 - INFO - Epoch 14/200 | Train Loss: 0.252706 | Val Loss: 1.544455 | Train R2: 0.0141 | Val R2: -0.0562 | Best Val R2: -0.0304
+2025-05-29 11:10:54,114 - INFO - Epoch 15/200 | Train Loss: 0.251586 | Val Loss: 1.519681 | Train R2: -0.0097 | Val R2: -0.0384 | Best Val R2: -0.0304
+2025-05-29 11:10:54,456 - INFO - Epoch 16/200 | Train Loss: 0.251764 | Val Loss: 1.510858 | Train R2: -0.0022 | Val R2: -0.0318 | Best Val R2: -0.0304
+2025-05-29 11:10:54,738 - INFO - Epoch 17/200 | Train Loss: 0.251376 | Val Loss: 1.500714 | Train R2: 0.0022 | Val R2: -0.0246 | Best Val R2: -0.0246
+2025-05-29 11:10:55,062 - INFO - Epoch 18/200 | Train Loss: 0.252077 | Val Loss: 1.503158 | Train R2: 0.0119 | Val R2: -0.0262 | Best Val R2: -0.0246
+2025-05-29 11:10:55,272 - INFO - Epoch 19/200 | Train Loss: 0.251714 | Val Loss: 1.503990 | Train R2: -0.0136 | Val R2: -0.0266 | Best Val R2: -0.0246
+2025-05-29 11:10:55,481 - INFO - Epoch 20/200 | Train Loss: 0.252206 | Val Loss: 1.504972 | Train R2: -0.0111 | Val R2: -0.0273 | Best Val R2: -0.0246
+2025-05-29 11:10:55,717 - INFO - Epoch 21/200 | Train Loss: 0.252076 | Val Loss: 1.505085 | Train R2: -0.0064 | Val R2: -0.0273 | Best Val R2: -0.0246
+2025-05-29 11:10:55,939 - INFO - Epoch 22/200 | Train Loss: 0.252237 | Val Loss: 1.546116 | Train R2: 0.0105 | Val R2: -0.0554 | Best Val R2: -0.0246
+2025-05-29 11:10:56,181 - INFO - Epoch 23/200 | Train Loss: 0.250795 | Val Loss: 1.573941 | Train R2: -0.0076 | Val R2: -0.0760 | Best Val R2: -0.0246
+2025-05-29 11:10:56,405 - INFO - Epoch 24/200 | Train Loss: 0.251296 | Val Loss: 1.573872 | Train R2: 0.0050 | Val R2: -0.0778 | Best Val R2: -0.0246
+2025-05-29 11:10:56,631 - INFO - Epoch 25/200 | Train Loss: 0.251437 | Val Loss: 1.561020 | Train R2: -0.0071 | Val R2: -0.0691 | Best Val R2: -0.0246
+2025-05-29 11:10:56,864 - INFO - Epoch 26/200 | Train Loss: 0.250798 | Val Loss: 1.544845 | Train R2: 0.0083 | Val R2: -0.0569 | Best Val R2: -0.0246
+2025-05-29 11:10:57,072 - INFO - Epoch 27/200 | Train Loss: 0.250488 | Val Loss: 1.540667 | Train R2: -0.0101 | Val R2: -0.0536 | Best Val R2: -0.0246
+2025-05-29 11:10:57,300 - INFO - Epoch 28/200 | Train Loss: 0.250482 | Val Loss: 1.538055 | Train R2: -0.0085 | Val R2: -0.0515 | Best Val R2: -0.0246
+2025-05-29 11:10:57,543 - INFO - Epoch 29/200 | Train Loss: 0.250515 | Val Loss: 1.537241 | Train R2: 0.0080 | Val R2: -0.0506 | Best Val R2: -0.0246
+2025-05-29 11:10:57,755 - INFO - Epoch 30/200 | Train Loss: 0.250304 | Val Loss: 1.537631 | Train R2: 0.0030 | Val R2: -0.0507 | Best Val R2: -0.0246
+2025-05-29 11:10:57,990 - INFO - Epoch 31/200 | Train Loss: 0.250390 | Val Loss: 1.537661 | Train R2: 0.0063 | Val R2: -0.0507 | Best Val R2: -0.0246
+2025-05-29 11:10:58,193 - INFO - Epoch 32/200 | Train Loss: 0.250197 | Val Loss: 1.555835 | Train R2: 0.0065 | Val R2: -0.0625 | Best Val R2: -0.0246
+2025-05-29 11:10:58,387 - INFO - Epoch 33/200 | Train Loss: 0.250478 | Val Loss: 1.566922 | Train R2: 0.0048 | Val R2: -0.0699 | Best Val R2: -0.0246
+2025-05-29 11:10:58,593 - INFO - Epoch 34/200 | Train Loss: 0.250737 | Val Loss: 1.576910 | Train R2: 0.0018 | Val R2: -0.0772 | Best Val R2: -0.0246
+2025-05-29 11:10:58,785 - INFO - Epoch 35/200 | Train Loss: 0.251115 | Val Loss: 1.564104 | Train R2: 0.0008 | Val R2: -0.0683 | Best Val R2: -0.0246
+2025-05-29 11:10:58,970 - INFO - Epoch 36/200 | Train Loss: 0.250976 | Val Loss: 1.549921 | Train R2: -0.0080 | Val R2: -0.0581 | Best Val R2: -0.0246
+2025-05-29 11:10:59,155 - INFO - Epoch 37/200 | Train Loss: 0.250288 | Val Loss: 1.541234 | Train R2: -0.0012 | Val R2: -0.0520 | Best Val R2: -0.0246
+2025-05-29 11:10:59,370 - INFO - Epoch 38/200 | Train Loss: 0.250359 | Val Loss: 1.538632 | Train R2: -0.0098 | Val R2: -0.0505 | Best Val R2: -0.0246
+2025-05-29 11:10:59,699 - INFO - Epoch 39/200 | Train Loss: 0.250135 | Val Loss: 1.536988 | Train R2: 0.0002 | Val R2: -0.0495 | Best Val R2: -0.0246
+2025-05-29 11:10:59,956 - INFO - Epoch 40/200 | Train Loss: 0.250295 | Val Loss: 1.536783 | Train R2: 0.0053 | Val R2: -0.0493 | Best Val R2: -0.0246
+2025-05-29 11:11:00,247 - INFO - Epoch 41/200 | Train Loss: 0.250227 | Val Loss: 1.536785 | Train R2: 0.0069 | Val R2: -0.0493 | Best Val R2: -0.0246
+2025-05-29 11:11:00,543 - INFO - Epoch 42/200 | Train Loss: 0.249980 | Val Loss: 1.552123 | Train R2: 0.0046 | Val R2: -0.0599 | Best Val R2: -0.0246
+2025-05-29 11:11:00,884 - INFO - Epoch 43/200 | Train Loss: 0.250445 | Val Loss: 1.579471 | Train R2: -0.0006 | Val R2: -0.0781 | Best Val R2: -0.0246
+2025-05-29 11:11:01,151 - INFO - Epoch 44/200 | Train Loss: 0.251420 | Val Loss: 1.596244 | Train R2: -0.0038 | Val R2: -0.0898 | Best Val R2: -0.0246
+2025-05-29 11:11:01,449 - INFO - Epoch 45/200 | Train Loss: 0.252184 | Val Loss: 1.597420 | Train R2: -0.0075 | Val R2: -0.0913 | Best Val R2: -0.0246
+2025-05-29 11:11:01,719 - INFO - Epoch 46/200 | Train Loss: 0.252435 | Val Loss: 1.591170 | Train R2: -0.0080 | Val R2: -0.0866 | Best Val R2: -0.0246
+2025-05-29 11:11:01,997 - INFO - Epoch 47/200 | Train Loss: 0.251880 | Val Loss: 1.584365 | Train R2: -0.0028 | Val R2: -0.0815 | Best Val R2: -0.0246
+2025-05-29 11:11:01,997 - INFO - Early stopping at epoch 47
+2025-05-29 11:11:02,002 - INFO - ImprovedTransformer 验证集还原后指标: {'R2': -0.02464175335601282, 'MAE': 0.010256375, 'MAPE': 0.2505874}
+2025-05-29 11:11:02,002 - INFO - 最优模型: TransformerWithFixedToken, 验证集指标: {'R2': 0.467324735871648, 'MAE': 0.00830224, 'MAPE': 0.2051844}
+2025-05-29 11:11:02,005 - INFO - 程序执行完成
+2025-05-29 11:11:05,779 - WARNING - DeepExplainer failed for fixed features, switching to KernelExplainer: The SHAP explanations do not sum up to the model's output! This is either because of a rounding error or because an operator in your computation graph was not fully supported. If the sum difference of %f is significant compared to the scale of your model outputs, please post as a github issue, with a reproducible example so we can debug it. Used framework: pytorch - Max. diff: 2.0058734118938446 - Tolerance: 0.01
+2025-05-29 11:11:05,803 - INFO - num_full_subsets = 1
+2025-05-29 11:11:05,856 - INFO - phi = array([-0.0761562 , -0.05137176,  0.73491077])
+2025-05-29 11:11:05,866 - INFO - num_full_subsets = 1
+2025-05-29 11:11:05,920 - INFO - phi = array([-0.2506395 , -0.01143931, -0.49689296])
+2025-05-29 11:11:05,921 - INFO - num_full_subsets = 1
+2025-05-29 11:11:05,982 - INFO - phi = array([0.22950373, 0.00971912, 0.95661296])
+2025-05-29 11:11:05,988 - INFO - num_full_subsets = 1
+2025-05-29 11:11:06,037 - INFO - phi = array([-0.28644309, -0.01278037, -0.53000591])
+2025-05-29 11:11:06,043 - INFO - num_full_subsets = 1
+2025-05-29 11:11:06,100 - INFO - phi = array([-0.10827614, -0.0323133 , -0.37289662])
+2025-05-29 11:11:08,925 - WARNING - DeepExplainer failed for sequence features, switching to KernelExplainer: The SHAP explanations do not sum up to the model's output! This is either because of a rounding error or because an operator in your computation graph was not fully supported. If the sum difference of %f is significant compared to the scale of your model outputs, please post as a github issue, with a reproducible example so we can debug it. Used framework: pytorch - Max. diff: 0.03752148707189917 - Tolerance: 0.01
+2025-05-29 11:11:08,963 - INFO - num_full_subsets = 1
+2025-05-29 11:11:08,964 - INFO - remaining_weight_vector = array([0.14698953, 0.09999288, 0.07655705, 0.06254874, 0.05325708,
+       0.04666334, 0.04175839, 0.03798179, 0.03499751, 0.03259191,
+       0.03062282, 0.02899202, 0.02762961, 0.0264846 , 0.02551902,
+       0.02470412, 0.0240179 , 0.02344331, 0.02296711, 0.02257904,
+       0.02227114, 0.02203741, 0.02187344, 0.02177623, 0.02174401])
+2025-05-29 11:11:08,964 - INFO - num_paired_subset_sizes = 25
+2025-05-29 11:11:08,989 - INFO - weight_left = 0.7743637981496906
+2025-05-29 11:11:18,352 - INFO - np.sum(w_aug) = 52.0
+2025-05-29 11:11:18,352 - INFO - np.sum(self.kernelWeights) = 1.0
+2025-05-29 11:11:18,408 - INFO - phi = array([-1.68421247e-04,  3.05018863e-03,  0.00000000e+00,  7.63358603e-04,
+        0.00000000e+00, -5.61960252e-04,  1.37807264e-04, -4.25593937e-04,
+        0.00000000e+00, -2.29111088e-04,  0.00000000e+00, -1.56479420e-04,
+        0.00000000e+00, -2.80309266e-04, -1.02951445e-04, -3.68201634e-04,
+        0.00000000e+00, -4.91016186e-04,  0.00000000e+00, -4.34303242e-04,
+        2.12571328e-04, -4.66596172e-04,  2.59013274e-04, -3.07776452e-04,
+       -1.18298469e-04, -1.26713615e-04,  0.00000000e+00, -1.30182562e-04,
+        0.00000000e+00, -4.08760370e-05,  0.00000000e+00, -7.98622573e-05,
+        0.00000000e+00, -6.40495151e-04,  0.00000000e+00, -5.73933411e-04,
+        0.00000000e+00, -7.60562483e-04,  0.00000000e+00, -5.40812988e-04,
+       -5.38905550e-05, -4.90821292e-04,  0.00000000e+00, -4.88127935e-04,
+        2.55028624e-04, -5.89594495e-04,  0.00000000e+00, -7.78049476e-04,
+        0.00000000e+00, -6.44857129e-04,  0.00000000e+00, -1.03494464e-03])
+2025-05-29 11:11:18,637 - INFO - num_full_subsets = 1
+2025-05-29 11:11:18,637 - INFO - remaining_weight_vector = array([0.14698953, 0.09999288, 0.07655705, 0.06254874, 0.05325708,
+       0.04666334, 0.04175839, 0.03798179, 0.03499751, 0.03259191,
+       0.03062282, 0.02899202, 0.02762961, 0.0264846 , 0.02551902,
+       0.02470412, 0.0240179 , 0.02344331, 0.02296711, 0.02257904,
+       0.02227114, 0.02203741, 0.02187344, 0.02177623, 0.02174401])
+2025-05-29 11:11:18,637 - INFO - num_paired_subset_sizes = 25
+2025-05-29 11:11:18,669 - INFO - weight_left = 0.7743637981496906
+2025-05-29 11:11:29,687 - INFO - np.sum(w_aug) = 52.0
+2025-05-29 11:11:29,687 - INFO - np.sum(self.kernelWeights) = 1.0
+2025-05-29 11:11:29,755 - INFO - phi = array([-5.22780854e-04,  6.35115249e-03,  0.00000000e+00,  1.79380375e-03,
+       -1.87581268e-04,  4.04668925e-04,  0.00000000e+00,  2.55641255e-04,
+       -8.71036350e-05,  3.14744779e-04,  6.69869273e-05,  2.37581979e-04,
+        0.00000000e+00,  3.15190104e-04,  0.00000000e+00,  3.20397497e-04,
+        4.43120912e-05,  2.14471970e-04,  1.24077135e-04,  4.21746797e-04,
+        0.00000000e+00,  2.34037986e-04, -1.87195388e-04,  4.25575408e-04,
+        8.80548872e-05,  7.57990390e-04,  6.85842352e-05,  7.32767942e-04,
+       -8.30932102e-05,  8.14651420e-04,  0.00000000e+00,  7.99784734e-04,
+       -2.34813007e-04,  3.04074617e-04,  1.39290745e-04,  4.24044902e-04,
+        0.00000000e+00,  4.67666242e-04,  0.00000000e+00,  5.23339491e-04,
+        0.00000000e+00,  3.38530019e-04,  3.11571064e-05,  2.15476833e-04,
+        0.00000000e+00,  0.00000000e+00,  2.06599055e-05,  2.89147801e-04,
+        9.85262580e-05,  5.90508457e-04,  0.00000000e+00,  3.51589207e-04])
+2025-05-29 11:11:29,993 - INFO - num_full_subsets = 1
+2025-05-29 11:11:29,993 - INFO - remaining_weight_vector = array([0.14698953, 0.09999288, 0.07655705, 0.06254874, 0.05325708,
+       0.04666334, 0.04175839, 0.03798179, 0.03499751, 0.03259191,
+       0.03062282, 0.02899202, 0.02762961, 0.0264846 , 0.02551902,
+       0.02470412, 0.0240179 , 0.02344331, 0.02296711, 0.02257904,
+       0.02227114, 0.02203741, 0.02187344, 0.02177623, 0.02174401])
+2025-05-29 11:11:29,993 - INFO - num_paired_subset_sizes = 25
+2025-05-29 11:11:30,028 - INFO - weight_left = 0.7743637981496906
+2025-05-29 11:11:40,917 - INFO - np.sum(w_aug) = 52.0
+2025-05-29 11:11:40,919 - INFO - np.sum(self.kernelWeights) = 0.9999999999999999
+2025-05-29 11:11:41,007 - INFO - phi = array([ 3.12582998e-04,  6.19888298e-03,  6.74110626e-05,  1.90166007e-03,
+       -2.90079764e-04,  4.86070773e-04,  1.47999605e-04,  2.18303295e-04,
+        9.51893253e-05,  2.52995597e-04,  0.00000000e+00,  1.64814193e-04,
+        1.89572906e-05,  2.03963728e-04,  4.71379225e-05,  1.22194160e-04,
+        1.12304903e-04,  3.74460977e-04, -7.00174363e-05,  3.79259471e-04,
+       -6.38996486e-05,  2.96996456e-04, -9.21296611e-05,  5.39315848e-04,
+        2.71148874e-05,  7.56538357e-04,  0.00000000e+00,  6.91688316e-04,
+       -6.06189243e-05,  9.30305782e-04,  8.16270396e-05,  5.22599087e-04,
+       -1.32500023e-04,  2.71158423e-04,  6.69041239e-05,  3.55689500e-04,
+       -8.97339083e-05,  3.84311172e-04, -1.57899273e-04,  2.43830652e-04,
+        7.91689243e-05,  2.51559258e-04, -1.85394212e-04,  6.17981882e-04,
+        5.90328135e-05,  7.00773131e-04,  3.97928355e-05,  3.62596899e-04,
+       -6.99913695e-05,  6.90462138e-04,  0.00000000e+00,  2.67688019e-04])
+2025-05-29 11:11:41,250 - INFO - num_full_subsets = 1
+2025-05-29 11:11:41,250 - INFO - remaining_weight_vector = array([0.14698953, 0.09999288, 0.07655705, 0.06254874, 0.05325708,
+       0.04666334, 0.04175839, 0.03798179, 0.03499751, 0.03259191,
+       0.03062282, 0.02899202, 0.02762961, 0.0264846 , 0.02551902,
+       0.02470412, 0.0240179 , 0.02344331, 0.02296711, 0.02257904,
+       0.02227114, 0.02203741, 0.02187344, 0.02177623, 0.02174401])
+2025-05-29 11:11:41,252 - INFO - num_paired_subset_sizes = 25
+2025-05-29 11:11:41,276 - INFO - weight_left = 0.7743637981496906
+2025-05-29 11:11:51,743 - INFO - np.sum(w_aug) = 52.0
+2025-05-29 11:11:51,743 - INFO - np.sum(self.kernelWeights) = 1.0
+2025-05-29 11:11:51,904 - INFO - phi = array([-0.00169705, -0.00385146,  0.00111718, -0.00331947,  0.00172635,
+       -0.00201046,  0.00118934, -0.00560157,  0.        , -0.00411765,
+       -0.00078886, -0.00406061,  0.        , -0.0045421 ,  0.        ,
+       -0.00249663, -0.0002979 , -0.00320614,  0.00196777, -0.00500655,
+        0.00181364, -0.00272504, -0.00054209, -0.00506117, -0.00074739,
+       -0.00452033,  0.        , -0.00337201,  0.        , -0.00150366,
+        0.        , -0.00454237,  0.00120908, -0.00396785,  0.        ,
+       -0.002537  , -0.00022577, -0.00421594, -0.00077473, -0.00300475,
+       -0.00029519, -0.0049164 ,  0.        , -0.00477238,  0.00135855,
+       -0.00604777,  0.00110753, -0.00447685,  0.        , -0.0039873 ,
+       -0.00151104, -0.00437174])
+2025-05-29 11:11:52,140 - INFO - num_full_subsets = 1
+2025-05-29 11:11:52,140 - INFO - remaining_weight_vector = array([0.14698953, 0.09999288, 0.07655705, 0.06254874, 0.05325708,
+       0.04666334, 0.04175839, 0.03798179, 0.03499751, 0.03259191,
+       0.03062282, 0.02899202, 0.02762961, 0.0264846 , 0.02551902,
+       0.02470412, 0.0240179 , 0.02344331, 0.02296711, 0.02257904,
+       0.02227114, 0.02203741, 0.02187344, 0.02177623, 0.02174401])
+2025-05-29 11:11:52,143 - INFO - num_paired_subset_sizes = 25
+2025-05-29 11:11:52,182 - INFO - weight_left = 0.7743637981496906
+2025-05-29 11:12:02,717 - INFO - np.sum(w_aug) = 52.0
+2025-05-29 11:12:02,719 - INFO - np.sum(self.kernelWeights) = 1.0
+2025-05-29 11:12:02,929 - INFO - phi = array([ 1.30533584e-04, -7.47053804e-03,  1.19557350e-04, -4.57516083e-03,
+        0.00000000e+00,  1.71308669e-04,  0.00000000e+00,  1.86285341e-05,
+       -1.61080678e-04,  2.13774063e-04,  0.00000000e+00,  1.10167539e-04,
+        0.00000000e+00,  2.10156034e-04,  4.81344071e-05,  2.06689042e-04,
+       -1.59202041e-04,  1.71686215e-04,  0.00000000e+00,  2.71780624e-04,
+        0.00000000e+00,  1.07777063e-04,  1.21789240e-05,  2.51819474e-04,
+        2.96589455e-05,  5.10685445e-04,  0.00000000e+00,  4.49429105e-04,
+        0.00000000e+00,  5.69627408e-04,  0.00000000e+00,  5.90315123e-04,
+        0.00000000e+00,  1.82400682e-04,  0.00000000e+00,  2.17194892e-04,
+        0.00000000e+00,  1.52902137e-04,  0.00000000e+00,  3.27709276e-04,
+        0.00000000e+00,  1.63745888e-04,  0.00000000e+00,  2.66683986e-04,
+        0.00000000e+00,  9.97424267e-05,  0.00000000e+00,  2.13588382e-04,
+        0.00000000e+00,  1.04614792e-04,  0.00000000e+00,  0.00000000e+00])
+2025-05-29 11:12:03,271 - INFO - SHAP特征重要性分析已输出到visualizations/shap目录
+2025-05-29 11:12:03,279 - INFO - 开始执行Grad-CAM分析...
+2025-05-29 11:12:03,552 - WARNING - No Grad-CAM data available
+2025-05-29 11:12:03,552 - INFO - Grad-CAM分析已完成，结果已保存到visualizations/gradcam目录

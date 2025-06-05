@@ -1,0 +1,118 @@
+2025-05-28 14:47:19,639 - INFO - Using device: cpu
+2025-05-28 14:47:19,699 - INFO - 数据加载成功
+2025-05-28 14:47:19,702 - INFO - BirdsVariety 标准化前: ['Cobb', 'SZ901Plus', 'SZ901PLUS', 'SZ901/\nSZ901PLUS', 'SZ901', 'SZ901Plus/SZ901', 'Cobb500', 'SZ901plus', 'SZ901\nSZ901plus', 'SZ901 PIUS', 'SZ901\nSZ901Plus', 'Cobb 500', '901.0', 'SZ901/901plus', '901plus', 'CObb', 'cobb', 'SZ901 Plus', 'SZ901 PLUS', '901Plus']
+2025-05-28 14:47:19,702 - INFO - BirdsVariety 标准化后: ['Cobb', 'SZ901 Plus']
+2025-05-28 14:47:19,702 - INFO - BirdsVariety 编码: {'Cobb': 0, 'SZ901 Plus': 1}
+2025-05-28 14:47:19,703 - INFO - FarmSupervisor 编码: {'丁家宝': 0, '余涛': 1, '公赔河': 2, '刘乾乾': 3, '史成志': 4, '姚闯': 5, '张换吉': 6, '张明明': 7, '张玉风': 8, '戈兆康': 9, '李明': 10, '李芳昌': 11, '李荣': 12, '李豪': 13, '杨健健': 14, '杨文杰': 15, '王勇': 16, '王志远': 17, '罗冲': 18, '薄明龙': 19, '陈智': 20, '陈铁楠': 21, '高阳阳': 22}
+2025-05-28 14:47:19,713 - INFO - 训练集大小: 323, 批次数量: 6
+2025-05-28 14:47:19,713 - INFO - 验证集大小: 81, 批次数量: 2
+2025-05-28 14:47:19,929 - INFO - 使用 TransformerWithPostFusion 模型, hidden_dim=256, nhead=8, num_layers=8
+2025-05-28 14:47:19,933 - INFO - 模型总参数量: 6,453,827
+2025-05-28 14:47:19,933 - INFO - 开始训练新模型...
+2025-05-28 14:47:24,620 - INFO - Epoch 1: New best model saved with val_loss: 3.152365, R2: -2.3110
+2025-05-28 14:47:24,620 - INFO - Epoch 1/200 | Train Loss: 2.527172 | Val Loss: 3.152365 | Train R2: -1.4483 | Val R2: -2.3110 | LR: 9.83e-04 | Best Val R2: -2.3110 | Best Val Loss: 3.152365 (Epoch 1)
+2025-05-28 14:47:31,761 - INFO - Epoch 2: New best model saved with val_loss: 1.203893, R2: -0.2999
+2025-05-28 14:47:31,761 - INFO - Epoch 2/200 | Train Loss: 2.895833 | Val Loss: 1.203893 | Train R2: -1.7683 | Val R2: -0.2999 | LR: 9.19e-04 | Best Val R2: -0.2999 | Best Val Loss: 1.203893 (Epoch 2)
+2025-05-28 14:47:33,909 - INFO - Epoch 3/200 | Train Loss: 1.618603 | Val Loss: 1.377949 | Train R2: -0.6008 | Val R2: -0.4933 | LR: 8.15e-04 | Best Val R2: -0.2999 | Best Val Loss: 1.203893 (Epoch 2)
+2025-05-28 14:47:36,566 - INFO - Epoch 4/200 | Train Loss: 1.841574 | Val Loss: 1.270297 | Train R2: -0.8173 | Val R2: -0.3488 | LR: 6.80e-04 | Best Val R2: -0.2999 | Best Val Loss: 1.203893 (Epoch 2)
+2025-05-28 14:47:39,310 - INFO - Epoch 5: New best model saved with val_loss: 1.071966, R2: -0.1124
+2025-05-28 14:47:39,310 - INFO - Epoch 5/200 | Train Loss: 1.717521 | Val Loss: 1.071966 | Train R2: -0.6503 | Val R2: -0.1124 | LR: 5.27e-04 | Best Val R2: -0.1124 | Best Val Loss: 1.071966 (Epoch 5)
+2025-05-28 14:47:43,042 - INFO - Epoch 6: New best model saved with val_loss: 1.043446, R2: -0.0635
+2025-05-28 14:47:43,042 - INFO - Epoch 6/200 | Train Loss: 1.397040 | Val Loss: 1.043446 | Train R2: -0.3017 | Val R2: -0.0635 | LR: 3.71e-04 | Best Val R2: -0.0635 | Best Val Loss: 1.043446 (Epoch 6)
+2025-05-28 14:47:48,389 - INFO - Epoch 7: New best model saved with val_loss: 1.028545, R2: -0.0439
+2025-05-28 14:47:48,389 - INFO - Epoch 7/200 | Train Loss: 1.287763 | Val Loss: 1.028545 | Train R2: -0.1915 | Val R2: -0.0439 | LR: 2.28e-04 | Best Val R2: -0.0439 | Best Val Loss: 1.028545 (Epoch 7)
+2025-05-28 14:47:52,325 - INFO - Epoch 8: New best model saved with val_loss: 1.006247, R2: -0.0222
+2025-05-28 14:47:52,325 - INFO - Epoch 8/200 | Train Loss: 1.231362 | Val Loss: 1.006247 | Train R2: -0.2373 | Val R2: -0.0222 | LR: 1.12e-04 | Best Val R2: -0.0222 | Best Val Loss: 1.006247 (Epoch 8)
+2025-05-28 14:47:55,254 - INFO - Epoch 9: New best model saved with val_loss: 0.995021, R2: -0.0133
+2025-05-28 14:47:55,256 - INFO - Epoch 9/200 | Train Loss: 1.297098 | Val Loss: 0.995021 | Train R2: -0.2481 | Val R2: -0.0133 | LR: 3.42e-05 | Best Val R2: -0.0133 | Best Val Loss: 0.995021 (Epoch 9)
+2025-05-28 14:47:58,871 - INFO - Epoch 10: New best model saved with val_loss: 0.992368, R2: -0.0113
+2025-05-28 14:47:58,985 - INFO - Epoch 10/200 | Train Loss: 1.283292 | Val Loss: 0.992368 | Train R2: -0.2943 | Val R2: -0.0113 | LR: 1.68e-06 | Best Val R2: -0.0113 | Best Val Loss: 0.992368 (Epoch 10)
+2025-05-28 14:48:01,275 - INFO - Epoch 11/200 | Train Loss: 1.232630 | Val Loss: 1.085451 | Train R2: -0.1531 | Val R2: -0.1262 | LR: 9.83e-04 | Best Val R2: -0.0113 | Best Val Loss: 0.992368 (Epoch 10)
+2025-05-28 14:48:03,642 - INFO - Epoch 12/200 | Train Loss: 1.253885 | Val Loss: 1.204214 | Train R2: -0.2069 | Val R2: -0.2677 | LR: 9.19e-04 | Best Val R2: -0.0113 | Best Val Loss: 0.992368 (Epoch 10)
+2025-05-28 14:48:06,018 - INFO - Epoch 13/200 | Train Loss: 1.309015 | Val Loss: 1.109521 | Train R2: -0.3022 | Val R2: -0.1802 | LR: 8.15e-04 | Best Val R2: -0.0113 | Best Val Loss: 0.992368 (Epoch 10)
+2025-05-28 14:48:08,668 - INFO - Epoch 14/200 | Train Loss: 1.216777 | Val Loss: 0.977241 | Train R2: -0.0727 | Val R2: -0.0312 | LR: 6.80e-04 | Best Val R2: -0.0113 | Best Val Loss: 0.992368 (Epoch 10)
+2025-05-28 14:48:11,282 - INFO - Epoch 15: New best model saved with val_loss: 0.969096, R2: -0.0073
+2025-05-28 14:48:11,282 - INFO - Epoch 15/200 | Train Loss: 1.160272 | Val Loss: 0.969096 | Train R2: -0.0806 | Val R2: -0.0073 | LR: 5.27e-04 | Best Val R2: -0.0073 | Best Val Loss: 0.969096 (Epoch 15)
+2025-05-28 14:48:13,739 - INFO - Epoch 16/200 | Train Loss: 1.118443 | Val Loss: 1.038479 | Train R2: -0.0799 | Val R2: -0.0730 | LR: 3.71e-04 | Best Val R2: -0.0073 | Best Val Loss: 0.969096 (Epoch 15)
+2025-05-28 14:48:15,937 - INFO - Epoch 17/200 | Train Loss: 1.141124 | Val Loss: 1.047315 | Train R2: -0.2102 | Val R2: -0.0825 | LR: 2.28e-04 | Best Val R2: -0.0073 | Best Val Loss: 0.969096 (Epoch 15)
+2025-05-28 14:48:18,169 - INFO - Epoch 18/200 | Train Loss: 1.136499 | Val Loss: 1.021371 | Train R2: -0.0970 | Val R2: -0.0556 | LR: 1.12e-04 | Best Val R2: -0.0073 | Best Val Loss: 0.969096 (Epoch 15)
+2025-05-28 14:48:21,178 - INFO - Epoch 19/200 | Train Loss: 1.117823 | Val Loss: 1.004513 | Train R2: -0.1263 | Val R2: -0.0382 | LR: 3.42e-05 | Best Val R2: -0.0073 | Best Val Loss: 0.969096 (Epoch 15)
+2025-05-28 14:48:23,620 - INFO - Epoch 20/200 | Train Loss: 1.114560 | Val Loss: 0.999781 | Train R2: -0.0746 | Val R2: -0.0334 | LR: 1.68e-06 | Best Val R2: -0.0073 | Best Val Loss: 0.969096 (Epoch 15)
+2025-05-28 14:48:26,519 - INFO - Epoch 21/200 | Train Loss: 1.107961 | Val Loss: 0.968708 | Train R2: -0.1107 | Val R2: -0.0074 | LR: 9.83e-04 | Best Val R2: -0.0073 | Best Val Loss: 0.969096 (Epoch 15)
+2025-05-28 14:48:28,725 - INFO - Epoch 22/200 | Train Loss: 1.095211 | Val Loss: 1.021251 | Train R2: -0.0916 | Val R2: -0.0659 | LR: 9.19e-04 | Best Val R2: -0.0073 | Best Val Loss: 0.969096 (Epoch 15)
+2025-05-28 14:48:30,941 - INFO - Epoch 23/200 | Train Loss: 1.129570 | Val Loss: 1.025254 | Train R2: -0.0964 | Val R2: -0.0669 | LR: 8.15e-04 | Best Val R2: -0.0073 | Best Val Loss: 0.969096 (Epoch 15)
+2025-05-28 14:48:33,422 - INFO - Epoch 24/200 | Train Loss: 1.125126 | Val Loss: 1.020452 | Train R2: -0.1302 | Val R2: -0.0526 | LR: 6.80e-04 | Best Val R2: -0.0073 | Best Val Loss: 0.969096 (Epoch 15)
+2025-05-28 14:48:36,046 - INFO - Epoch 25/200 | Train Loss: 1.079892 | Val Loss: 1.041898 | Train R2: -0.0460 | Val R2: -0.0717 | LR: 5.27e-04 | Best Val R2: -0.0073 | Best Val Loss: 0.969096 (Epoch 15)
+2025-05-28 14:48:38,539 - INFO - Epoch 26/200 | Train Loss: 1.083443 | Val Loss: 1.045547 | Train R2: -0.0719 | Val R2: -0.0725 | LR: 3.71e-04 | Best Val R2: -0.0073 | Best Val Loss: 0.969096 (Epoch 15)
+2025-05-28 14:48:41,237 - INFO - Epoch 27/200 | Train Loss: 1.083278 | Val Loss: 1.023663 | Train R2: -0.0283 | Val R2: -0.0469 | LR: 2.28e-04 | Best Val R2: -0.0073 | Best Val Loss: 0.969096 (Epoch 15)
+2025-05-28 14:48:44,002 - INFO - Epoch 28/200 | Train Loss: 1.082482 | Val Loss: 1.003820 | Train R2: -0.0311 | Val R2: -0.0251 | LR: 1.12e-04 | Best Val R2: -0.0073 | Best Val Loss: 0.969096 (Epoch 15)
+2025-05-28 14:48:46,922 - INFO - Epoch 29/200 | Train Loss: 1.082817 | Val Loss: 0.995460 | Train R2: -0.0963 | Val R2: -0.0162 | LR: 3.42e-05 | Best Val R2: -0.0073 | Best Val Loss: 0.969096 (Epoch 15)
+2025-05-28 14:48:49,732 - INFO - Epoch 30/200 | Train Loss: 1.073788 | Val Loss: 0.992928 | Train R2: -0.0540 | Val R2: -0.0136 | LR: 1.68e-06 | Best Val R2: -0.0073 | Best Val Loss: 0.969096 (Epoch 15)
+2025-05-28 14:48:52,260 - INFO - Epoch 31: New best model saved with val_loss: 0.959000, R2: 0.0153
+2025-05-28 14:48:52,260 - INFO - Epoch 31/200 | Train Loss: 1.075709 | Val Loss: 0.959000 | Train R2: -0.0503 | Val R2: 0.0153 | LR: 9.83e-04 | Best Val R2: 0.0153 | Best Val Loss: 0.959000 (Epoch 31)
+2025-05-28 14:48:55,099 - INFO - Epoch 32/200 | Train Loss: 1.068317 | Val Loss: 0.971780 | Train R2: -0.0440 | Val R2: -0.0084 | LR: 9.19e-04 | Best Val R2: 0.0153 | Best Val Loss: 0.959000 (Epoch 31)
+2025-05-28 14:48:57,642 - INFO - Epoch 33/200 | Train Loss: 1.093635 | Val Loss: 0.979659 | Train R2: -0.1080 | Val R2: -0.0192 | LR: 8.15e-04 | Best Val R2: 0.0153 | Best Val Loss: 0.959000 (Epoch 31)
+2025-05-28 14:48:59,883 - INFO - Epoch 34/200 | Train Loss: 1.083802 | Val Loss: 0.990833 | Train R2: -0.0386 | Val R2: -0.0322 | LR: 6.80e-04 | Best Val R2: 0.0153 | Best Val Loss: 0.959000 (Epoch 31)
+2025-05-28 14:49:02,619 - INFO - Epoch 35/200 | Train Loss: 1.061614 | Val Loss: 1.007390 | Train R2: -0.0585 | Val R2: -0.0462 | LR: 5.27e-04 | Best Val R2: 0.0153 | Best Val Loss: 0.959000 (Epoch 31)
+2025-05-28 14:49:05,184 - INFO - Epoch 36/200 | Train Loss: 1.051432 | Val Loss: 1.016407 | Train R2: -0.0287 | Val R2: -0.0527 | LR: 3.71e-04 | Best Val R2: 0.0153 | Best Val Loss: 0.959000 (Epoch 31)
+2025-05-28 14:49:07,872 - INFO - Epoch 37/200 | Train Loss: 1.043748 | Val Loss: 1.009463 | Train R2: 0.0020 | Val R2: -0.0429 | LR: 2.28e-04 | Best Val R2: 0.0153 | Best Val Loss: 0.959000 (Epoch 31)
+2025-05-28 14:49:10,199 - INFO - Epoch 38/200 | Train Loss: 1.053720 | Val Loss: 1.000581 | Train R2: -0.0552 | Val R2: -0.0328 | LR: 1.12e-04 | Best Val R2: 0.0153 | Best Val Loss: 0.959000 (Epoch 31)
+2025-05-28 14:49:12,883 - INFO - Epoch 39/200 | Train Loss: 1.051241 | Val Loss: 0.994810 | Train R2: -0.0414 | Val R2: -0.0267 | LR: 3.42e-05 | Best Val R2: 0.0153 | Best Val Loss: 0.959000 (Epoch 31)
+2025-05-28 14:49:15,236 - INFO - Epoch 40/200 | Train Loss: 1.047671 | Val Loss: 0.993081 | Train R2: -0.0404 | Val R2: -0.0250 | LR: 1.68e-06 | Best Val R2: 0.0153 | Best Val Loss: 0.959000 (Epoch 31)
+2025-05-28 14:49:17,655 - INFO - Epoch 41/200 | Train Loss: 1.046498 | Val Loss: 0.971228 | Train R2: -0.0282 | Val R2: -0.0035 | LR: 9.83e-04 | Best Val R2: 0.0153 | Best Val Loss: 0.959000 (Epoch 31)
+2025-05-28 14:49:20,354 - INFO - Epoch 42/200 | Train Loss: 1.045575 | Val Loss: 0.966759 | Train R2: -0.0279 | Val R2: -0.0037 | LR: 9.19e-04 | Best Val R2: 0.0153 | Best Val Loss: 0.959000 (Epoch 31)
+2025-05-28 14:49:23,010 - INFO - Epoch 43/200 | Train Loss: 1.041201 | Val Loss: 0.984651 | Train R2: -0.0314 | Val R2: -0.0261 | LR: 8.15e-04 | Best Val R2: 0.0153 | Best Val Loss: 0.959000 (Epoch 31)
+2025-05-28 14:49:25,800 - INFO - Epoch 44/200 | Train Loss: 1.040389 | Val Loss: 0.998250 | Train R2: -0.0282 | Val R2: -0.0421 | LR: 6.80e-04 | Best Val R2: 0.0153 | Best Val Loss: 0.959000 (Epoch 31)
+2025-05-28 14:49:28,651 - INFO - Epoch 45/200 | Train Loss: 1.038459 | Val Loss: 1.007197 | Train R2: -0.0194 | Val R2: -0.0510 | LR: 5.27e-04 | Best Val R2: 0.0153 | Best Val Loss: 0.959000 (Epoch 31)
+2025-05-28 14:49:31,097 - INFO - Epoch 46/200 | Train Loss: 1.033998 | Val Loss: 1.003554 | Train R2: -0.0494 | Val R2: -0.0462 | LR: 3.71e-04 | Best Val R2: 0.0153 | Best Val Loss: 0.959000 (Epoch 31)
+2025-05-28 14:49:33,831 - INFO - Epoch 47/200 | Train Loss: 1.035845 | Val Loss: 0.995458 | Train R2: -0.0465 | Val R2: -0.0370 | LR: 2.28e-04 | Best Val R2: 0.0153 | Best Val Loss: 0.959000 (Epoch 31)
+2025-05-28 14:49:36,781 - INFO - Epoch 48/200 | Train Loss: 1.034005 | Val Loss: 0.990975 | Train R2: -0.0011 | Val R2: -0.0318 | LR: 1.12e-04 | Best Val R2: 0.0153 | Best Val Loss: 0.959000 (Epoch 31)
+2025-05-28 14:49:39,249 - INFO - Epoch 49/200 | Train Loss: 1.027215 | Val Loss: 0.988555 | Train R2: 0.0096 | Val R2: -0.0289 | LR: 3.42e-05 | Best Val R2: 0.0153 | Best Val Loss: 0.959000 (Epoch 31)
+2025-05-28 14:49:41,781 - INFO - Epoch 50/200 | Train Loss: 1.025829 | Val Loss: 0.987854 | Train R2: -0.0344 | Val R2: -0.0281 | LR: 1.68e-06 | Best Val R2: 0.0153 | Best Val Loss: 0.959000 (Epoch 31)
+2025-05-28 14:49:44,419 - INFO - Epoch 51/200 | Train Loss: 1.033285 | Val Loss: 0.976864 | Train R2: -0.0238 | Val R2: -0.0137 | LR: 9.83e-04 | Best Val R2: 0.0153 | Best Val Loss: 0.959000 (Epoch 31)
+2025-05-28 14:49:46,985 - INFO - Epoch 52/200 | Train Loss: 1.027451 | Val Loss: 0.970675 | Train R2: 0.0062 | Val R2: -0.0048 | LR: 9.19e-04 | Best Val R2: 0.0153 | Best Val Loss: 0.959000 (Epoch 31)
+2025-05-28 14:49:49,883 - INFO - Epoch 53/200 | Train Loss: 1.029050 | Val Loss: 0.968431 | Train R2: -0.0063 | Val R2: -0.0009 | LR: 8.15e-04 | Best Val R2: 0.0153 | Best Val Loss: 0.959000 (Epoch 31)
+2025-05-28 14:49:52,175 - INFO - Epoch 54/200 | Train Loss: 1.025156 | Val Loss: 0.966986 | Train R2: -0.0059 | Val R2: 0.0023 | LR: 6.80e-04 | Best Val R2: 0.0153 | Best Val Loss: 0.959000 (Epoch 31)
+2025-05-28 14:49:55,218 - INFO - Epoch 55/200 | Train Loss: 1.032199 | Val Loss: 0.970683 | Train R2: 0.0176 | Val R2: -0.0004 | LR: 5.27e-04 | Best Val R2: 0.0153 | Best Val Loss: 0.959000 (Epoch 31)
+2025-05-28 14:49:57,821 - INFO - Epoch 56/200 | Train Loss: 1.030772 | Val Loss: 0.979313 | Train R2: 0.0011 | Val R2: -0.0091 | LR: 3.71e-04 | Best Val R2: 0.0153 | Best Val Loss: 0.959000 (Epoch 31)
+2025-05-28 14:50:00,543 - INFO - Epoch 57/200 | Train Loss: 1.027335 | Val Loss: 0.987125 | Train R2: -0.0110 | Val R2: -0.0174 | LR: 2.28e-04 | Best Val R2: 0.0153 | Best Val Loss: 0.959000 (Epoch 31)
+2025-05-28 14:50:03,006 - INFO - Epoch 58/200 | Train Loss: 1.023352 | Val Loss: 0.992448 | Train R2: -0.0070 | Val R2: -0.0235 | LR: 1.12e-04 | Best Val R2: 0.0153 | Best Val Loss: 0.959000 (Epoch 31)
+2025-05-28 14:50:05,693 - INFO - Epoch 59/200 | Train Loss: 1.024720 | Val Loss: 0.994005 | Train R2: -0.0035 | Val R2: -0.0255 | LR: 3.42e-05 | Best Val R2: 0.0153 | Best Val Loss: 0.959000 (Epoch 31)
+2025-05-28 14:50:08,178 - INFO - Epoch 60/200 | Train Loss: 1.024600 | Val Loss: 0.993933 | Train R2: 0.0018 | Val R2: -0.0255 | LR: 1.68e-06 | Best Val R2: 0.0153 | Best Val Loss: 0.959000 (Epoch 31)
+2025-05-28 14:50:11,103 - INFO - Epoch 61/200 | Train Loss: 1.024451 | Val Loss: 0.995271 | Train R2: 0.0122 | Val R2: -0.0304 | LR: 9.83e-04 | Best Val R2: 0.0153 | Best Val Loss: 0.959000 (Epoch 31)
+2025-05-28 14:50:11,103 - INFO - Early stopping triggered after 30 epochs without improvement
+2025-05-28 14:50:11,173 - INFO - Training finished. Best model at epoch 31 with val_loss: 0.959000, val_r2: 0.0153
+2025-05-28 14:50:11,792 - INFO - 训练结果可视化已保存到 visualizations/ 目录
+2025-05-28 14:50:11,792 - INFO - 开始模型可解释性分析...
+2025-05-28 14:50:11,792 - INFO - 开始模型可解释性分析...
+2025-05-28 14:50:11,908 - WARNING - Failed to get attention weights for layer 0: 'NoneType' object has no attribute 'cpu'
+2025-05-28 14:50:11,909 - WARNING - Failed to get attention weights for layer 1: 'NoneType' object has no attribute 'cpu'
+2025-05-28 14:50:11,909 - WARNING - Failed to get attention weights for layer 2: 'NoneType' object has no attribute 'cpu'
+2025-05-28 14:50:11,909 - WARNING - Failed to get attention weights for layer 3: 'NoneType' object has no attribute 'cpu'
+2025-05-28 14:50:11,910 - WARNING - Failed to get attention weights for layer 4: 'NoneType' object has no attribute 'cpu'
+2025-05-28 14:50:11,910 - WARNING - Failed to get attention weights for layer 5: 'NoneType' object has no attribute 'cpu'
+2025-05-28 14:50:11,910 - WARNING - Failed to get attention weights for layer 6: 'NoneType' object has no attribute 'cpu'
+2025-05-28 14:50:11,910 - WARNING - Failed to get attention weights for layer 7: 'NoneType' object has no attribute 'cpu'
+2025-05-28 14:50:11,910 - WARNING - No attention weights were retrieved
+2025-05-28 14:50:11,927 - ERROR - Error visualizing attention for sequence 0: 'NoneType' object has no attribute 'squeeze'
+Traceback (most recent call last):
+  File "C:\Users\sbjalz\OneDrive - SAS\Desktop\开发代码\太阳谷\chickenfarming\Alex\Transformer_Fixed.py", line 1160, in visualize_attention_per_sequence
+    attn_weights = attn_weights.squeeze(0)  # Remove batch dimension
+                   ^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'squeeze'
+2025-05-28 14:50:11,943 - ERROR - Error visualizing attention for sequence 1: 'NoneType' object has no attribute 'squeeze'
+Traceback (most recent call last):
+  File "C:\Users\sbjalz\OneDrive - SAS\Desktop\开发代码\太阳谷\chickenfarming\Alex\Transformer_Fixed.py", line 1160, in visualize_attention_per_sequence
+    attn_weights = attn_weights.squeeze(0)  # Remove batch dimension
+                   ^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'squeeze'
+2025-05-28 14:50:11,961 - ERROR - Error visualizing attention for sequence 2: 'NoneType' object has no attribute 'squeeze'
+Traceback (most recent call last):
+  File "C:\Users\sbjalz\OneDrive - SAS\Desktop\开发代码\太阳谷\chickenfarming\Alex\Transformer_Fixed.py", line 1160, in visualize_attention_per_sequence
+    attn_weights = attn_weights.squeeze(0)  # Remove batch dimension
+                   ^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'squeeze'
+2025-05-28 14:50:12,327 - WARNING - No Grad-CAM data available
+2025-05-28 14:50:12,327 - INFO - 模型可解释性分析完成
+2025-05-28 14:50:12,328 - INFO - 模型可解释性分析完成，结果已保存到 visualizations/ 目录
+2025-05-28 14:50:12,329 - INFO - 程序执行完成

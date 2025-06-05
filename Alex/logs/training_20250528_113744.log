@@ -1,0 +1,60 @@
+2025-05-28 11:37:44,592 - INFO - Using device: cpu
+2025-05-28 11:37:44,631 - INFO - 数据加载成功
+2025-05-28 11:37:44,631 - INFO - BirdsVariety 标准化前: ['Cobb', 'SZ901Plus', 'SZ901PLUS', 'SZ901/\nSZ901PLUS', 'SZ901', 'SZ901Plus/SZ901', 'Cobb500', 'SZ901plus', 'SZ901\nSZ901plus', 'SZ901 PIUS', 'SZ901\nSZ901Plus', 'Cobb 500', '901.0', 'SZ901/901plus', '901plus', 'CObb', 'cobb', 'SZ901 Plus', 'SZ901 PLUS', '901Plus']
+2025-05-28 11:37:44,631 - INFO - BirdsVariety 标准化后: ['Cobb', 'SZ901 Plus']
+2025-05-28 11:37:44,631 - INFO - BirdsVariety 编码: {'Cobb': 0, 'SZ901 Plus': 1}
+2025-05-28 11:37:44,635 - INFO - FarmSupervisor 编码: {'丁家宝': 0, '余涛': 1, '公赔河': 2, '刘乾乾': 3, '史成志': 4, '姚闯': 5, '张换吉': 6, '张明明': 7, '张玉风': 8, '戈兆康': 9, '李明': 10, '李芳昌': 11, '李荣': 12, '李豪': 13, '杨健健': 14, '杨文杰': 15, '王勇': 16, '王志远': 17, '罗冲': 18, '薄明龙': 19, '陈智': 20, '陈铁楠': 21, '高阳阳': 22}
+2025-05-28 11:37:44,644 - INFO - 训练集大小: 323, 批次数量: 6
+2025-05-28 11:37:44,644 - INFO - 验证集大小: 81, 批次数量: 2
+2025-05-28 11:37:44,729 - INFO - 使用 TransformerWithPostFusion 模型, hidden_dim=256, nhead=8, num_layers=8
+2025-05-28 11:37:44,729 - INFO - Training a new model...
+2025-05-28 11:37:49,057 - INFO - Epoch 1: New best model saved with val_loss: 0.971781
+2025-05-28 11:37:49,057 - INFO - Epoch 1/200 - Train Loss: 1.033229 - Val Loss: 0.971781 - Best Val Loss: 0.971781
+2025-05-28 11:37:51,677 - INFO - Epoch 2/200 - Train Loss: 1.011568 - Val Loss: 0.994379 - Best Val Loss: 0.971781
+2025-05-28 11:37:54,194 - INFO - Epoch 3/200 - Train Loss: 1.018131 - Val Loss: 1.007240 - Best Val Loss: 0.971781
+2025-05-28 11:37:56,231 - INFO - Epoch 4/200 - Train Loss: 1.012670 - Val Loss: 0.974429 - Best Val Loss: 0.971781
+2025-05-28 11:37:58,575 - INFO - Epoch 5/200 - Train Loss: 1.013501 - Val Loss: 0.977945 - Best Val Loss: 0.971781
+2025-05-28 11:38:00,800 - INFO - Epoch 6/200 - Train Loss: 1.011795 - Val Loss: 0.994268 - Best Val Loss: 0.971781
+2025-05-28 11:38:03,175 - INFO - Epoch 7/200 - Train Loss: 1.010424 - Val Loss: 0.991768 - Best Val Loss: 0.971781
+2025-05-28 11:38:05,379 - INFO - Epoch 8/200 - Train Loss: 1.012464 - Val Loss: 0.989209 - Best Val Loss: 0.971781
+2025-05-28 11:38:07,219 - INFO - Epoch 9/200 - Train Loss: 1.011338 - Val Loss: 0.992402 - Best Val Loss: 0.971781
+2025-05-28 11:38:09,171 - INFO - Epoch 10/200 - Train Loss: 1.009166 - Val Loss: 0.988264 - Best Val Loss: 0.971781
+2025-05-28 11:38:11,434 - INFO - Epoch 11/200 - Train Loss: 1.009535 - Val Loss: 0.984568 - Best Val Loss: 0.971781
+2025-05-28 11:38:14,363 - INFO - Epoch 12/200 - Train Loss: 1.011037 - Val Loss: 0.978103 - Best Val Loss: 0.971781
+2025-05-28 11:38:17,070 - INFO - Epoch 13: New best model saved with val_loss: 0.971494
+2025-05-28 11:38:17,070 - INFO - Epoch 13/200 - Train Loss: 1.009004 - Val Loss: 0.971494 - Best Val Loss: 0.971494
+2025-05-28 11:38:19,607 - INFO - Epoch 14: New best model saved with val_loss: 0.964931
+2025-05-28 11:38:19,607 - INFO - Epoch 14/200 - Train Loss: 1.012414 - Val Loss: 0.964931 - Best Val Loss: 0.964931
+2025-05-28 11:38:22,592 - INFO - Epoch 15/200 - Train Loss: 1.013186 - Val Loss: 0.966825 - Best Val Loss: 0.964931
+2025-05-28 11:38:25,018 - INFO - Epoch 16/200 - Train Loss: 1.009831 - Val Loss: 0.972146 - Best Val Loss: 0.964931
+2025-05-28 11:38:27,765 - INFO - Epoch 17/200 - Train Loss: 1.010506 - Val Loss: 0.974226 - Best Val Loss: 0.964931
+2025-05-28 11:38:30,153 - INFO - Epoch 18/200 - Train Loss: 1.009080 - Val Loss: 0.978304 - Best Val Loss: 0.964931
+2025-05-28 11:38:32,411 - INFO - Epoch 19/200 - Train Loss: 1.008594 - Val Loss: 0.981755 - Best Val Loss: 0.964931
+2025-05-28 11:38:35,000 - INFO - Epoch 20/200 - Train Loss: 1.010583 - Val Loss: 0.985424 - Best Val Loss: 0.964931
+2025-05-28 11:38:37,716 - INFO - Epoch 21/200 - Train Loss: 1.009422 - Val Loss: 0.986173 - Best Val Loss: 0.964931
+2025-05-28 11:38:40,524 - INFO - Epoch 22/200 - Train Loss: 1.009073 - Val Loss: 0.986476 - Best Val Loss: 0.964931
+2025-05-28 11:38:43,252 - INFO - Epoch 23/200 - Train Loss: 1.009651 - Val Loss: 0.986081 - Best Val Loss: 0.964931
+2025-05-28 11:38:45,980 - INFO - Epoch 24/200 - Train Loss: 1.008238 - Val Loss: 0.984737 - Best Val Loss: 0.964931
+2025-05-28 11:38:48,898 - INFO - Epoch 25/200 - Train Loss: 1.009132 - Val Loss: 0.983515 - Best Val Loss: 0.964931
+2025-05-28 11:38:51,321 - INFO - Epoch 26/200 - Train Loss: 1.010010 - Val Loss: 0.979961 - Best Val Loss: 0.964931
+2025-05-28 11:38:54,065 - INFO - Epoch 27/200 - Train Loss: 1.008342 - Val Loss: 0.980044 - Best Val Loss: 0.964931
+2025-05-28 11:38:56,848 - INFO - Epoch 28/200 - Train Loss: 1.008177 - Val Loss: 0.980994 - Best Val Loss: 0.964931
+2025-05-28 11:38:59,687 - INFO - Epoch 29/200 - Train Loss: 1.008503 - Val Loss: 0.982235 - Best Val Loss: 0.964931
+2025-05-28 11:39:01,990 - INFO - Epoch 30/200 - Train Loss: 1.007625 - Val Loss: 0.982933 - Best Val Loss: 0.964931
+2025-05-28 11:39:04,969 - INFO - Epoch 31/200 - Train Loss: 1.008511 - Val Loss: 0.982044 - Best Val Loss: 0.964931
+2025-05-28 11:39:07,901 - INFO - Epoch 32/200 - Train Loss: 1.008871 - Val Loss: 0.981002 - Best Val Loss: 0.964931
+2025-05-28 11:39:10,740 - INFO - Epoch 33/200 - Train Loss: 1.007919 - Val Loss: 0.980955 - Best Val Loss: 0.964931
+2025-05-28 11:39:12,830 - INFO - Early stopping triggered at epoch 34
+2025-05-28 11:39:13,098 - INFO - Training history plot saved to visualizations\training_history.png
+2025-05-28 11:39:13,342 - INFO - True vs Predicted plot saved to visualizations\true_vs_pred.png
+2025-05-28 11:39:13,342 - INFO - Starting model interpretability analysis...
+2025-05-28 11:39:13,342 - INFO - 开始模型可解释性分析...
+2025-05-28 11:39:21,135 - INFO - Saved attention weights visualization to visualizations\attention_weights_sample_0.png
+2025-05-28 11:39:28,456 - INFO - Saved attention weights visualization to visualizations\attention_weights_sample_1.png
+2025-05-28 11:39:36,175 - INFO - Saved attention weights visualization to visualizations\attention_weights_sample_2.png
+2025-05-28 11:39:39,301 - INFO - Saved attention visualization for sequence 0 to visualizations/attention_sequence_0.png
+2025-05-28 11:39:41,231 - INFO - Saved attention visualization for sequence 1 to visualizations/attention_sequence_1.png
+2025-05-28 11:39:43,587 - INFO - Saved attention visualization for sequence 2 to visualizations/attention_sequence_2.png
+2025-05-28 11:39:44,039 - WARNING - No Grad-CAM data available
+2025-05-28 11:39:44,039 - INFO - 模型可解释性分析完成
+2025-05-28 11:39:44,039 - INFO - Model interpretability analysis completed.
