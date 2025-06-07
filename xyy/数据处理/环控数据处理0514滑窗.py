@@ -197,7 +197,7 @@ agg_result.columns.to_list()
 
 import pandas as pd
 allinfo_dead=pd.read_csv('./data/data_cleaned/allinfo_dead0430.csv',encoding='gbk')
-HumTem_data_agg=pd.read_csv('./data/data_cleaned/HumTem_data_agg0512.csv',encoding='gbk')
+HumTem_data_agg=pd.read_csv('./data/data_cleaned/HumTem_data_agg0515.csv',encoding='gbk')
 
 # HumTem_data_agg[HumTem_data_agg['ID_NUM'].str.startswith(tuple(['G28_25', 'G31_62']))]
 # 'G28_25', 'G31_62'前后两个批次重复

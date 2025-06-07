@@ -11,11 +11,11 @@ HumTem_data_agg=pd.concat([HumTem_data_agg1,HumTem_data_agg2],ignore_index=True)
 allinfo_dead['ID_NUM'].drop_duplicates().count()
 HumTem_data_agg['ID_NUM'].drop_duplicates().count()
 
-
+# allinfo_dead['Mortality_rate'].isna().sum()
 #日报中的农场名字和文件名字中的对应不上
-HumTem_data_agg[HumTem_data_agg['ID_NUM'].str.startswith('G04')]['ID_NUM']
+# HumTem_data_agg[HumTem_data_agg['ID_NUM'].str.startswith('G04')]['ID_NUM']
 
-allinfo_dead[allinfo_dead['ID_NUM'].str.startswith('G1A')]['ID_NUM']
+# allinfo_dead[allinfo_dead['ID_NUM'].str.startswith('G1A')]['ID_NUM']
 
 allinfo_dead['ID_NUM'] = allinfo_dead['ID_NUM'].apply(lambda x: 'G01' + x[3:] if isinstance(x, str) and x.startswith('G1A') else x)
 allinfo_dead['ID_NUM'] = allinfo_dead['ID_NUM'].apply(lambda x: 'G04' + x[3:] if isinstance(x, str) and x.startswith('G1B') else x)
@@ -33,9 +33,9 @@ HumTem_data_abnormal=HumTem_data_t[HumTem_data_t['日龄']>=HumTem_data_t['age_d
 
 HumTem_data_normal['日龄'].max()
 
-import matplotlib.pyplot as plt
-HumTem_data_normal.groupby(['Age'])['AvgTemperature'].mean().plot()
-plt.show()
+# import matplotlib.pyplot as plt
+# HumTem_data_normal.groupby(['Age'])['AvgTemperature'].mean().plot()
+# plt.show()
 
 
 HumTem_data_normal=HumTem_data_normal.drop('age_days',axis=1)
@@ -55,8 +55,7 @@ HumTem_data_normal.columns.to_list()
 
 keep_cols=['ID_NUM', '日龄', '温度1-平均_mean', 
 '温度2-平均_mean', '温度3-平均_mean',
-'温度4-平均_mean',  '温度5-平均_mean', 
-'温度6-平均_mean',  '湿度内部平均_mean', '最高温度', '最低温度',
+'温度4-平均_mean',  '温度5-平均_mean', '内外温差_mean','内外湿差_mean','外部-平均_mean','湿度内部平均_mean', '最高温度', '最低温度',
  '平均温度', '每日温差', '平均温度变化率', '最高温度变化率', '最低温度变化率']
 
 
@@ -68,7 +67,7 @@ wide_df = wide_df.reset_index()
 
 wide_df.columns.to_list()
 
-wide_df.to_csv('./data/data_cleaned/wide_df_0430.csv', index=False,encoding='gbk')
+wide_df.to_csv('./data/data_cleaned/wide_df_0509.csv', index=False,encoding='gbk')
 
 ##基本信息等拼接
 # wide_df['ID_NUM']
@@ -92,9 +91,9 @@ all_info_temdata2=all_info_temdata.drop('ID_NUM_copy',axis=1)
 import toad
 data_detect = toad.detector.detect(all_info_temdata2)
 data_detect=data_detect.reset_index(drop=False)
+# all_info_temdata2.head()
 
-
-all_info_temdata2.to_csv('./data/data_cleaned/all_info_temdata0430.csv',index=False,encoding='gbk')
+all_info_temdata2.to_csv('./data/data_cleaned/all_info_temdata0509.csv',index=False,encoding='gbk')
 
 all_info_temdata2['ID_NUM'].drop_duplicates()
 

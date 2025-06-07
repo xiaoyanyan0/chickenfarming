@@ -80,7 +80,7 @@ marketingdata_columns = [
     'total_feed_kg',            # 累计耗料（kg）\nFeed cons. Cum.
     'fcr',                      # 料肉比 FCR
     'adjusted_fcr',             # Adjust FCR (base 2.45KG)
-    'eef',                      # 欧洲指数 EEF
+    # 'eef',                      # 欧洲指数 EEF
     'revenue',                  # 毛鸡销售收入（元'）
     'profit_per_house',         # 每栋纯利润（元）
     'medicine_per_bird',        # 药品（元/只）
@@ -119,6 +119,7 @@ for col in date_columns:
 df2=df2.drop(date_columns,axis=1)
 
 df2.shape
+df2.columns.to_list()
 
 def calculate_window_differences(sliding_features_df):
     """
@@ -817,6 +818,7 @@ seasonal_dfs['autumn'].groupby('HARVESTSTATUS_month')['Mortality_flg'].sum()
 seasonal_dfs['summer'].groupby('HARVESTSTATUS_month')['Mortality_flg'].sum()
 seasonal_dfs['spring'].groupby('HARVESTSTATUS_month')['Mortality_flg'].sum()
 df2['HARVESTSTATUS_month'].value_counts()
+
 # df_keep2 = data_preprocessing(seasonal_dfs['winter'])
 # 冬天
 lgb_baseline_w, feature_imp_w, top_importantcol_w=lightgbm_modeling(seasonal_dfs['winter'],validation_month_list=['2'],split_model='stratified')
@@ -915,7 +917,7 @@ def feature_binning(top_importantcol, object_columns, X, y, file_prefix):
             temp['feature'] = col  # 添加特征名列
             print(f"分箱阈值: {optb.splits}")
             X_binned = optb.transform(X[[col]],metric='bins').squeeze()  # 获取分箱结果
-            bin_mortality = X.groupby(X_binned)['MORTALITY_RATE'].mean()
+            bin_mortality = X.groupby(X_binned)[['MORTALITY_RATE']].mean()
             bin_mortality=bin_mortality.reset_index(drop=False)
             temp2 = pd.merge(temp, bin_mortality, left_on='Bin', right_on='index', how='left').drop('index', axis=1)
             bin_table = pd.concat([bin_table, temp2])
@@ -940,17 +942,17 @@ def feature_binning(top_importantcol, object_columns, X, y, file_prefix):
     
     # 8. 打印和可视化每个变量（修正后的可视化部分）
     warnings.filterwarnings("ignore")
-    for col in top_importantcol:
-        try:
-            optb = binning_process.get_binned_variable(col)
-            bin_table_var = optb.binning_table.build()
-            optb.binning_table.plot(metric='event_rate')
-            plt.show()
-            print('')
+    # for col in top_importantcol:
+    #     try:
+    #         optb = binning_process.get_binned_variable(col)
+    #         bin_table_var = optb.binning_table.build()
+    #         optb.binning_table.plot(metric='event_rate')
+    #         plt.show()
+    #         print('')
             
-        except Exception as e:
-            print(f"可视化变量 {col} 时出错: {str(e)}")
-            continue
+    #     except Exception as e:
+    #         print(f"可视化变量 {col} 时出错: {str(e)}")
+    #         continue
     
     return binning_sum, bin_table
 
@@ -995,11 +997,39 @@ for column in df2.columns:
     else:
         object_columns.append(column)
 
-X=seasonal_dfs['winter'].drop(columns=[ 'MORTALITY_RATE_21', 'Mortality_flg'])
-y=seasonal_dfs['winter']['Mortality_flg']
-rate_cols=[ i for i in X.columns if '变化率' in i]
-X[rate_cols]=X[rate_cols]*100
-top_importantcol=['DENSITY']
+X=seasonal_dfs['autumn'].drop(columns=[ 'MORTALITY_RATE_21', 'Mortality_flg'])
+y=seasonal_dfs['autumn']['Mortality_flg']
+# rate_cols=[ i for i in X.columns if '变化率' in i]
+# X[rate_cols]=X[rate_cols]*100
+seasonal_dfs['autumn']['Mortality_flg'].value_counts()
+# seasonal_dfs['winter']['Mortality_flg'].value_counts()
+# top_importantcol=['W3_15-17天_外部-平均_MEAN']
+top_importantcol=[ i for i in X.columns if '湿度内部平均_MEAN' in i]
+
+X[top_importantcol]=X[top_importantcol].round(1)
 binning_sum, bin_table=feature_binning(top_importantcol, object_columns, X, y,file_prefix="winter")
 
+fx=X[top_importantcol].describe().round(2)
+fx=fx.reset_index(drop=False)
+print(fx.shape)
+fx.to_csv('.\\xyy\\死淘分析\\output\\秋天湿度内部平均_MEAN分布.csv', index=False, encoding='gbk')
 
+bin_table.to_csv('.\\xyy\\死淘分析\\output\\秋天湿度内部平均_MEAN分箱.csv', index=False, encoding='gbk')
+
+
+
+
+
+
+
+seasonal_dfs['winter'][(seasonal_dfs['winter']['W3_0-2天_外部-平均_MEAN']>=15.05) & (seasonal_dfs['winter']['W3_0-2天_外部-平均_MEAN']<=16.05)][['HARVESTSTATUS_month','W3_0-2天_鸡舍温度-平均_MEAN']]
+seasonal_dfs['winter'][(seasonal_dfs['winter']['W3_0-2天_外部-平均_MEAN']>=15.1) & (seasonal_dfs['winter']['W3_0-2天_外部-平均_MEAN']<=16.1)]['W3_0-2天_鸡舍温度-平均_MEAN'].describe()
+
+
+seasonal_dfs['winter'][(seasonal_dfs['winter']['W3_6-8天_外部-平均_MEAN']>=9.3) & (seasonal_dfs['winter']['W3_6-8天_外部-平均_MEAN']<=17.6)]['W3_6-8天_鸡舍温度-平均_MEAN'].describe()
+
+
+seasonal_dfs['winter'][(seasonal_dfs['winter']['W3_21-23天_外部-平均_MEAN']<=6.45) ]['MORTALITY_RATE'].count()
+
+
+seasonal_dfs['winter'][(seasonal_dfs['winter']['W3_3-5天_湿度内部平均_MEAN']<60.15) ]['MORTALITY_RATE'].mean()

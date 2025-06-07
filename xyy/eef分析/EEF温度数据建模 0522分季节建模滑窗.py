@@ -50,7 +50,7 @@ df=df.rename({'MORTALITY_RATE_X':'MORTALITY_RATE'},axis=1)
 df.columns.to_list()
 #筛除0占比超过阈值特征
 drop_columns_Mortality=['Dead','Swollen_Head','Weak','Navel_Disease','Stick_Anus', 'Lame_Paralysis','livability_pct'
-                        ,'yield_per_m2'
+                        ,'yield_per_m2','MORTALITY_RATE_21'
                         ]
 drop_columns_Mortality=[a.upper()for a in drop_columns_Mortality]
 drop_columns_Mortality=[i for i in df.columns.to_list() if i in drop_columns_Mortality]
@@ -80,7 +80,7 @@ marketingdata_columns = [
     'total_feed_kg',            # 累计耗料（kg）\nFeed cons. Cum.
     'fcr',                      # 料肉比 FCR
     'adjusted_fcr',             # Adjust FCR (base 2.45KG)
-    'eef',                      # 欧洲指数 EEF
+    # 'eef',                      # 欧洲指数 EEF
     'revenue',                  # 毛鸡销售收入（元'）
     'profit_per_house',         # 每栋纯利润（元）
     'medicine_per_bird',        # 药品（元/只）
@@ -178,7 +178,7 @@ def calculate_window_differences(sliding_features_df):
 df3=calculate_window_differences(df2)
 df3.columns.to_list()
 # df2.reset_index(drop=False)[['ID_NUM']]
-def prepare_seasonal_data(df, date_col='HARVESTSTATUS_month', target_col='MORTALITY_RATE', quantile_threshold=0.8):
+def prepare_seasonal_data(df, date_col='HARVESTSTATUS_month', target_col='EEF', quantile_threshold=0.8):
     """
     将数据按季节分割并创建二分类目标变量
 
@@ -207,16 +207,16 @@ def prepare_seasonal_data(df, date_col='HARVESTSTATUS_month', target_col='MORTAL
         # 计算分位数并创建标签
         quantile = np.quantile(valid_values, quantile_threshold)
         print(f"{season.capitalize()}分位数: {quantile:.4f}")
-        season_df['Mortality_flg'] = season_df[target_col].apply(
+        season_df['EEF_flg'] = season_df[target_col].apply(
             lambda x: 1 if pd.notna(x) and x >= quantile else 0
         )
         
         # 打印各季节数据量
-        print(f"{season.capitalize()}数据量: {season_df.shape[0]}, 正样本比例: {season_df['Mortality_flg'].mean():.2%}")
+        print(f"{season.capitalize()}数据量: {season_df.shape[0]}, 正样本比例: {season_df['EEF_flg'].mean():.2%}")
         
     return seasonal_dfs
 
-def prepare_seasonal_data2(df, date_col='HARVESTSTATUS_month', target_col='MORTALITY_RATE', quantile_threshold=0.8):
+def prepare_seasonal_data2(df, date_col='HARVESTSTATUS_month', target_col='EEF', quantile_threshold=0.8):
     """
     将数据按季节分割并为每个月创建二分类目标变量，最终按季节合并
 
@@ -241,12 +241,12 @@ def prepare_seasonal_data2(df, date_col='HARVESTSTATUS_month', target_col='MORTA
             
         # 计算该月分位数并创建标签
         quantile = np.quantile(valid_values, quantile_threshold)
-        month_df['Mortality_flg'] = month_df[target_col].apply(
+        month_df['EEF_flg'] = month_df[target_col].apply(
             lambda x: 1 if pd.notna(x) and x >= quantile else 0
         )
         
         # 打印各月数据量
-        print(f"月份{month}数据量: {month_df.shape[0]}, 正样本比例: {month_df['Mortality_flg'].mean():.2%}")
+        print(f"月份{month}数据量: {month_df.shape[0]}, 正样本比例: {month_df['EEF_flg'].mean():.2%}")
     
     # 按季节合并月份数据
     seasonal_dfs = {
@@ -267,106 +267,11 @@ def prepare_seasonal_data2(df, date_col='HARVESTSTATUS_month', target_col='MORTA
     # 打印各季节数据量
     for season, season_df in seasonal_dfs.items():
         if not season_df.empty:
-            print(f"{season.capitalize()}数据量: {season_df.shape[0]}, 正样本比例: {season_df['Mortality_flg'].mean():.2%}")
+            print(f"{season.capitalize()}数据量: {season_df.shape[0]}, 正样本比例: {season_df['EEF_flg'].mean():.2%}")
     
     return seasonal_dfs
 
 ####建模函数
-
-def split_data_m(df, model_type,validation_month_list):
-    
-    validation_data = df[df['HARVESTSTATUS_month'].isin(validation_month_list)]
-    training_test_data = df[~df['HARVESTSTATUS_month'].isin(validation_month_list)]
-   # 对比目标变量分布
-    plt.figure(figsize=(10, 4))
-    sns.kdeplot(training_test_data['MORTALITY_RATE'], label='Train')
-    sns.kdeplot(validation_data['MORTALITY_RATE'], label='Validation')
-    plt.title("MORTALITY_RATE Distribution Comparison")
-    plt.legend()
-    plt.show()
-    if model_type == 'binary':
-        X = training_test_data.drop(columns=['MORTALITY_RATE', 'MORTALITY_RATE_21','Mortality_flg'])
-        y = training_test_data['Mortality_flg']
-    elif model_type =='regression':
-        X = training_test_data.drop(columns=['Mortality_flg', 'MORTALITY_RATE_21','MORTALITY_RATE'])
-        y = training_test_data['MORTALITY_RATE']
-    else:
-        raise ValueError("model_type 必须为 'binary' 或'regression'")
-
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
-
-    if model_type == 'binary':
-        X_validation = validation_data.drop(columns=['MORTALITY_RATE', 'MORTALITY_RATE_21','Mortality_flg'])
-        y_validation = validation_data['Mortality_flg']
-    elif model_type =='regression':
-        X_validation = validation_data.drop(columns=['Mortality_flg', 'MORTALITY_RATE_21','MORTALITY_RATE'])
-        y_validation = validation_data['MORTALITY_RATE']
-
-    return X_train, X_test, y_train, y_test, X_validation, y_validation
-
-def split_data_s(df, model_type, validation_size=0.2, test_size=0.3, random_state=42):
-    """
-    将数据按比例随机拆分为训练集、验证集和测试集
-    
-    """
-    # 先将数据分为训练+测试集和验证集
-    train_test_data, validation_data = train_test_split(
-        df, 
-        test_size=validation_size, 
-        random_state=random_state,
-        stratify=df['Mortality_flg'] if model_type == 'binary' else None
-    )
-    
-    # 对比目标变量分布
-    plt.figure(figsize=(10, 4))
-    sns.kdeplot(train_test_data['MORTALITY_RATE'], label='Train')
-    sns.kdeplot(validation_data['MORTALITY_RATE'], label='Validation')
-    plt.title("MORTALITY_RATE Distribution Comparison")
-    plt.legend()
-    plt.show()
-    
-    # 根据模型类型选择目标变量
-    if model_type == 'binary':
-        X = train_test_data.drop(columns=['MORTALITY_RATE', 'MORTALITY_RATE_21', 'Mortality_flg'])
-        y = train_test_data['Mortality_flg']
-        X_validation = validation_data.drop(columns=['MORTALITY_RATE', 'MORTALITY_RATE_21', 'Mortality_flg'])
-        y_validation = validation_data['Mortality_flg']
-    elif model_type =='regression':
-        X = train_test_data.drop(columns=['Mortality_flg', 'MORTALITY_RATE_21', 'MORTALITY_RATE'])
-        y = train_test_data['MORTALITY_RATE']
-        X_validation = validation_data.drop(columns=['Mortality_flg', 'MORTALITY_RATE_21', 'MORTALITY_RATE'])
-        y_validation = validation_data['MORTALITY_RATE']
-    else:
-        raise ValueError("model_type 必须为 'binary' 或'regression'")
-    
-    # 再将训练+测试集分为训练集和测试集
-    X_train, X_test, y_train, y_test = train_test_split(
-        X, y, 
-        test_size=test_size, 
-        random_state=random_state,
-        stratify=y if model_type == 'binary' else None
-    )
-    
-    # 打印各集合大小
-    print("\n数据分割结果：")
-    print(f"训练集大小: {X_train.shape}")
-    print(f"测试集大小: {X_test.shape}")
-    print(f"验证集大小: {X_validation.shape}")
-    
-    if model_type == 'binary':
-        print(f"训练集正样本比例: {y_train.mean():.2%}")
-        print(f"测试集正样本比例: {y_test.mean():.2%}")
-        print(f"验证集正样本比例: {y_validation.mean():.2%}")
-        print(f"训练集样本月份分布：{X_train['HARVESTSTATUS_month'].value_counts(normalize=True)}")
-        print(f"测试集样本月份分布：{X_test['HARVESTSTATUS_month'].value_counts(normalize=True)}")
-        print(f"验证集样本月份分布：{X_validation['HARVESTSTATUS_month'].value_counts(normalize=True)}")
-    else:
-        print(f"训练集目标变量均值: {y_train.mean():.4f}")
-        print(f"测试集目标变量均值: {y_test.mean():.4f}")
-        print(f"验证集目标变量均值: {y_validation.mean():.4f}")
-    
-    return X_train, X_test, y_train, y_test, X_validation, y_validation
-
 
 def stratified_split_data(df, model_type, validation_size=0.2, test_size=0.3, random_state=42):
     """
@@ -378,12 +283,12 @@ def stratified_split_data(df, model_type, validation_size=0.2, test_size=0.3, ra
     
     # 创建分层依据
     if model_type == 'binary':
-        stratify_col = df['Mortality_flg']
+        stratify_col = df['EEF_flg']
         print("二分类任务 - 按目标变量分层")
     else:
         # 对回归任务，将连续目标变量分箱后分层
         num_bins = min(5, len(df) // 20)  # 自适应分箱数
-        stratify_col = pd.qcut(df['MORTALITY_RATE'], q=num_bins, duplicates='drop')
+        stratify_col = pd.qcut(df['EEF'], q=num_bins, duplicates='drop')
         print(f"回归任务 - 按目标变量分{len(stratify_col.unique())}层")
     
     # 第一次分割：训练测试集 vs 验证集
@@ -396,9 +301,9 @@ def stratified_split_data(df, model_type, validation_size=0.2, test_size=0.3, ra
     
     # 第二次分割：训练集 vs 测试集
     if model_type == 'binary':
-        new_stratify = train_test['Mortality_flg']
+        new_stratify = train_test['EEF_flg']
     else:
-        new_stratify = pd.qcut(train_test['MORTALITY_RATE'], 
+        new_stratify = pd.qcut(train_test['EEF'], 
                              q=num_bins, duplicates='drop')
     
     train, test = train_test_split(
@@ -414,18 +319,18 @@ def stratified_split_data(df, model_type, validation_size=0.2, test_size=0.3, ra
     if model_type == 'binary':
         # 二分类任务：展示正样本比例
         proportions = pd.DataFrame({
-            'Train': [train['Mortality_flg'].mean()],
-            'Test': [test['Mortality_flg'].mean()],
-            'Validation': [val['Mortality_flg'].mean()]
+            'Train': [train['EEF_flg'].mean()],
+            'Test': [test['EEF_flg'].mean()],
+            'Validation': [val['EEF_flg'].mean()]
         })
         sns.barplot(data=proportions)
         plt.title("Class Distribution Across Splits")
         plt.ylabel("Positive Class Proportion")
     else:
         # 回归任务：展示目标变量分布
-        sns.kdeplot(train['MORTALITY_RATE'], label='Train')
-        sns.kdeplot(test['MORTALITY_RATE'], label='Test')
-        sns.kdeplot(val['MORTALITY_RATE'], label='Validation')
+        sns.kdeplot(train['EEF'], label='Train')
+        sns.kdeplot(test['EEF'], label='Test')
+        sns.kdeplot(val['EEF'], label='Validation')
         plt.title("Target Variable Distribution Comparison")
         plt.legend()
     
@@ -433,11 +338,11 @@ def stratified_split_data(df, model_type, validation_size=0.2, test_size=0.3, ra
     
     # 准备特征和目标变量
     if model_type == 'binary':
-        drop_cols = ['MORTALITY_RATE', 'MORTALITY_RATE_21', 'Mortality_flg']
-        y_col = 'Mortality_flg'
+        drop_cols = ['EEF', 'EEF_flg']
+        y_col = 'EEF_flg'
     else:
-        drop_cols = ['Mortality_flg', 'MORTALITY_RATE_21', 'MORTALITY_RATE']
-        y_col = 'MORTALITY_RATE'
+        drop_cols =  ['EEF', 'EEF_flg']
+        y_col = 'EEF'
     
     X_train = train.drop(columns=drop_cols)
     y_train = train[y_col]
@@ -519,7 +424,7 @@ def data_preprocessing(df, thres_zeros=0.7, cutoff=0.8):
     df_keep[numeric_columns] = df_keep[numeric_columns].clip(lower=min_float32, upper=max_float32)
 
     # 共线性处理
-    target_cols = [col for col in ['MORTALITY_RATE', 'MORTALITY_RATE_21', 'Mortality_flg'] 
+    target_cols = [col for col in ['EEF', 'EEF_flg'] 
                   if col in df_keep.columns]
     other_numeric = [col for col in numeric_columns if col not in target_cols]
     
@@ -533,7 +438,7 @@ def data_preprocessing(df, thres_zeros=0.7, cutoff=0.8):
     # selected_cols = get_non_collinear_vars(cutoff, df_keep[numeric_columns].drop(['MORTALITY_RATE', 'MORTALITY_RATE_21','Mortality_flg'], axis=1))
     
     # 保留目标变量
-    target_cols = ['MORTALITY_RATE', 'MORTALITY_RATE_21','Mortality_flg']
+    target_cols = ['EEF', 'EEF_flg']
     
     # 合并选择的数值列、对象列和目标变量
     
@@ -544,68 +449,9 @@ def data_preprocessing(df, thres_zeros=0.7, cutoff=0.8):
         df_keep2[col] = df_keep2[col].astype('category')
     
     return df_keep2
-def data_preprocessing2(df, thres_zeros=0.7, cutoff=0.8):
-   
-    # 处理缺失值
-    missing_p = np.sum(df.isnull(), axis=0) / df.shape[0]
-    low_missing = missing_p[missing_p < thres_zeros].index.tolist()
-    print(f"原始的变量数量: {len(df.columns)}")
-    print(f"低缺失率的变量数量: {len(low_missing)}")
-    df_keep = df[low_missing].copy()
-    for col in ['HOUSEID', 'HEAGE']:
-        if col in df_keep.columns:
-            df_keep[col] = df_keep[col].astype(int).astype(str)
-        else:
-            print(f"不存在{col}列，跳过转换")
 
-    # 区分数值型和对象型变量
-    numeric_columns = []
-    object_columns = []
-    for column in df_keep.columns:
-        if np.issubdtype(df_keep[column].dtype, np.number):
-            numeric_columns.append(column)
-        else:
-            object_columns.append(column)
-
-    # 处理非有限值
-    if np.any(~np.isfinite(df_keep[numeric_columns])):
-        df_keep[numeric_columns] = df_keep[numeric_columns].replace([np.inf, -np.inf], np.nan)
-        print("替换了非有限值")
-
-    max_float32 = np.finfo(np.float32).max
-    min_float32 = np.finfo(np.float32).min
-    df_keep[numeric_columns] = df_keep[numeric_columns].clip(lower=min_float32, upper=max_float32)
-
-    # # 共线性处理
-    # target_cols = [col for col in ['MORTALITY_RATE', 'MORTALITY_RATE_21', 'Mortality_flg'] 
-    #               if col in df_keep.columns]
-    # other_numeric = [col for col in numeric_columns if col not in target_cols]
-    
-    # if other_numeric:
-    #     selected_cols = get_non_collinear_vars(cutoff, df_keep[other_numeric])
-    #     print(f"共线性处理后保留 {len(selected_cols)}/{len(other_numeric)} 个数值特征")
-    # else:
-    #     selected_cols = []
-    #     print("警告: 无有效数值特征进行共线性分析")
-
-    # # selected_cols = get_non_collinear_vars(cutoff, df_keep[numeric_columns].drop(['MORTALITY_RATE', 'MORTALITY_RATE_21','Mortality_flg'], axis=1))
-    
-    # # 保留目标变量
-    # target_cols = ['MORTALITY_RATE', 'MORTALITY_RATE_21','Mortality_flg']
-    
-    # 合并选择的数值列、对象列和目标变量
-    
-    df_keep2 = df_keep[  object_columns + numeric_columns].copy()
-    
-    # 将object类型转换为category类型
-    for col in object_columns:
-        df_keep2[col] = df_keep2[col].astype('category')
-    
-    return df_keep2
-# df_keep2 = data_preprocessing(seasonal_dfs['winter'])
-# has_inf = seasonal_dfs['winter'].apply(lambda x: np.isfinite(x).any())
                        
-def lightgbm_modeling(df, validation_month_list, split_model, model_type='binary', random_state=42, quantile_threshold=0.8):
+def lightgbm_modeling(df, model_type='binary', random_state=42, quantile_threshold=0.8):
     # 数据预处理和分割保持不变
     df_keep2 = data_preprocessing(df)
     print('保留的字段数量', df_keep2.shape)
@@ -613,12 +459,8 @@ def lightgbm_modeling(df, validation_month_list, split_model, model_type='binary
     if 'ESTIMATEDSLAUGHTERDATE _month' in df_keep2.columns: 
         df_keep2 = df_keep2.drop(columns=['ESTIMATEDSLAUGHTERDATE _month', 'DOCDATE_month'], axis=1)
     
-    if split_model == 'month':
-        X_train, X_test, y_train, y_test, X_validation, y_validation = split_data_m(df_keep2, model_type, validation_month_list)
-    elif split_model == 'sample':
-        X_train, X_test, y_train, y_test, X_validation, y_validation = split_data_s(df_keep2, model_type)
-    else:
-        X_train, X_test, y_train, y_test, X_validation, y_validation = stratified_split_data(df_keep2, model_type)
+  
+    X_train, X_test, y_train, y_test, X_validation, y_validation = stratified_split_data(df_keep2, model_type)
     
     # print("\n数据分割结果：")
     # print(f"训练集大小: {X_train.shape}")
@@ -691,19 +533,15 @@ def lightgbm_modeling(df, validation_month_list, split_model, model_type='binary
 
     return lgb_baseline, feature_imp, top_importantcol
 
-def regression_modeling(df,validation_month_list, split_model,model_type='regression', random_state=42):
+def regression_modeling(df,model_type='regression', random_state=42):
  
     df_keep2 = data_preprocessing(df)
 
     print('保留的字段数量',df_keep2.shape)
     if 'ESTIMATEDSLAUGHTERDATE _month' in df_keep2.columns: 
         df_keep2=df_keep2.drop(columns=['ESTIMATEDSLAUGHTERDATE _month','DOCDATE_month'],axis=1)
-    if split_model=='month':
-        X_train, X_test, y_train, y_test, X_validation, y_validation = split_data_m(df_keep2,model_type,validation_month_list)
-    if split_model=='sample':
-        X_train, X_test, y_train, y_test, X_validation, y_validation = split_data_s(df_keep2, model_type)
-    if split_model=='stratified':
-        X_train, X_test, y_train, y_test, X_validation, y_validation = stratified_split_data(df_keep2, model_type)
+    
+    X_train, X_test, y_train, y_test, X_validation, y_validation = stratified_split_data(df_keep2, model_type)
     print("\n数据分割结果：")
     print(f"训练集大小: {X_train.shape}")
     print(f"测试集大小: {X_test.shape}")
@@ -749,14 +587,14 @@ def regression_modeling(df,validation_month_list, split_model,model_type='regres
     print("R2 Score:", r2)
 
     # 绘制实际值 vs 预测值散点图
-    plt.figure(figsize=(8, 6))
-    plt.scatter(y_test, y_pred, alpha=0.5)
-    y=df[~df['HARVESTSTATUS_month'].isin(validation_month_list)]['MORTALITY_RATE']
-    plt.plot([y.min(), y.max()], [y.min(), y.max()], 'r--')  # 理想对角线
-    plt.xlabel('Actual Values')
-    plt.ylabel('Predicted Values')
-    plt.title('Actual vs Predicted Values')
-    plt.show()
+    # plt.figure(figsize=(8, 6))
+    # plt.scatter(y_test, y_pred, alpha=0.5)
+    # y=df['EEF']
+    # plt.plot([y.min(), y.max()], [y.min(), y.max()], 'r--')  # 理想对角线
+    # plt.xlabel('Actual Values')
+    # plt.ylabel('Predicted Values')
+    # plt.title('Actual vs Predicted Values')
+    # plt.show()
 
     # 输出具体重要性值
     feature_imp = pd.DataFrame({
@@ -811,44 +649,47 @@ all_columns=df2.columns.to_list()
 # window_cols=remaining_columns+[col for col in window_features if col.startswith('W3')]
 
 
-seasonal_dfs = prepare_seasonal_data(df2,date_col='HARVESTSTATUS_month', target_col='MORTALITY_RATE', quantile_threshold=0.8)
-seasonal_dfs['winter'].groupby('HARVESTSTATUS_month')['Mortality_flg'].sum()
-seasonal_dfs['autumn'].groupby('HARVESTSTATUS_month')['Mortality_flg'].sum()
-seasonal_dfs['summer'].groupby('HARVESTSTATUS_month')['Mortality_flg'].sum()
-seasonal_dfs['spring'].groupby('HARVESTSTATUS_month')['Mortality_flg'].sum()
+seasonal_dfs = prepare_seasonal_data(df2,date_col='HARVESTSTATUS_month', target_col='EEF', quantile_threshold=0.8)
+seasonal_dfs['winter'].groupby('HARVESTSTATUS_month')['EEF_flg'].sum()
+seasonal_dfs['autumn'].groupby('HARVESTSTATUS_month')['EEF_flg'].sum()
+seasonal_dfs['summer'].groupby('HARVESTSTATUS_month')['EEF_flg'].sum()
+seasonal_dfs['spring'].groupby('HARVESTSTATUS_month')['EEF_flg'].sum()
 df2['HARVESTSTATUS_month'].value_counts()
+seasonal_dfs['winter']['EEF_flg'].value_counts()
+seasonal_dfs['winter'].groupby('EEF_flg')['EEF'].mean()
 # df_keep2 = data_preprocessing(seasonal_dfs['winter'])
 # 冬天
-lgb_baseline_w, feature_imp_w, top_importantcol_w=lightgbm_modeling(seasonal_dfs['winter'],validation_month_list=['2'],split_model='stratified')
+seasonal_dfs['winter'].columns.to_list()
+lgb_baseline_w, feature_imp_w, top_importantcol_w=lightgbm_modeling(seasonal_dfs['winter'])
 top_importantcol_w[:20]
 len(feature_imp_w[feature_imp_w['Importance']>0]['Feature'].tolist())
-important_cols=list(dict.fromkeys(top_importantcol_w + ['MORTALITY_RATE', 'MORTALITY_RATE_21', 'Mortality_flg', 'HARVESTSTATUS_month']))
+important_cols=list(dict.fromkeys(top_importantcol_w + ['EEF', 'EEF_flg', 'HARVESTSTATUS_month']))
 #重要变量建模
-lgb_model, feature_imp2, top_importantcol2=lightgbm_modeling(seasonal_dfs['winter'][important_cols],validation_month_list=['2'],split_model='stratified')
+lgb_model, feature_imp2, top_importantcol2=lightgbm_modeling(seasonal_dfs['winter'][important_cols])
 top_importantcol2[:20]
 # 回归模型建立
-lgb_regressor, feature_imp3, top_important_cols3=regression_modeling(seasonal_dfs['winter'],validation_month_list=['2'],split_model='stratified')
+lgb_regressor, feature_imp3, top_important_cols3=regression_modeling(seasonal_dfs['winter'])
 top_important_cols3[:20]
 
 
 # 秋天
-lgb_baseline_a, feature_imp_a, top_importantcol_a=lightgbm_modeling(seasonal_dfs['autumn'],validation_month_list=['11'],split_model='stratified')
+lgb_baseline_a, feature_imp_a, top_importantcol_a=lightgbm_modeling(seasonal_dfs['autumn'])
 top_importantcol_a[:20]
 important_cols=list(dict.fromkeys(top_importantcol_a + ['MORTALITY_RATE', 'MORTALITY_RATE_21', 'Mortality_flg', 'HARVESTSTATUS_month']))
 #重要变量建模
-lgb_model, feature_imp2, top_importantcol2=lightgbm_modeling(seasonal_dfs['autumn'][important_cols],validation_month_list=['11'],split_model='stratified')
+lgb_model, feature_imp2, top_importantcol2=lightgbm_modeling(seasonal_dfs['autumn'][important_cols])
 top_importantcol2[:20]
-lgb_regressor, feature_imp3, top_important_cols3=regression_modeling(seasonal_dfs['autumn'],validation_month_list=['11'],split_model='stratified')
+lgb_regressor, feature_imp3, top_important_cols3=regression_modeling(seasonal_dfs['autumn'])
 top_important_cols3[:20]
 
 # 夏天
-lgb_baseline_s, feature_imp_s, top_importantcol_s=lightgbm_modeling(seasonal_dfs['summer'],validation_month_list=['9'],split_model='stratified')
+lgb_baseline_s, feature_imp_s, top_importantcol_s=lightgbm_modeling(seasonal_dfs['summer'])
 top_importantcol_s[:20]
 important_cols=list(dict.fromkeys(top_importantcol_s + ['MORTALITY_RATE', 'MORTALITY_RATE_21', 'Mortality_flg', 'HARVESTSTATUS_month']))
 #重要变量建模
 lgb_model, feature_imp2, top_importantcol2=lightgbm_modeling(seasonal_dfs['summer'][important_cols],validation_month_list=['9'],split_model='stratified')
 top_importantcol2[:20]
-lgb_regressor, feature_imp3, top_important_cols3=regression_modeling(seasonal_dfs['summer'],validation_month_list=['9'],split_model='stratified')
+lgb_regressor, feature_imp3, top_important_cols3=regression_modeling(seasonal_dfs['summer'])
 top_important_cols3[:20]
 # 春天
 lgb_baseline, feature_imp, top_importantcol=lightgbm_modeling(seasonal_dfs['spring'],validation_month_list=['4'],split_model='stratified')
@@ -885,8 +726,8 @@ def feature_binning(top_importantcol, object_columns, X, y, file_prefix):
         所有特征的分箱明细表（含Mortality_rate均值）
     """
     # 0. 确保Mortality_rate列存在
-    if 'MORTALITY_RATE' not in X.columns:
-        raise ValueError("X中必须包含'Mortality_rate'列")
+    if 'EEF' not in X.columns:
+        raise ValueError("X中必须包含'EEF'列")
     
     # 1. 识别分类特征
     cat_f = [col for col in top_importantcol if col in object_columns]
@@ -915,7 +756,7 @@ def feature_binning(top_importantcol, object_columns, X, y, file_prefix):
             temp['feature'] = col  # 添加特征名列
             print(f"分箱阈值: {optb.splits}")
             X_binned = optb.transform(X[[col]],metric='bins').squeeze()  # 获取分箱结果
-            bin_mortality = X.groupby(X_binned)['MORTALITY_RATE'].mean()
+            bin_mortality = X.groupby(X_binned)['EEF'].mean()
             bin_mortality=bin_mortality.reset_index(drop=False)
             temp2 = pd.merge(temp, bin_mortality, left_on='Bin', right_on='index', how='left').drop('index', axis=1)
             bin_table = pd.concat([bin_table, temp2])
@@ -923,7 +764,7 @@ def feature_binning(top_importantcol, object_columns, X, y, file_prefix):
             print(bin_mortality)
              # 打印分箱详情
             print(f"\n=== 变量: {col} ===")
-            display_cols = ['Bin', 'Count', 'Count (%)', 'Event rate', 'MORTALITY_RATE']
+            display_cols = ['Bin', 'Count', 'Count (%)', 'Event rate', 'EEF']
             print(temp2[display_cols])
             print('-'*50)
             
@@ -940,17 +781,17 @@ def feature_binning(top_importantcol, object_columns, X, y, file_prefix):
     
     # 8. 打印和可视化每个变量（修正后的可视化部分）
     warnings.filterwarnings("ignore")
-    for col in top_importantcol:
-        try:
-            optb = binning_process.get_binned_variable(col)
-            bin_table_var = optb.binning_table.build()
-            optb.binning_table.plot(metric='event_rate')
-            plt.show()
-            print('')
+    # for col in top_importantcol:
+    #     try:
+    #         optb = binning_process.get_binned_variable(col)
+    #         bin_table_var = optb.binning_table.build()
+    #         optb.binning_table.plot(metric='event_rate')
+    #         plt.show()
+    #         print('')
             
-        except Exception as e:
-            print(f"可视化变量 {col} 时出错: {str(e)}")
-            continue
+    #     except Exception as e:
+    #         print(f"可视化变量 {col} 时出错: {str(e)}")
+    #         continue
     
     return binning_sum, bin_table
 
@@ -962,28 +803,29 @@ for column in df2.columns:
     else:
         object_columns.append(column)
 
+df3
+top_importantcol_w1=['W3_21-23天_最高温度变化率_MEAN', 'W3_6-8天_鸡舍温度-平均_RANGE', 'W3_6-8天_鸡舍温度-最高_RANGE',
+                      'W3_12-14天_最低温度变化率_MEAN', 'DENSITY', 'W3_12-14天_鸡舍温度-最低_MEAN', 
+                      'W3_21-23天_最低温度变化率_MEAN', 'W3_15-17天_每日温差_RANGE', 'W3_6-8天_外部-平均_RANGE', 
+                      'W3_12-14天_湿度内部平均_RANGE', 'W3_18-20天_每日温差_RANGE', 'W3_0-2天_鸡舍温度-最低_MEAN',
+                        'W3_12-14天_最低温度变化率_RANGE', 'W3_15-17天_鸡舍温度-平均_MEAN', 'W3_0-2天_外部-平均_MEAN',
+                          'W3_18-20天_外部-平均_MEAN', 'W3_18-20天_外部-平均_RANGE', 'W3_15-17天_外部-平均_RANGE', 
+                          'W3_15-17天_最高温度变化率_RANGE', 'W3_0-2天_鸡舍温度-最高_MEAN']
 
-top_importantcol_w1=['HARVESTSTATUS_month', 'W3_15-17天_外部-平均_MEAN', 'DENSITY', 'W3_18-20天_平均温度变化率_MEAN', 
-                     'AGE', 'W3_0-2天_外部-平均_MEAN', 'W3_9-11天_平均温度变化率_MEAN', 'W3_9-11天_最低温度变化率_RANGE',
-                       'W3_18-20天_每日温差_RANGE', 'W3_15-17天_最低温度变化率_RANGE', 'DOCAMOUNT', 
-                       'W3_6-8天_最低温度变化率_MEAN', 'W3_18-20天_外部-平均_RANGE', 'W3_9-11天_鸡舍温度-最高_RANGE',
-                         'W3_18-20天_湿度内部平均_RANGE', 'W3_15-17天_平均温度变化率_MEAN', 
-                         'W3_6-8天_平均温度变化率_RANGE', 'W3_15-17天_每日温差_RANGE', 'W3_21-23天_外部-平均_MEAN', 
-                         'W3_3-5天_平均温度变化率_MEAN']
-top_importantcol_s1=['W3_0-2天_鸡舍温度-平均_MEAN', 'W3_21-23天_鸡舍温度-最高_MEAN', 'W3_21-23天_最低温度变化率_RANGE',
-                      'GAS_COST', 'W3_6-8天_鸡舍温度-平均_MEAN', 'W3_21-23天_外部-平均_RANGE', 
-                      'W3_18-20天_外部-平均_RANGE', 'W3_6-8天_平均温度变化率_RANGE', 'W3_15-17天_鸡舍温度-平均_MEAN', 
-                      'W3_12-14天_每日温差_MEAN', 'W3_12-14天_每日温差_RANGE', 'DENSITY', 'HOUSEAMOUNT',
-                        'W3_3-5天_鸡舍温度-最低_RANGE', 'W3_12-14天_湿度内部平均_MEAN', 'W3_21-23天_湿度内部平均_RANGE',
-                          'W3_21-23天_鸡舍温度-平均_MEAN', 'W3_15-17天_最高温度变化率_RANGE',
-                            'W3_12-14天_外部-平均_RANGE', 'W3_15-17天_鸡舍温度-最低_MEAN']
-top_importantcol_a1=['W3_3-5天_每日温差_MEAN', 'W3_9-11天_鸡舍温度-平均_MEAN', 'W3_12-14天_平均温度变化率_RANGE',
-                      'W3_6-8天_湿度内部平均_RANGE', 'W3_21-23天_最低温度变化率_MEAN', 'W3_6-8天_鸡舍温度-最低_MEAN', 
-                      'W3_12-14天_湿度内部平均_RANGE', 'W3_0-2天_每日温差_RANGE', 'W3_12-14天_每日温差_RANGE', 
-                      'W3_15-17天_每日温差_RANGE', 'ELECTRICITY_COST', 'W3_3-5天_鸡舍温度-最低_RANGE', 
-                      'W3_6-8天_外部-平均_MEAN', 'W3_18-20天_平均温度变化率_RANGE', 'W3_18-20天_最高温度变化率_RANGE', 
-                      'W3_0-2天_最低温度变化率_MEAN', 'W3_6-8天_平均温度变化率_MEAN', 'W3_9-11天_最高温度变化率_MEAN', 
-                      'W3_21-23天_平均温度变化率_RANGE', 'W3_21-23天_最高温度变化率_RANGE']
+top_importantcol_s1=['W3_6-8天_平均温度变化率_MEAN', 'W3_12-14天_湿度内部平均_MEAN', 'W3_15-17天_平均温度变化率_RANGE',
+                      'W3_0-2天_最高温度变化率_RANGE', 'W3_0-2天_每日温差_RANGE', 'W3_12-14天_外部-平均_RANGE',
+                        'W3_18-20天_鸡舍温度-最高_MEAN', 'W3_6-8天_鸡舍温度-最低_MEAN', 'W3_15-17天_每日温差_RANGE',
+                          'W3_6-8天_每日温差_RANGE', 'W3_6-8天_湿度内部平均_RANGE', 'W3_9-11天_平均温度变化率_RANGE',
+                            'W3_21-23天_鸡舍温度-平均_MEAN', 'W3_15-17天_最高温度变化率_RANGE', 
+                            'W3_12-14天_鸡舍温度-最低_MEAN', 'ELECTRICITY_COST', 'W3_3-5天_最低温度变化率_RANGE', 
+                            'W3_21-23天_湿度内部平均_RANGE', 'W3_0-2天_鸡舍温度-平均_MEAN', 'W3_3-5天_鸡舍温度-平均_MEAN']
+top_importantcol_a1=['DENSITY', 'W3_21-23天_最低温度变化率_MEAN', 'W3_9-11天_湿度内部平均_MEAN', 'ELECTRICITY_COST', 
+                     'W3_6-8天_每日温差_RANGE', 'W3_0-2天_鸡舍温度-最低_MEAN', 'W3_21-23天_平均温度变化率_MEAN', 
+                     'W3_21-23天_外部-平均_MEAN', 'W3_15-17天_鸡舍温度-最低_RANGE', 'W3_21-23天_外部-平均_RANGE',
+                       'W3_12-14天_外部-平均_MEAN', 'W3_12-14天_外部-平均_RANGE', 'W3_21-23天_每日温差_MEAN',
+                         'W3_18-20天_最低温度变化率_RANGE', 'W3_6-8天_最低温度变化率_MEAN', 
+                         'W3_21-23天_最高温度变化率_RANGE', 'W3_18-20天_外部-平均_RANGE', 'W3_0-2天_每日温差_MEAN',
+                           'W3_18-20天_平均温度变化率_MEAN', 'W3_9-11天_最低温度变化率_RANGE']
 same_col=list(set(top_importantcol_w) & set(top_importantcol_s) & set(top_importantcol_a))
 
 
@@ -995,11 +837,18 @@ for column in df2.columns:
     else:
         object_columns.append(column)
 
-X=seasonal_dfs['winter'].drop(columns=[ 'MORTALITY_RATE_21', 'Mortality_flg'])
-y=seasonal_dfs['winter']['Mortality_flg']
-rate_cols=[ i for i in X.columns if '变化率' in i]
-X[rate_cols]=X[rate_cols]*100
-top_importantcol=['DENSITY']
+X=seasonal_dfs['spring'].drop(columns=[ 'EEF_flg'])
+y=seasonal_dfs['spring']['EEF_flg']
+seasonal_dfs['spring']['EEF_flg'].value_counts()
+# rate_cols=[ i for i in X.columns if '变化率' in i]
+# X[rate_cols]=X[rate_cols]*100
+# seasonal_dfs['winter']['M']
+# top_importantcol=['W3_12-14天_最低温度变化率_MEAN']
+top_importantcol=[ i for i in X.columns if '湿度内部平均_MEAN' in i]
+X[top_importantcol]=X[top_importantcol].round(1)
 binning_sum, bin_table=feature_binning(top_importantcol, object_columns, X, y,file_prefix="winter")
 
+bin_table.to_csv('.\\xyy\\eef分析\\output\\春天湿度内部平均_MEAN分箱.csv', index=False, encoding='gbk')
 
+
+top_importantcol_a[:20]

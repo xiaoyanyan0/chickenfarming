@@ -3,7 +3,8 @@ import pandas as pd
 baseinfo=pd.read_csv('./data/data_cleaned/baseinfo.csv',encoding='gbk')
 marketingdata=pd.read_csv('./data/data_cleaned/marketingdata.csv',encoding='gbk')
 
-
+# baseinfo[(baseinfo['FarmName']=='GTF') & (baseinfo['Batch']=='70')]['DOCAmount']
+# baseinfo[(baseinfo['FarmName']=='GTF')][['Batch','HouseNo','DOCAmount']]
 columns = [
     'ID_NUM',                    #  主键
     'birds_placed',             # 进雏只数\nBird placed No.
@@ -133,3 +134,92 @@ all_info_df=all_info_df.drop(columns=unique_columns,axis=1)
 all_info_df.to_csv('./data/data_cleaned/allinfo_dead0430.csv', index=False,encoding='gbk')
 
 all_info_df.columns.to_list()
+
+
+
+# 现状分析
+
+all_info_df=pd.read_csv('./data/data_cleaned/allinfo_dead0430.csv',encoding='gbk')
+baseinfo=pd.read_csv('./data/data_cleaned/baseinfo.csv',encoding='gbk')
+all_info_df.columns.to_list()
+len(list(baseinfo['Batch'].astype(int).drop_duplicates()))
+all_info_df['gender'].drop_duplicates()
+baseinfo['Gender'].drop_duplicates()
+len(list(all_info_df['ID_NUM'].str[0:6].drop_duplicates()))
+data=list(all_info_df['ID_NUM'].str[0:6].drop_duplicates())
+from collections import defaultdict
+
+# 创建字典来分组
+group_dict = defaultdict(list)
+
+for item in data:
+    prefix, num = item.split('_')
+    # 标准化前缀 (G1A → G01A, G02 → G02)
+    if prefix[0] == 'G' and prefix[1:].isdigit():
+        standardized_prefix = f"G{int(prefix[1:]):02d}"
+    else:
+        standardized_prefix = prefix
+    group_dict[standardized_prefix].append(int(num))
+
+# 格式化输出
+result = []
+for prefix in sorted(group_dict.keys()):
+    nums = sorted(group_dict[prefix])
+    # 将数字列表转换为斜杠分隔的字符串
+    nums_str = '/'.join(map(str, nums))
+    result.append(f"{prefix}-{nums_str}")
+
+# 打印结果，每行一个
+print(','.join(result))
+
+len(result)
+
+
+all_info_df.columns.to_list()
+date_columns = ['DOCdate', 'EstimatedSlaughterDate ', 'Harveststatus']
+for col in date_columns:
+    all_info_df[col] = pd.to_datetime(all_info_df[col])
+    all_info_df[f'{col}_month'] = all_info_df[col].dt.month
+    all_info_df[f'{col}_month']=all_info_df[f'{col}_month'].astype(str)
+
+grouped_df = all_info_df.groupby('DOCdate_month').agg({
+   'Mortality_rate':'mean',
+    'eef':'mean'
+}).reset_index()
+
+import matplotlib.pyplot as plt
+import seaborn as sns
+# 绘制柱状图
+
+# 设置图形大小（一行两列的子图布局）
+fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(16, 6))
+
+# --- 第一张图：Mortality Rate ---
+sns.barplot(
+    data=grouped_df,
+    x='DOCdate_month',
+    y='Mortality_rate',
+    color='skyblue',
+    ax=ax1
+)
+ax1.set_title('Mean Mortality Rate by Month')
+ax1.set_xlabel('Month')
+ax1.set_ylabel('Mortality Rate')
+ax1.grid(True, linestyle='--', alpha=0.6)  # 添加网格线（可选）
+
+# --- 第二张图：EEF ---
+sns.barplot(
+    data=grouped_df,
+    x='DOCdate_month',
+    y='eef',
+    color='lightcoral',
+    ax=ax2
+)
+ax2.set_title('Mean EEF by Month')
+ax2.set_xlabel('Month')
+ax2.set_ylabel('EEF')
+ax2.grid(True, linestyle='--', alpha=0.6)  # 添加网格线（可选）
+
+# 调整布局，避免标题重叠
+plt.tight_layout()
+plt.show()

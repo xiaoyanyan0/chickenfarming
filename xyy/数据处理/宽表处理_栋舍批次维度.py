@@ -4,6 +4,17 @@ all_dead_data=pd.read_csv('./data/data_cleaned/all_dead_data.csv',encoding='gbk'
 all_dead_data2=pd.read_csv('./data/data_cleaned/all_dead_data2.csv',encoding='gbk')
 baseinfo=pd.read_csv('./data/data_cleaned/baseinfo.csv',encoding='gbk')
 marketingdata=pd.read_csv('./data/data_cleaned/marketingdata.csv',encoding='gbk')
+import toad
+baseinfo_detet=toad.detect(baseinfo)
+baseinfo_detet=baseinfo_detet.reset_index(drop=False)
+baseinfo_detet.to_csv('./data/data_detected/baseinfo_detect.csv',index=False,encoding='gbk')
+
+
+marketingdata_detet=toad.detect(marketingdata)
+marketingdata_detet=marketingdata_detet.reset_index(drop=False)
+marketingdata_detet.to_csv('./data/data_detected/marketingdata_detet.csv',index=False,encoding='gbk')
+
+
 
 all_dead_data.columns.to_list()
 
@@ -145,3 +156,4 @@ allinfo_dead=allinfo_dead.drop(columns=unique_columns,axis=1)
 allinfo_dead.to_csv('./data/data_cleaned/allinfo_dead.csv', index=False,encoding='gbk')
 
 allinfo_dead.columns.to_list()
+

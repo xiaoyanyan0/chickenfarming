@@ -31,13 +31,13 @@ from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score, roc_auc_score, confusion_matrix
 plt.rcParams['font.sans-serif'] = ['SimHei']  # 使用黑体字体
 plt.rcParams['axes.unicode_minus'] = False  # 解决负号显示问题
-all_info_temdata=pd.read_csv('./data/data_cleaned/dead_HumTem_byage0515.csv',encoding='gbk')
+all_info_temdata=pd.read_csv('./data/data_cleaned/dead_HumTem_byage0603_2.csv',encoding='gbk')
 # marketingdata=pd.read_csv('./data/data_cleaned/marketingdata.csv',encoding='gbk')
 
 all_info_temdata.columns.to_list()
 
 #把细分的死淘数据和出栏数据指标去掉
-df2=all_info_temdata.drop(columns='Dead',axis=1)
+df2=all_info_temdata
 # df2['Date']
 df2.shape
 ###字段处理
@@ -49,7 +49,7 @@ df2['Date'] = pd.to_datetime(df2['Date'])
 df2['Month'] = df2['Date'].dt.month
 df2=df2.drop('Date',axis=1)
 
-df2=df2.set_index(['ID_NUM','Age'])
+df2=df2.set_index(['ID_NUM'])
 df2.shape
 # df2['Mortality_rate'].isna().sum()
 
@@ -229,13 +229,7 @@ def stratified_split_data(df, model_type, validation_size=0.2, test_size=0.3, ra
     
     return X_train, X_test, y_train, y_test, X_val, y_val
 
-# df_keep2=data_preprocessing(df2, thres_zeros=0.7, cutoff=0.8)
-# df_keep2.columns.to_list()
-# df_keep2['Mortality_flg']=df_keep2['Mortality_rate'].apply(lambda x:1 if x>=np.quantile(df_keep2['Mortality_rate'],0.8) else 0)
-
-# df_keep2['Mortality_flg'].value_counts()
-# X_train, X_test, y_train, y_test, X_validation, y_validation = stratified_split_data(df_keep2, model_type='binary')
-    
+  
 # X_train.columns.to_list()
 def lightgbm_modeling(df, model_type='binary', random_state=42, quantile_threshold=0.8):
     # 数据预处理和分割保持不变
@@ -320,5 +314,40 @@ def lightgbm_modeling(df, model_type='binary', random_state=42, quantile_thresho
 
     return lgb_baseline, feature_imp, top_importantcol
 
+df2.columns.to_list()
+lgb_baseline, feature_imp, top_importantcol=lightgbm_modeling(df2.drop(['Month'],axis=1), model_type='binary', random_state=42, quantile_threshold=0.8)
 
-lgb_baseline, feature_imp, top_importantcol=lightgbm_modeling(df2, model_type='binary', random_state=42, quantile_threshold=0.8)
+
+df_keep2=data_preprocessing(df2, thres_zeros=0.7, cutoff=0.8)
+df_keep2.columns.to_list()
+np.quantile(df_keep2['Mortality_rate'],0.8)
+df_keep2['Mortality_rate'].describe()
+df_keep2['Mortality_flg']=df_keep2['Mortality_rate'].apply(lambda x:1 if x>=np.quantile(df_keep2['Mortality_rate'],0.8) else 0)
+
+df_keep2.groupby('Month')['Mortality_flg'].sum()
+df_keep2.groupby('Age')['Mortality_flg'].sum()
+
+df_keep2['Mortality_flg'].value_counts()
+X_train, X_test, y_train, y_test, X_validation, y_validation = stratified_split_data(df_keep2, model_type='binary')
+
+
+import matplotlib.pyplot as plt
+
+# 计算每个 Age 的 Mortality_flg 总和
+age_mortality = df_keep2.groupby('Age')['Mortality_flg'].sum()
+
+# 创建折线图
+plt.figure(figsize=(12, 6))
+plt.plot(age_mortality.index, age_mortality.values, 
+         marker='o', linestyle='-', color='b', linewidth=2)
+
+# 添加标题和标签
+plt.title('Daily Mortality by Age', fontsize=16)
+plt.xlabel('Age (days)', fontsize=14)
+plt.ylabel('高死淘样本数', fontsize=14)
+plt.grid(True, linestyle='--', alpha=0.7)
+
+# 优化显示
+plt.xticks(rotation=45)
+plt.tight_layout()
+plt.show()

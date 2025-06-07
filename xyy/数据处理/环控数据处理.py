@@ -251,3 +251,39 @@ merge_df2[merge_df2['id_no']=='G01-60']
 df = pd.read_excel('D:\\太阳谷\\chickenfarming\\data\\24.09-环控数据\\G28-25\\G28\\鸡群_25\\House_H9-L6-26700\EXCEL_Files\\鸡群_25House_H9-L6-26700.xlsx', sheet_name='History View')
 df.columns.to_list()
 df2 = pd.read_excel('D:\\太阳谷\\chickenfarming\\data\\24.09-环控数据\\G28-25\\G28\\鸡群_25\\House_H9-L6-26700\EXCEL_Files\\鸡群_25House_H9-L6-26700.xlsx', sheet_name='History View')
+
+
+
+
+all_HumTem_data1=pd.read_csv('./data/data_cleaned/all_HumTem_data1.csv',encoding='gbk')
+all_HumTem_data2=pd.read_csv('./data/data_cleaned/all_HumTem_data2.csv',encoding='gbk')
+all_HumTem_data=pd.concat([all_HumTem_data1,all_HumTem_data2],ignore_index=True)
+all_HumTem_data.head()
+all_HumTem_data=all_HumTem_data.drop_duplicates()
+
+all_HumTem_data.shape
+all_HumTem_data['外部-平均']=all_HumTem_data['外部-平均'].replace('---',None)
+all_HumTem_data['鸡舍温度-平均']=all_HumTem_data['鸡舍温度-平均'].replace('---',None)
+all_HumTem_data['湿度外部平均']=all_HumTem_data['湿度外部平均'].replace('---',None)
+all_HumTem_data['湿度内部平均']=all_HumTem_data['湿度内部平均'].replace('---',None)
+
+numeric_columns = [
+     '目标温度', '鸡舍温度-最低', '鸡舍温度-平均',
+    '鸡舍温度-最高', '温度1-平均', '温度2-平均', '温度3-平均',
+    '温度4-平均', '温度5-平均', '温度6-平均', '外部-平均',
+    '湿度内部平均', '湿度外部平均', '水', '饲料', '水平',
+]
+# 将需要统计的字段转换为数值类型
+for col in numeric_columns:
+    all_HumTem_data[col] = pd.to_numeric(all_HumTem_data[col], errors='coerce')
+    
+# 将日龄列转换为数值类型
+all_HumTem_data['日龄'] = pd.to_numeric(all_HumTem_data['日龄'], errors='coerce')
+
+
+import toad
+all_HumTem_detet=toad.detect(all_HumTem_data.drop(columns=['id_no','house_no'],axis=1))
+all_HumTem_detet=all_HumTem_detet.reset_index(drop=False)
+all_HumTem_detet.to_csv('./data/data_detected/all_HumTem_detet.csv',index=False,encoding='gbk')
+
+

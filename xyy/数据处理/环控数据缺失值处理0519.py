@@ -168,7 +168,7 @@ def calculate_change_rate(series):
     处理异常值：忽略inf、-inf和NaN
     """
     # 计算原始变化率
-    change_rate = series.diff() / series.shift(1).abs()  # 用绝对值避免符号影响
+    change_rate = series.diff().abs() / series.shift(1).abs()  # 用绝对值避免符号影响
     
     # 处理异常值
     change_rate = change_rate.replace([np.inf, -np.inf], np.nan)  # inf → NaN
@@ -192,7 +192,7 @@ agg_result['最低温度变化率']=agg_result2['最低温度变化率']
 agg_result=agg_result.reset_index()
 
 agg_result=agg_result.rename({'鸡舍温度-最高_range':'每日温差'},axis=1)
-
+# agg_result['最高温度变化率'].describe()
 agg_result.columns.to_list()
 
 # 数据处理0519
@@ -201,7 +201,7 @@ agg_result.columns.to_list()
 agg_result_1=agg_result[(agg_result['日龄']<=25) & (agg_result['日龄']>=0)]
 all_days = range(0, 26)  # 0到25日龄
 all_ids = agg_result_1['ID_NUM'].unique()
-agg_result_1.isnull().sum()
+# agg_result_1.isnull().sum()
 # 创建完整的组合 DataFrame
 multi_index = pd.MultiIndex.from_product([all_ids, all_days], names=['ID_NUM', '日龄'])
 complete_df = pd.DataFrame(index=multi_index).reset_index()
@@ -266,14 +266,18 @@ result_df3=result_df3.drop('ID_PREFIX', axis=1)
 # 5. 检查填充情况
 print(result_df3.isnull().sum())  # 确认缺失值是否减少
 result_df3['日龄'].max()
-result_df3.to_csv('./data/data_cleaned/V_HumTem_data_agg0519.csv', index=False,encoding='gbk')
-
+result_df3.to_csv('./data/data_cleaned/V_HumTem_data_agg0521.csv', index=False,encoding='gbk')
+###一些计算
+all_info_temdata=pd.read_csv('./data/data_cleaned/V_HumTem_data_agg0521.csv',encoding='gbk')
+all_info_temdata.columns
+all_info_temdata[(all_info_temdata['日龄'] >= 0) & (all_info_temdata['日龄'] <= 2) & 
+                          (all_info_temdata['外部-平均_mean'] >= 15.05) & (all_info_temdata['外部-平均_mean'] <= 16.05)]['鸡舍温度-平均_mean'].describe()
 
 # 宽表加工
 
 import pandas as pd
 allinfo_dead=pd.read_csv('./data/data_cleaned/allinfo_dead0430.csv',encoding='gbk')
-HumTem_data_agg=pd.read_csv('./data/data_cleaned/V_HumTem_data_agg0519.csv',encoding='gbk')
+HumTem_data_agg=pd.read_csv('./data/data_cleaned/V_HumTem_data_agg0521.csv',encoding='gbk')
 
 # HumTem_data_agg[HumTem_data_agg['ID_NUM'].str.startswith(tuple(['G28_25', 'G31_62']))]
 # 'G28_25', 'G31_62'前后两个批次重复
@@ -341,7 +345,7 @@ wide_df = wide_df.reset_index()
 wide_df.columns.to_list()
 wide_df.isnull().sum().describe()
 
-wide_df.to_csv('./data/data_cleaned/wide_df_0519.csv', index=False,encoding='gbk')
+wide_df.to_csv('./data/data_cleaned/wide_df_0521.csv', index=False,encoding='gbk')
 
 ##基本信息等拼接
 # wide_df['ID_NUM']
@@ -367,13 +371,18 @@ all_info_temdata2=all_info_temdata.drop('ID_NUM_copy',axis=1)
 import toad
 data_detect = toad.detector.detect(all_info_temdata2)
 data_detect=data_detect.reset_index(drop=False)
+# data_detect['missing'].describe().round(2)
 # all_info_temdata2.head()
 
-all_info_temdata2.to_csv('./data/data_cleaned/all_info_temdata0519.csv',index=False,encoding='gbk')
-
+all_info_temdata2.to_csv('./data/data_cleaned/all_info_temdata0521.csv',index=False,encoding='gbk')
+all_info_temdata2.shape
 all_info_temdata2['ID_NUM'].drop_duplicates()
+
+
 # 加工季节数据
-all_info_temdata2=pd.read_csv('./data/data_cleaned/all_info_temdata0519.csv',encoding='gbk')
+all_info_temdata2=pd.read_csv('./data/data_cleaned/all_info_temdata0521.csv',encoding='gbk')
+all_info_temdata2.columns.to_list()
+# all_info_temdata2['最低温度变化率_20'].describe().round(5)
 date_columns = ['Harveststatus']
 for col in date_columns:
     all_info_temdata2[col] = pd.to_datetime(all_info_temdata2[col])
@@ -381,14 +390,25 @@ for col in date_columns:
     all_info_temdata2[f'{col}_month']=all_info_temdata2[f'{col}_month'].astype(str)
 all_info_temdata2=all_info_temdata2.drop(columns=['Harveststatus'],axis=1)
 winter_valid_samples=all_info_temdata2[all_info_temdata2['Harveststatus_month'].isin(['12', '1', '2'])]
-winter_valid_samples.columns.to_list()
+summer_valid_samples=all_info_temdata2[all_info_temdata2['Harveststatus_month'].isin(['5','6', '7', '8','9'])]
+spring_valid_samples=all_info_temdata2[all_info_temdata2['Harveststatus_month'].isin(['3', '4'])]
+autumn_valid_samples=all_info_temdata2[all_info_temdata2['Harveststatus_month'].isin(['10','11'])]
+# summer_valid_samples.columns.to_list()
+spring_valid_samples.shape
+autumn_valid_samples.shape
 # winter_valid_samples['Age'].max()
-winter_valid_samples.to_csv('./data/data_cleaned/winter_valid_samples0519.csv', index=False, encoding='gbk')
+autumn_valid_samples.to_csv('./data/data_cleaned/autumn_valid_samples0529.csv', index=False, encoding='gbk')
+spring_valid_samples.to_csv('./data/data_cleaned/spring_valid_samples0529.csv', index=False, encoding='gbk')
+
+
+winter_valid_samples.to_csv('./data/data_cleaned/winter_valid_samples0526.csv', index=False, encoding='gbk')
+summer_valid_samples.to_csv('./data/data_cleaned/summer_valid_samples0526.csv', index=False, encoding='gbk')
+
 
 
 ##########滑窗3天宽表加工
 
-HumTem_data_normal=pd.read_csv('./data/data_cleaned/V_HumTem_data_agg0519.csv',encoding='gbk')
+HumTem_data_normal=pd.read_csv('./data/data_cleaned/V_HumTem_data_agg0521.csv',encoding='gbk')
 
 keep_cols=['ID_NUM', '日龄','外部-平均_mean','湿度内部平均_mean', 
            '鸡舍温度-最低_mean', '鸡舍温度-平均_mean', '鸡舍温度-最高_mean', '每日温差', '平均温度变化率', '最高温度变化率',
@@ -454,7 +474,7 @@ sliding_features_df.columns.to_list()
 
 wide_df=sliding_features_df.copy()
 wide_df.shape
-wide_df.to_csv('./data/data_cleaned/wide_sliding_0519.csv', index=False,encoding='gbk')
+wide_df.to_csv('./data/data_cleaned/wide_sliding_0521.csv', index=False,encoding='gbk')
 
 
 allinfo_dead=pd.read_csv('./data/data_cleaned/allinfo_dead0430.csv',encoding='gbk')
@@ -470,16 +490,53 @@ all_info_temdata2=all_info_temdata.copy()
 import toad
 data_detect = toad.detector.detect(all_info_temdata2)
 data_detect=data_detect.reset_index(drop=False)
+data_detect['missing'].describe().round(2)
 # all_info_temdata2.head()
 
-all_info_temdata2.to_csv('./data/data_cleaned/sliding_temdata0519.csv',index=False,encoding='gbk')
+all_info_temdata2.to_csv('./data/data_cleaned/sliding_temdata0521.csv',index=False,encoding='gbk')
+
+
+# 加工21日龄后的死淘
+
+all_dead_data1=pd.read_csv('./data/data_cleaned/all_dead_data.csv',encoding='gbk')
+
+all_dead_data2=pd.read_csv('./data/data_cleaned/all_dead_data2.csv',encoding='gbk')
+
+all_dead_data=pd.concat([all_dead_data1,all_dead_data2],ignore_index=True)
+
+all_dead_data['ID_NUM'].drop_duplicates()
+
+# all_dead_detet=toad.detect(all_dead_data)
+# all_dead_detet=all_dead_detet.reset_index(drop=False)
+# all_dead_detet.to_csv('./data/data_detected/marketingdaall_dead_detetta_detet.csv',index=False,encoding='gbk')
+
+
+
+all_dead_data_21=all_dead_data[all_dead_data['Age']>=21][['ID_NUM','Mortality_rate']].groupby(by=['ID_NUM']).sum()
+
+
+all_dead_data_21=all_dead_data_21.reset_index()
+all_dead_data.columns
+all_dead_data_21['ID_NUM'] = all_dead_data_21['ID_NUM'].apply(lambda x: 'G01' + x[3:] if isinstance(x, str) and x.startswith('G1A') else x)
+all_dead_data_21['ID_NUM'] = all_dead_data_21['ID_NUM'].apply(lambda x: 'G04' + x[3:] if isinstance(x, str) and x.startswith('G1B') else x)
+# 和其他信息拼起来
+
+all_info_temdata=pd.read_csv('./data/data_cleaned/sliding_temdata0521.csv',encoding='gbk')
+
+all_info_temdatanew=pd.merge(all_info_temdata,all_dead_data_21,on='ID_NUM',how='left')
+all_info_temdatanew=all_info_temdatanew.rename({'Mortality_rate_y':'Mortality_rate_21'},axis=1)
+
+# all_info_temdata['ID_NUM']
+
+all_info_temdatanew.to_csv('./data/data_cleaned/sliding_temdata0521.csv',index=False,encoding='gbk')
+
 
 
 # 日龄维度宽表
 
-###############拼接按日龄的温度和死淘数据
+#########################33##拼接按日龄的温度和死淘数据
 
-HumTem_data_agg=pd.read_csv('./data/data_cleaned/V_HumTem_data_agg0519.csv',encoding='gbk')
+HumTem_data_agg=pd.read_csv('./data/data_cleaned/V_HumTem_data_agg0521.csv',encoding='gbk')
 
 # HumTem_data_agg[HumTem_data_agg['ID_NUM'].str.startswith(tuple(['G28_25', 'G31_62']))]
 
@@ -589,7 +646,239 @@ all_dead_HumTem_byage3.shape
 all_dead_HumTem_byage3[['ID_NUM','Age','Highest_humidity','Highest_humidity_前3天', 'Highest_humidity_前3天变化',
                         ]].sort_values(by=['ID_NUM','Age']).head(20)
 
-all_dead_HumTem_byage3.to_csv('./data/data_cleaned/dead_HumTem_byage0519.csv',index=False,encoding='gbk')
+all_dead_HumTem_byage3.to_csv('./data/data_cleaned/dead_HumTem_byage0521.csv',index=False,encoding='gbk')
+
+
+
+
+# 日龄维度宽表全量日龄
+
+#########################33##拼接按日龄的温度和死淘数据
+
+HumTem_data_agg=pd.read_csv('./data/data_cleaned/HumTem_data_agg0515.csv',encoding='gbk')
+
+# HumTem_data_agg[HumTem_data_agg['ID_NUM'].str.startswith(tuple(['G28_25', 'G31_62']))]
+
+
+
+all_dead_data1=pd.read_csv('./data/data_cleaned/all_dead_data.csv',encoding='gbk')
+
+all_dead_data2=pd.read_csv('./data/data_cleaned/all_dead_data2.csv',encoding='gbk')
+
+all_dead_data=pd.concat([all_dead_data1,all_dead_data2],ignore_index=True)
+
+# 日报数据
+daily_report_data=pd.read_csv('./data/data_cleaned/daily_report_data.csv',encoding='gbk')
+daily_report_data=daily_report_data[daily_report_data['Age'].notna()]
+daily_report_data['Date1']=pd.to_datetime(daily_report_data['Date'])
+deduplicated_data = daily_report_data.sort_values('Date1', ascending=False).drop_duplicates(subset=['ID_NUM', 'Age'], keep='first')
+
+daily_report_data2=daily_report_data.drop(columns=['Date1'],axis=1)
+# daily_report_data2.to_csv('./data/data_cleaned/daily_report_data.csv', index=False, encoding='gbk')
+# HumTem_data_agg['ID_NUM'].drop_duplicates()
+
+
+all_dead_data['ID_NUM'] = all_dead_data['ID_NUM'].apply(lambda x: 'G01' + x[3:] if isinstance(x, str) and x.startswith('G1A') else x)
+all_dead_data['ID_NUM'] = all_dead_data['ID_NUM'].apply(lambda x: 'G04' + x[3:] if isinstance(x, str) and x.startswith('G1B') else x)
+
+all_dead_HumTem_byage=pd.merge(all_dead_data,HumTem_data_agg,left_on=['ID_NUM','Age'],right_on=['ID_NUM','日龄'],how='inner')
+daily_report_data2.columns.to_list()
+keep_cols=[ 'Highest_Temp_Outside', 'Lowest_Temp_Outside', 'Age',  'Water', 'Feed', 'Highest_humidity', 'Lowest_Humidity', 'Highest_Temn', 'Lowest_Temn', 'Ventilation_Coefficient_Cold', 'Ventilation_Coefficient_Warm', 'ID_NUM']
+
+all_dead_HumTem_byage2=pd.merge(all_dead_HumTem_byage,daily_report_data2[keep_cols],on=['ID_NUM','Age'],how='inner')
+
+drop_cols=['Swollen_Head', 'Weak', 'Navel_Disease', 'Stick_Anus', 'Lame_Paralysis', 'Mortality','日龄','Dead']
+all_dead_HumTem_byage2=all_dead_HumTem_byage2.drop(columns=drop_cols,axis=1).drop_duplicates()
+
+all_dead_HumTem_byage2.columns.to_list()
+all_dead_HumTem_byage2.shape
+# 定义要处理的温度指标列
+
+
+
+all_dead_HumTem_byage2.to_csv('./data/data_cleaned/dead_HumTem_byage0529.csv',index=False,encoding='gbk')
+
+
+##带饮水量的宽表数据
+
+
+import pandas as pd
+allinfo_dead=pd.read_csv('./data/data_cleaned/allinfo_dead0430.csv',encoding='gbk')
+HumTem_data_agg=pd.read_csv('./data/data_cleaned/V_HumTem_data_agg0521.csv',encoding='gbk')
+daily_report_data=pd.read_csv('./data/data_cleaned/daily_report_data.csv',encoding='gbk')
+
+daily_report_data=daily_report_data[daily_report_data['Age'].notna()]
+daily_report_data['Date1']=pd.to_datetime(daily_report_data['Date'])
+deduplicated_data = daily_report_data.sort_values('Date1', ascending=False).drop_duplicates(subset=['ID_NUM', 'Age'], keep='first')
+
+daily_report_data2=deduplicated_data.drop(columns=['Date1'],axis=1)
+# HumTem_data_agg[HumTem_data_agg['ID_NUM'].str.startswith(tuple(['G28_25', 'G31_62']))]
+# 'G28_25', 'G31_62'前后两个批次重复
+# HumTem_data_agg = HumTem_data_agg[~HumTem_data_agg['ID_NUM'].str.startswith(tuple(['G28_25', 'G31_62']))]
+
+# allinfo_dead['Mortality_rate'].isna().sum()
+#日报中的农场名字和文件名字中的对应不上
+# HumTem_data_agg[HumTem_data_agg['ID_NUM'].str.startswith('G04')]['ID_NUM']
+
+# daily_report_data[daily_report_data['ID_NUM'].str.startswith('G1A')]['ID_NUM']
+
+daily_report_data2['ID_NUM'] = daily_report_data2['ID_NUM'].apply(lambda x: 'G01' + x[3:] if isinstance(x, str) and x.startswith('G1A') else x)
+daily_report_data2['ID_NUM'] = daily_report_data2['ID_NUM'].apply(lambda x: 'G04' + x[3:] if isinstance(x, str) and x.startswith('G1B') else x)
+# 只有 G31_62匹不上
+keep_cols=[ 'Highest_Temp_Outside', 'Lowest_Temp_Outside', 'Age',  'Water', 'Feed', 'Highest_humidity', 'Lowest_Humidity', 'Highest_Temn', 'Lowest_Temn', 'Ventilation_Coefficient_Cold', 'Ventilation_Coefficient_Warm', 'ID_NUM']
+
+HumTem_data_t=pd.merge(HumTem_data_agg,daily_report_data2[keep_cols],how='left',left_on=['ID_NUM','日龄'],right_on=['ID_NUM','Age'])
+HumTem_data_t.shape
+HumTem_data_agg.shape
+HumTem_data_t[HumTem_data_t['Age'].isna()]['日龄'].value_counts()
+# HumTem_data_t['日龄'].describe()
+HumTem_data_t1=HumTem_data_t.drop(columns='Age',axis=1).copy()
+# 1. 计算每个   日龄 组合的均值
+import re
+def convert_value(s):
+    if pd.isna(s):  # 处理 NaN
+        return s
+    if isinstance(s, str) and '%' in s:
+        try:
+            match = re.search(r'[-+]?\d*\.\d+|[-+]?\d+', s)
+            return float(match.group()) / 100 if match else None
+        except:
+            return None  # 处理转换失败的情况
+    try:
+        return float(s)  # 尝试直接转换
+    except:
+        return None  # 无法转换则返回 None
+    
+for col in [i for i in keep_cols if i not in ['Age','ID_NUM']]:
+    HumTem_data_t1[col]=HumTem_data_t1[col].apply(convert_value)
+HumTem_data_t1
+mean_values = HumTem_data_t1.groupby([ '日龄']).mean(numeric_only=True)
+# HumTem_data_t1['Lowest_Humidity']
+# 3. 填充缺失值
+
+    
+for col in [i for i in keep_cols if i not in ['Age','ID_NUM']]:
+    HumTem_data_t1[col] = HumTem_data_t1.apply(
+        lambda row: mean_values.loc[ row['日龄'], col] 
+        if pd.isna(row[col]) else row[col],
+        axis=1
+    )
+# HumTem_data_t1['Lowest_Humidity']=HumTem_data_t1['Lowest_Humidity'].apply(convert_value)
+# 5. 检查填充情况
+print(HumTem_data_t1.isnull().sum())  # 确认缺失值是否减少
+# HumTem_data_t1[(HumTem_data_t1['ID_NUM']=='G14_64_H1') & (HumTem_data_t1['日龄']==19)]
+# HumTem_data_t[(HumTem_data_t['ID_NUM']=='G14_64_H1') & (HumTem_data_t['日龄']==19)]
+
+# # 找出填充的样本（以某列为示例）
+# filled_samples = HumTem_data_t1[
+#     HumTem_data_t1[col].notnull() &    # 填充后非缺失
+#     HumTem_data_t[col].isnull()        # 原始数据中缺失
+# ]
+
+# # 随机选择几个样本验证
+# sample = filled_samples.sample(5)  # 选择5个填充的样本
+
+# print("验证填充值与分组均值是否一致：")
+# for _, row in sample.iterrows():
+#     day_age = row['日龄']
+#     actual_filled = row[col]
+#     expected_mean = mean_values.loc[day_age, col]
+#     print(f"日龄: {day_age}, 填充值: {actual_filled}, 分组均值: {expected_mean}, 匹配: {actual_filled == expected_mean}")
+
+
+
+HumTem_data_normal=HumTem_data_t1.drop_duplicates().copy()
+
+
+# HumTem_data_normal[['ID_NUM','日龄']].drop_duplicates()
+# HumTem_data_normal[['ID_NUM']].drop_duplicates()
+
+# 计算每个组合出现的次数
+# counts = HumTem_data_agg.groupby(['ID_NUM', '日龄']).size().reset_index(name='计数')
+
+# 筛选出重复的组合
+# repeated_pairs = counts[counts['计数'] > 1]
+# repeated_pairs['ID_NUM'].drop_duplicates()
+# print(repeated_pairs)
+HumTem_data_normal.columns.to_list()
+
+keep_cols=['ID_NUM', '日龄', '温度1-平均_mean', '温度2-平均_mean', '温度3-平均_mean','温度4-平均_mean',  
+           '温度5-平均_mean', '内外温差_mean','外部-平均_mean','湿度内部平均_mean', 
+           '鸡舍温度-最低_mean', '鸡舍温度-平均_mean', '鸡舍温度-最高_mean', '每日温差', '平均温度变化率', '最高温度变化率',
+             '最低温度变化率','Water','Feed']
+
+
+wide_df = HumTem_data_normal[keep_cols].pivot(index='ID_NUM', columns='日龄')
+
+# 重置列名和索引
+wide_df.columns = ['_'.join(map(str, (col[0], col[1]))) for col in wide_df.columns.values]
+wide_df = wide_df.reset_index()
+
+wide_df.columns.to_list()
+wide_df.isnull().sum().describe()
+
+wide_df.to_csv('./data/data_cleaned/wide_df_0530.csv', index=False,encoding='gbk')
+
+##基本信息等拼接
+# wide_df['ID_NUM']
+
+
+allinfo_dead=pd.read_csv('./data/data_cleaned/allinfo_dead0430.csv',encoding='gbk')
+allinfo_dead['ID_NUM'] = allinfo_dead['ID_NUM'].apply(lambda x: 'G01' + x[3:] if isinstance(x, str) and x.startswith('G1A') else x)
+allinfo_dead['ID_NUM'] = allinfo_dead['ID_NUM'].apply(lambda x: 'G04' + x[3:] if isinstance(x, str) and x.startswith('G1B') else x)
+# 只有 G31_63,G28_22,匹不上，G27_24_H1，G27_25_H1为空
+
+wide_df['ID_NUM_copy']=wide_df['ID_NUM']
+all_info_temdata=pd.merge(allinfo_dead,wide_df,on='ID_NUM',how='inner')
+all_info_temdata.shape
+# all_info_temdata.info()
+# all_info_temdata['ID_NUM_copy'].notna().sum()
+# all_info_temdata[all_info_temdata['ID_NUM_copy'].isna()]['ID_NUM'].str[:6].unique()
+# all_info_temdata[all_info_temdata['ID_NUM_copy'].isna()]['ID_NUM'].unique()
+# wide_df['ID_NUM']
+# all_info_temdata['ID_NUM_copy'].isna().sum()
+
+
+all_info_temdata2=all_info_temdata.drop('ID_NUM_copy',axis=1)
+import toad
+data_detect = toad.detector.detect(all_info_temdata2)
+data_detect=data_detect.reset_index(drop=False)
+# data_detect['missing'].describe().round(2)
+# all_info_temdata2.head()
+
+all_info_temdata2.to_csv('./data/data_cleaned/all_info_temdata0530.csv',index=False,encoding='gbk')
+all_info_temdata2.shape
+all_info_temdata2['ID_NUM'].drop_duplicates()
+
+
+# 加工季节数据
+all_info_temdata2=pd.read_csv('./data/data_cleaned/all_info_temdata0530.csv',encoding='gbk')
+all_info_temdata2.columns.to_list()
+# all_info_temdata2['最低温度变化率_20'].describe().round(5)
+date_columns = ['Harveststatus']
+for col in date_columns:
+    all_info_temdata2[col] = pd.to_datetime(all_info_temdata2[col])
+    all_info_temdata2[f'{col}_month'] = all_info_temdata2[col].dt.month
+    all_info_temdata2[f'{col}_month']=all_info_temdata2[f'{col}_month'].astype(str)
+all_info_temdata2=all_info_temdata2.drop(columns=['Harveststatus'],axis=1)
+winter_valid_samples=all_info_temdata2[all_info_temdata2['Harveststatus_month'].isin(['12', '1', '2'])]
+summer_valid_samples=all_info_temdata2[all_info_temdata2['Harveststatus_month'].isin(['5','6', '7', '8','9'])]
+spring_valid_samples=all_info_temdata2[all_info_temdata2['Harveststatus_month'].isin(['3', '4'])]
+autumn_valid_samples=all_info_temdata2[all_info_temdata2['Harveststatus_month'].isin(['10','11'])]
+# summer_valid_samples.columns.to_list()
+spring_valid_samples.shape
+autumn_valid_samples.shape
+winter_valid_samples.shape
+summer_valid_samples.shape
+# winter_valid_samples['Age'].max()
+autumn_valid_samples.to_csv('./data/data_cleaned/autumn_valid_samples0530.csv', index=False, encoding='gbk')
+spring_valid_samples.to_csv('./data/data_cleaned/spring_valid_samples0530.csv', index=False, encoding='gbk')
+
+
+winter_valid_samples.to_csv('./data/data_cleaned/winter_valid_samples0530.csv', index=False, encoding='gbk')
+summer_valid_samples.to_csv('./data/data_cleaned/summer_valid_samples0530.csv', index=False, encoding='gbk')
+
+
 
 
 

@@ -94,3 +94,89 @@ def plot_roc(y,predict_prob):
 
 y_pred_test=lgb_baseline.predict_proba(X_test)
 plot_roc(y_test['Mortality_flg'], y_pred_test[:,1])
+
+
+
+
+
+
+####重要变量建模
+
+X = training_test_data[top_importantcol]
+y = training_test_data['Mortality_flg']
+
+y.value_counts()
+# 进行训练集和测试集的划分
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.25, random_state=42, stratify=y)
+
+# 对跨期验证数据进行特征和目标变量的划分
+X_validation = validation_data[top_importantcol]
+y_validation = validation_data['Mortality_flg']
+
+y_validation.value_counts()
+# 定义LightGBM参数（针对二分类优化）
+params = {
+    'boosting_type': 'gbdt',
+    'objective': 'binary',
+    'metric': 'auc',
+    'num_leaves': 31,
+    'learning_rate': 0.05,
+    'feature_fraction': 0.8,
+    'bagging_fraction': 0.8,
+    # 'scale_pos_weight': len(y_train[y_train == 0]) / len(y_train[y_train == 1]),  # 处理类别不平衡
+    'seed': 42,
+    'verbose': -1
+}
+
+# 转换为LightGBM数据集格式
+train_data = lgb.Dataset(X_train, label=y_train)
+test_data = lgb.Dataset(X_test, label=y_test, reference=train_data)
+
+# 训练模型
+lgb_imp = lgb.train(
+    params,
+    train_data,
+    valid_sets=[test_data],
+    num_boost_round=1000
+)
+
+# 预测概率
+y_pred_prob = lgb_imp.predict(X_test, num_iteration=lgb_baseline.best_iteration)
+
+# 预测类别（默认阈值0.5）
+y_pred_class = (y_pred_prob >= 0.5).astype(int)
+
+# 评估指标
+print("AUC Score:", roc_auc_score(y_test, y_pred_prob))
+print("Accuracy:", accuracy_score(y_test, y_pred_class))
+print("Confusion Matrix:\n", confusion_matrix(y_test, y_pred_class))
+
+# 绘制ROC曲线
+from sklearn.metrics import RocCurveDisplay
+RocCurveDisplay.from_predictions(y_test, y_pred_prob)
+plt.title("ROC Curve")
+plt.show()
+
+
+# 特征重要性（增益）
+lgb.plot_importance(lgb_baseline, importance_type='gain', max_num_features=15, figsize=(10, 6))
+plt.title("Feature Importance (Gain)")
+plt.show()
+
+
+
+# 跨期验证部分
+# 跨期验证集预测概率
+y_pred_prob_validation = lgb_baseline.predict(X_validation, num_iteration=lgb_baseline.best_iteration)
+# 跨期验证集预测类别（默认阈值 0.5）
+y_pred_class_validation = (y_pred_prob_validation >= 0.5).astype(int)
+# 跨期验证集评估指标
+print("Validation AUC Score:", roc_auc_score(y_validation, y_pred_prob_validation))
+print("Validation Accuracy:", accuracy_score(y_validation, y_pred_class_validation))
+print("Validation Confusion Matrix:\n", confusion_matrix(y_validation, y_pred_class_validation))
+# 跨期验证集 ROC 曲线
+RocCurveDisplay.from_predictions(y_validation, y_pred_prob_validation)
+plt.title("ROC Curve - Validation Set")
+plt.show()
+    
+

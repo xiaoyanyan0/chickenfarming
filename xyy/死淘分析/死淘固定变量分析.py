@@ -86,6 +86,8 @@ transformed_df.to_csv('./xyy/transformed_df_m.csv', index=False,encoding='gbk')
 plot_df = transformed_df[['Density', 'Mortality_flg']]
 
 # 绘制分箱图
+
+from toad.plot import bin_plot
 bin_plot(plot_df, x='Density', target='Mortality_flg')
 plt.show()
 
